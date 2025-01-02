@@ -5,7 +5,7 @@ import { config } from '../config';
 
 const redis = new Redis(config.REDIS_URL, { family: 6 });
 
-const RATE_LIMIT = 5; // Max actions per user per minute
+const RATE_LIMIT = 30; // Max actions per user per minute
 const WINDOW_SIZE = 60; // Time window in seconds
 
 export async function rateLimitMiddleware(ctx: Context, next: Next) {
