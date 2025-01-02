@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-import './LoginView.css';
-
 const ENDPOINT = process.env.REACT_APP_API_URL || 'http://localhost:9000';
 
 const LoginView: React.FC = () => {
@@ -37,8 +35,8 @@ const LoginView: React.FC = () => {
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || '296278558628-lf8ia7krfo08jo4m8esl3o5cj4hud76p.apps.googleusercontent.com'}>
-      <div className="login-container">
-        <h2 className="login-title">Login with Google</h2>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <h2 className="text-2xl font-bold mb-4">Login with Google</h2>
         <GoogleLogin
           onSuccess={handleLoginSuccess}
           onError={handleLoginFailure}
