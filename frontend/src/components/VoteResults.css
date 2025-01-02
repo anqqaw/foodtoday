@@ -1,0 +1,95 @@
+.results-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
+}
+
+.results-title {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.results-bar {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.results-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  transition: flex-grow 0.5s ease;
+}
+
+.option-one {
+  background-color: #ffd100;
+  color: #101820;
+}
+
+.option-two {
+  background-color: #101820;
+  color: white;
+}
+
+.root-domain-banner {
+  background-color: #ffd100;
+  color: #101820;
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.root-domain-banner span {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.voting-qr-code {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20%; /* QR code takes up 30% of the page width */
+  height: auto;
+}
+
+.voting-qr-code .qr-code {
+  width: 100%; /* Ensures QR code fills the 30% width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+/* Mobile view: stack sections top and bottom */
+@media (max-width: 768px) {
+  .results-bar {
+    flex-direction: column;
+  }
+
+  .root-domain-banner {
+    display: none;
+  }
+
+  .qr-code {
+    display: none;
+  }
+}

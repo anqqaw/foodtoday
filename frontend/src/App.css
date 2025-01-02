@@ -1,0 +1,20 @@
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  background-color: #ffd100;
+  min-height: -webkit-fill-available;
+}
+
+h3 {
+  margin-top: 20vh;
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+p {
+  font-size: 1.8em;
+  text-align: center;
+}
