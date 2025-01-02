@@ -1,5 +1,7 @@
 FROM node:20-alpine
 
+RUN apk add --no-cache openssl
+
 # Create app directory
 RUN mkdir -p /app
 WORKDIR /app

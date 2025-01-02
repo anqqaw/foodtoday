@@ -4,6 +4,9 @@ primary_region = 'arn'
 [env]
   PORT = '9000'
 
+[deploy]
+  release_command = "npm run db:migrate"
+
 [[services]]
   internal_port = 9000
   protocol = 'tcp'

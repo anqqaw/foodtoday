@@ -4,8 +4,13 @@ import bodyParser from 'koa-bodyparser';
 import logger from 'koa-logger';
 import Router from 'koa-router';
 
+import * as dinners from './dinners';
 import * as health from './health';
-import * as votes from './votes';
+
+import { requestLogger } from './logger';
+
+import { rateLimitMiddleware } from './middlewares/rate-limit';
+import { verifyGoogleToken } from './middlewares/google';
 
 export function createApp(io: any) {
   const app = new Koa();
@@ -16,6 +21,8 @@ export function createApp(io: any) {
   app.use(cors({ credentials: true }));
   app.use(bodyParser());
 
+  // app.use(requestLogger);
+
   app.use(async (ctx, next) => {
     ctx.io = io;
     await next();
@@ -24,13 +31,19 @@ export function createApp(io: any) {
   const publicRouter = new Router({ prefix: '/api' });
 
   publicRouter.get('/_health', health.check);
-  publicRouter.get('/votes', votes.list);
-  publicRouter.get('/votes/count', votes.count);
-  publicRouter.post('/votes', votes.create);
-  publicRouter.get('/votes/resett', votes.reset);
 
   app.use(publicRouter.routes());
   app.use(publicRouter.allowedMethods());
+
+  const privateRouter = new Router({ prefix: '/api' });
+
+  privateRouter.use(verifyGoogleToken);
+  privateRouter.use(rateLimitMiddleware);
+
+  privateRouter.get('/dinners', dinners.list);
+
+  app.use(privateRouter.routes());
+  app.use(privateRouter.allowedMethods());
 
   return app;
 }

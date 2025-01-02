@@ -1,18 +1,16 @@
-import { countVotes } from './votes';
-
 export const init = (io: any) => {
   io.on('connection', (socket: any) => {
     console.log('a user connected');
 
-    const emitVoteList = async () => {
-      socket.emit('votesList', await countVotes());
+    const emitDinnerList = async () => {
+      socket.emit('dinnersList', {});
     };
 
-    emitVoteList();
+    emitDinnerList();
 
-    socket.on('get votes', async (params: any, fn: any) => {
+    socket.on('get dinners', async (params: any, fn: any) => {
       try {
-        fn(await countVotes());
+        fn({});
       } catch (err) {} // tslint:disable-line:no-empty
     });
 

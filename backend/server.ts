@@ -1,15 +1,17 @@
 import http from 'http';
 import { Server } from 'socket.io';
 
+import Redis from 'ioredis';
+import { createAdapter } from '@socket.io/redis-adapter';
+
 import { createApp } from './src/app';
 import * as sockets from './src/sockets';
 
 import { prisma } from './src/prisma';
-import { createClient } from 'redis';
-import { createAdapter } from '@socket.io/redis-adapter';
+
+import { config } from './src/config';
 
 const port = process.env.PORT || 9000;
-const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 
 async function initServer() {
   const server = http.createServer();
@@ -21,11 +23,8 @@ async function initServer() {
   });
 
   // Initialize Redis clients
-  const pubClient = createClient({ url: REDIS_URL });
+  const pubClient = new Redis(config.REDIS_URL, { family: 6 });
   const subClient = pubClient.duplicate();
-
-  await pubClient.connect();
-  await subClient.connect();
 
   // Apply the Redis adapter
   io.adapter(createAdapter(pubClient, subClient));
@@ -41,8 +40,8 @@ async function initServer() {
     try {
       await server.close();
       await prisma.$disconnect();
-      await pubClient.disconnect();
-      await subClient.disconnect();
+      await pubClient.quit();
+      await subClient.quit();
     } catch (error) {
       console.log(`Error closing connection: ${error}.`);
       process.exit(1);
