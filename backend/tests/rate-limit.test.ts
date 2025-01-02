@@ -30,7 +30,7 @@ describe('Rate Limiting', () => {
   });
 
   it('should allow dinners within the rate limit', async () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 30; i++) {
       const response = await server.get('/api/dinners').set('Authorization', 'Bearer mockToken');
       expect(response.status).toBe(200);
     }
@@ -38,7 +38,7 @@ describe('Rate Limiting', () => {
 
   it('should block dinners exceeding the rate limit', async () => {
     // Send 5 allowed requests
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 30; i++) {
       const preResponse = await server.get('/api/dinners').set('Authorization', 'Bearer mockToken');
       expect(preResponse.status).toBe(200);
     }
