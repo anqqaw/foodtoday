@@ -1,3 +1,39 @@
-# React Application Template
+# Food Today
 
-This is a template repository for a react application using websockets, nodejs, redis and postgresql.
+This application gives recipe ideas for users.
+
+## Prerequisites
+
+* [Docker](https://www.docker.com/products/docker-desktop/)
+* [Node](https://nodejs.org/en/download/package-manager)
+
+## Installation
+
+```bash
+docker compose -d db redis
+npm install
+npm run db:migrate
+npm run db:seed
+```
+
+## Running
+
+### Backend
+
+```bash
+cd backend
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm start
+```
+
+## Testing
+
+```bash
+npm test
+```
