@@ -10,7 +10,7 @@ This application gives recipe ideas for users.
 ## Installation
 
 ```bash
-docker compose -d db redis
+docker compose up -d db redis
 npm install
 npm run db:migrate
 npm run db:seed
