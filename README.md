@@ -18,6 +18,13 @@ npm run db:seed
 
 ## Running
 
+### Set environment
+
+```bash
+export DATABASE_URL=postgresql://dinner:dinner@localhost/dinner
+export GOOGLE_CLIENT_ID=*.apps.googleusercontent.com
+```
+
 ### Backend
 
 ```bash
