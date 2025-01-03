@@ -6,6 +6,7 @@ const dinnerSelect = {
   difficulty: true,
   preparationTime: true,
   totalTime: true,
+  images: true,
 };
 
 export const list = async (ctx: any) => {
