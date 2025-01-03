@@ -25,7 +25,6 @@ const DinnersView: React.FC = () => {
           const response = await axios.get(`${ENDPOINT}/api/dinners`, {
             headers: { Authorization: `Bearer ${token}` },
           });
-          console.log("API Response Data:", response.data);
 
           if (response.data.dinners && response.data.dinners.length > 0) {
             setDinners(response.data.dinners);
@@ -64,55 +63,47 @@ const DinnersView: React.FC = () => {
   const currentDinner = dinners[currentDinnerIndex];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-      <div className="relative rounded-lg overflow-hidden shadow-lg bg-white w-full max-w-xl">
-        <div
-          className="h-64 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('${currentDinner.images}')`,
-          }}
-        ></div>
+    <div className="relative min-h-screen w-full">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url('${currentDinner.images}')`,
+        }}
+      ></div>
 
-        <div className="p-6">
-          <h4 className="text-2xl font-bold text-gray-800 mb-4">
-            {currentDinner.title}
-          </h4>
-          <p className="text-sm text-gray-600 mb-4">
-            {currentDinner.description}
-          </p>
-          <div className="text-sm text-gray-600 space-y-1">
-            <p>
-              Difficulty:{" "}
-              <span className="font-medium">{currentDinner.difficulty}</span>
-            </p>
-            <p>
-              Preparation Time:{" "}
-              <span className="font-medium">
-                {currentDinner.preparationTime} minutes
-              </span>
-            </p>
-            <p>
-              Total Time:{" "}
-              <span className="font-medium">{currentDinner.totalTime} minutes</span>
-            </p>
-          </div>
-        </div>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      <div className="absolute bottom-10 left-10 text-white space-y-4">
+        <h1 className="text-4xl font-bold">{currentDinner.title}</h1>
+        <p className="text-lg">{currentDinner.description}</p>
+        <p>
+          Difficulty:{" "}
+          <span className="font-medium">{currentDinner.difficulty}</span>
+        </p>
+        <p>
+          Preparation Time:{" "}
+          <span className="font-medium">
+            {currentDinner.preparationTime} minutes
+          </span>
+        </p>
+        <p>
+          Total Time:{" "}
+          <span className="font-medium">{currentDinner.totalTime} minutes</span>
+        </p>
       </div>
 
-      <div className="flex justify-between items-center mt-6 w-full max-w-xl">
-        <button
-          onClick={handlePrevious}
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNext}
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
-        >
-          Next
-        </button>
-      </div>
+      <button
+        onClick={handlePrevious}
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 text-black text-lg font-semibold px-4 py-2 rounded-full"
+      >
+        Previous
+      </button>
+      <button
+        onClick={handleNext}
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 text-black text-lg font-semibold px-4 py-2 rounded-full"
+      >
+        Next
+      </button>
     </div>
   );
 };
