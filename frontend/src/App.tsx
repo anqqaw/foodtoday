@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import DinnersView from './components/DinnersView';
 import LoginView from './components/LoginView';
+import DinnerDetails from './components/DinnerDetails';
 
 import './App.css';
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
           <Route path="/login" element={<LoginView />} />
+          <Route path="/dinner/:id" element={<DinnerDetails />} />
         </Routes>
       </div>
     </Router>
