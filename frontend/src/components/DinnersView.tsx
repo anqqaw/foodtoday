@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
@@ -19,6 +20,7 @@ const DinnersView: React.FC = () => {
     null
   );
   const [hovering, setHovering] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDinners = async () => {
@@ -103,7 +105,11 @@ const DinnersView: React.FC = () => {
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
           <div className="absolute bottom-10 left-10 text-white space-y-4">
-            <h1 className="text-4xl font-bold">{currentDinner.title}</h1>
+            <h1
+              className="text-4xl font-bold"
+              onClick={() => navigate(`/dinner/${currentDinner.id}`)}>
+              {currentDinner.title}
+            </h1>
             <p className="text-lg">{currentDinner.description}</p>
             <p>
               Difficulty:{" "}
@@ -124,13 +130,13 @@ const DinnersView: React.FC = () => {
           </div>
 
           <div
-            className="absolute top-0 left-0 w-1/2 h-full cursor-pointer"
+            className="absolute top-0 left-0 w-1/2 h-1/4 cursor-pointer"
             onClick={handlePrevious}
             onMouseEnter={() => setHovering("Previous")}
             onMouseLeave={() => setHovering(null)}
           ></div>
           <div
-            className="absolute top-0 right-0 w-1/2 h-full cursor-pointer"
+            className="absolute top-0 right-0 w-1/2 h-1/4 cursor-pointer"
             onClick={handleNext}
             onMouseEnter={() => setHovering("Next")}
             onMouseLeave={() => setHovering(null)}
