@@ -15,7 +15,10 @@ interface Dinner {
 
 const DinnersView: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
-  const [currentDinnerIndex, setCurrentDinnerIndex] = useState<number | null>(null);
+  const [currentDinnerIndex, setCurrentDinnerIndex] = useState<number | null>(
+    null
+  );
+  const [hovering, setHovering] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDinners = async () => {
@@ -76,15 +79,16 @@ const DinnersView: React.FC = () => {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
           <button
             onClick={handleRandomize}
-            className="w-40 h-40 bg-blue-500 text-white text-lg font-bold rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition-all"
+            className="w-40 h-40 rounded-full bg-gradient-to-br from-gray-300 via-gray-100 to-gray-300 shadow-md flex items-center justify-center hover:scale-105 transition-transform duration-300"
           >
             <span
-              className="text-gray-900 font-bold text-2xl shadow-md"
+              className="text-lg font-bold text-gray-700 drop-shadow-lg font-sans"
               style={{
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
               }}
-            ></span>
-            DinnrMeUp
+            >
+              DinnrMeUp
+            </span>
           </button>
         </div>
       ) : (
@@ -96,7 +100,7 @@ const DinnersView: React.FC = () => {
             }}
           ></div>
 
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
           <div className="absolute bottom-10 left-10 text-white space-y-4">
             <h1 className="text-4xl font-bold">{currentDinner.title}</h1>
@@ -119,18 +123,27 @@ const DinnersView: React.FC = () => {
             </p>
           </div>
 
-          <button
+          <div
+            className="absolute top-0 left-0 w-1/2 h-full cursor-pointer"
             onClick={handlePrevious}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 text-black text-lg font-semibold px-4 py-2 rounded-full"
-          >
-            Previous
-          </button>
-          <button
+            onMouseEnter={() => setHovering("Previous")}
+            onMouseLeave={() => setHovering(null)}
+          ></div>
+          <div
+            className="absolute top-0 right-0 w-1/2 h-full cursor-pointer"
             onClick={handleNext}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 text-black text-lg font-semibold px-4 py-2 rounded-full"
-          >
-            Next
-          </button>
+            onMouseEnter={() => setHovering("Next")}
+            onMouseLeave={() => setHovering(null)}
+          ></div>
+
+          {hovering && (
+            <div
+              className={`absolute ${hovering === "Previous" ? "left-4" : "right-4"
+                } top-10 text-lg font-semibold text-white`}
+            >
+              {hovering}
+            </div>
+          )}
         </>
       )}
     </div>
