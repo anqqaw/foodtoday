@@ -21,7 +21,7 @@ export function createApp(io: any) {
   app.use(cors({ credentials: true }));
   app.use(bodyParser());
 
-  // app.use(requestLogger);
+  app.use(requestLogger);
 
   app.use(async (ctx, next) => {
     ctx.io = io;
