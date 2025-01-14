@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
           <Route path="/login" element={<LoginView />} />
-          <Route path="/dinner/:title" element={<DinnerDetails />} />
+          <Route path="/dinner/:id" element={<DinnerDetails />} />
         </Routes>
       </div>
     </Router>

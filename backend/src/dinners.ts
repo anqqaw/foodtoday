@@ -1,21 +1,46 @@
-import { prisma } from './prisma';
+import { Context } from "koa";
+import { PrismaClient } from "@prisma/client";
 
-const dinnerSelect = {
-  title: true,
-  description: true,
-  difficulty: true,
-  preparationTime: true,
-  totalTime: true,
-  images: true,
-};
+const prisma = new PrismaClient();
 
-export const list = async (ctx: any) => {
+// Hae kaikki dinnerit
+export const list = async (ctx: Context) => {
   try {
-    const dinners = await prisma.dinner.findMany({ select: dinnerSelect });
-
+    const dinners = await prisma.dinner.findMany({
+      orderBy: { title: "asc" }, // Järjestä aakkosjärjestykseen
+    });
     ctx.body = { dinners };
   } catch (error) {
+    console.error("Error fetching dinners:", error);
     ctx.status = 500;
-    ctx.body = { error: 'An error occurred while fetching dinners.' };
+    ctx.body = { error: "Error fetching dinners" };
   }
+};
+
+export const getById = async (ctx: Context) => {
+  const { id } = ctx.params;
+
+  if (!id) {
+    ctx.status = 400;
+    ctx.body = { error: "ID parameter is required" };
+    return;
+  }
+
+  try {
+    const dinner = await prisma.dinner.findFirst({
+      { where: { id } },
+    });
+
+  if (!dinner) {
+    ctx.status = 404;
+    ctx.body = { error: "Dinner not found" };
+    return;
+  }
+
+  ctx.body = dinner;
+} catch (error) {
+  console.error("Error fetching dinner details:", error);
+  ctx.status = 500;
+  ctx.body = { error: "Internal server error" };
+}
 };

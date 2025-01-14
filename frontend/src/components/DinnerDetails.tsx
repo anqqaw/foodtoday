@@ -1,10 +1,8 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
-
 
 interface DinnerDetails {
   id: number;
@@ -13,7 +11,7 @@ interface DinnerDetails {
   difficulty: string;
   preparationTime: number;
   totalTime: number;
-  images: string;
+  images: string[];
   ingredients: string[];
   steps: string[];
 }
@@ -25,9 +23,9 @@ const DinnerDetails: React.FC = () => {
   useEffect(() => {
     const fetchDinnerDetails = async () => {
       try {
-        const response = await axios.get(`${ENDPOINT}/api/dinners`, {
-          params: { title },
-        });
+        const response = await axios.get<DinnerDetails>(
+          `${ENDPOINT}/api/dinners/${title}`
+        );
         setDinner(response.data);
       } catch (error) {
         console.error("Error fetching dinner details:", error);
@@ -50,7 +48,7 @@ const DinnerDetails: React.FC = () => {
       <div
         className="relative w-full h-64 bg-cover bg-center rounded-lg mb-6"
         style={{
-          backgroundImage: `url('${dinner.images}')`,
+          backgroundImage: `url('${dinner.images[0]}')`,
         }}
       ></div>
 
