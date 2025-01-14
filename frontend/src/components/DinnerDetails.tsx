@@ -5,6 +5,7 @@ import axios from "axios";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
+
 interface DinnerDetails {
   id: number;
   title: string;
@@ -18,13 +19,16 @@ interface DinnerDetails {
 }
 
 const DinnerDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { title } = useParams<{ title: string }>();
+  // console.log("ID from useParams:", title);
   const [dinner, setDinner] = useState<DinnerDetails | null>(null);
 
   useEffect(() => {
     const fetchDinnerDetails = async () => {
       try {
-        const response = await axios.get(`${ENDPOINT}/dinner/${id}`);
+        const response = await axios.get(`${ENDPOINT}/dinner`, {
+          params: { title },
+        });
         setDinner(response.data);
       } catch (error) {
         console.error("Error fetching dinner details:", error);
@@ -32,7 +36,7 @@ const DinnerDetails: React.FC = () => {
     };
 
     fetchDinnerDetails();
-  }, [id]);
+  }, [title]);
 
   if (!dinner) {
     return (

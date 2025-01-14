@@ -31,6 +31,8 @@ const DinnersView: React.FC = () => {
             headers: { Authorization: `Bearer ${token}` },
           });
 
+          console.log(`Reponse data`, response.data);
+
           if (response.data.dinners && response.data.dinners.length > 0) {
             setDinners(response.data.dinners);
           } else {
@@ -73,7 +75,12 @@ const DinnersView: React.FC = () => {
   }
 
   const currentDinner =
-    currentDinnerIndex !== null ? dinners[currentDinnerIndex] : null;
+    currentDinnerIndex !== null && dinners[currentDinnerIndex]
+      ? dinners[currentDinnerIndex]
+      : null;
+
+
+  console.log("Current Dinner:", currentDinner);
 
   return (
     <div className="relative min-h-screen w-full">
@@ -107,7 +114,7 @@ const DinnersView: React.FC = () => {
           <div className="absolute bottom-10 left-10 text-white space-y-4">
             <h1
               className="text-4xl font-bold"
-              onClick={() => navigate(`/dinner/${currentDinner.id}`)}>
+              onClick={() => navigate(`/dinner/${encodeURIComponent(currentDinner.title)}`)}>
               {currentDinner.title}
             </h1>
             <p className="text-lg">{currentDinner.description}</p>
