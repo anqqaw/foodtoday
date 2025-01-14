@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
@@ -17,6 +17,7 @@ interface Dinner {
 
 const DinnersView: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
+  const [filteredDinners, setFilteredDinners] = useState<Dinner[]>([]);
   const [currentDinnerIndex, setCurrentDinnerIndex] = useState<number | null>(
     null
   );
@@ -32,10 +33,9 @@ const DinnersView: React.FC = () => {
             headers: { Authorization: `Bearer ${token}` },
           });
 
-          console.log(`Reponse data`, response.data);
-
           if (response.data.dinners && response.data.dinners.length > 0) {
             setDinners(response.data.dinners);
+            setFilteredDinners(response.data.dinners);
           } else {
             console.error("No dinners found in the API response.");
           }
@@ -50,24 +50,29 @@ const DinnersView: React.FC = () => {
 
   const handlePrevious = () => {
     setCurrentDinnerIndex((prevIndex) =>
-      prevIndex !== null && prevIndex > 0 ? prevIndex - 1 : dinners.length - 1
+      prevIndex !== null && prevIndex > 0 ? prevIndex - 1 : filteredDinners.length - 1
     );
   };
 
   const handleNext = () => {
     setCurrentDinnerIndex((prevIndex) =>
-      prevIndex !== null && prevIndex < dinners.length - 1 ? prevIndex + 1 : 0
+      prevIndex !== null && prevIndex < filteredDinners.length - 1 ? prevIndex + 1 : 0
     );
   };
 
   const handleRandomize = () => {
-    if (dinners.length > 0) {
-      const randomIndex = Math.floor(Math.random() * dinners.length);
+    if (filteredDinners.length > 0) {
+      const randomIndex = Math.floor(Math.random() * filteredDinners.length);
       setCurrentDinnerIndex(randomIndex);
     }
   };
 
-  if (dinners.length === 0) {
+  const handleSearchResults = (results: Dinner[]) => {
+    setFilteredDinners(results);
+    setCurrentDinnerIndex(null); // Reset current dinner when search is updated
+  };
+
+  if (filteredDinners.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <p className="text-gray-600 text-lg">Loading dinners...</p>
@@ -76,15 +81,14 @@ const DinnersView: React.FC = () => {
   }
 
   const currentDinner =
-    currentDinnerIndex !== null && dinners[currentDinnerIndex]
-      ? dinners[currentDinnerIndex]
+    currentDinnerIndex !== null && filteredDinners[currentDinnerIndex]
+      ? filteredDinners[currentDinnerIndex]
       : null;
-
-
-  console.log("Current Dinner:", currentDinner);
 
   return (
     <div className="relative min-h-screen w-full">
+      <SearchBar dinners={dinners} onSearchResults={handleSearchResults} />
+
       {currentDinner === null ? (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
           <button
@@ -115,25 +119,19 @@ const DinnersView: React.FC = () => {
           <div className="absolute bottom-10 left-10 text-white space-y-4">
             <h1
               className="text-4xl font-bold"
-              onClick={() => navigate(`/dinner/${encodeURIComponent(currentDinner.title)}`)}>
+              onClick={() => navigate(`/dinner/${encodeURIComponent(currentDinner.title)}`)}
+            >
               {currentDinner.title}
             </h1>
             <p className="text-lg">{currentDinner.description}</p>
             <p>
-              Difficulty:{" "}
-              <span className="font-medium">{currentDinner.difficulty}</span>
+              Difficulty: <span className="font-medium">{currentDinner.difficulty}</span>
             </p>
             <p>
-              Preparation Time:{" "}
-              <span className="font-medium">
-                {currentDinner.preparationTime} minutes
-              </span>
+              Preparation Time: <span className="font-medium">{currentDinner.preparationTime} minutes</span>
             </p>
             <p>
-              Total Time:{" "}
-              <span className="font-medium">
-                {currentDinner.totalTime} minutes
-              </span>
+              Total Time: <span className="font-medium">{currentDinner.totalTime} minutes</span>
             </p>
           </div>
 
