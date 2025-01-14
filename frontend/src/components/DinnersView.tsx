@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import HamburgerMenu from "./HamburgerMenu";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
@@ -69,7 +70,14 @@ const DinnersView: React.FC = () => {
 
   const handleSearchResults = (results: Dinner[]) => {
     setFilteredDinners(results);
-    setCurrentDinnerIndex(null); // Reset current dinner when search is updated
+    setCurrentDinnerIndex(null);
+  };
+
+  const handleDinnerSelect = (dinnerId: number) => {
+    const selectedDinnerIndex = filteredDinners.findIndex(
+      (dinner) => dinner.id === dinnerId
+    );
+    setCurrentDinnerIndex(selectedDinnerIndex);
   };
 
   if (filteredDinners.length === 0) {
@@ -87,7 +95,10 @@ const DinnersView: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full">
-      <SearchBar dinners={dinners} onSearchResults={handleSearchResults} />
+      <div className="flex justify-between items-center p-4">
+        <HamburgerMenu dinners={dinners.map(({ id, title }) => ({ id, title }))} />
+        <SearchBar dinners={dinners} onSearchResults={handleSearchResults} />
+      </div>
 
       {currentDinner === null ? (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
