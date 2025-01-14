@@ -96,7 +96,9 @@ const DinnersView: React.FC = () => {
   return (
     <div className="relative min-h-screen w-full">
       <div className="flex justify-between items-center p-4">
-        <HamburgerMenu dinners={dinners.map(({ id, title }) => ({ id, title }))} />
+        <div className="absolute top-4 left-4">
+          <HamburgerMenu />
+        </div>
         <SearchBar dinners={dinners} onSearchResults={handleSearchResults} />
       </div>
 
