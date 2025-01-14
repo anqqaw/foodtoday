@@ -20,15 +20,12 @@ interface DinnerDetails {
 
 const DinnerDetails: React.FC = () => {
   const { title } = useParams<{ title: string }>();
-  // console.log("ID from useParams:", title);
   const [dinner, setDinner] = useState<DinnerDetails | null>(null);
 
   useEffect(() => {
     const fetchDinnerDetails = async () => {
       try {
-        const response = await axios.get(`${ENDPOINT}/dinner`, {
-          params: { title },
-        });
+        const response = await axios.get(`${ENDPOINT}/api/dinners/${encodeURIComponent(title)}`);
         setDinner(response.data);
       } catch (error) {
         console.error("Error fetching dinner details:", error);
