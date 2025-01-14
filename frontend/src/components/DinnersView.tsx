@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import SearchBar from "./SearchBar";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 

@@ -1,11 +1,12 @@
+
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import SearchBar from "./searchBar";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
-interface Dinner {
+
+interface DinnerDetails {
   id: number;
   title: string;
   description: string;
@@ -13,166 +14,78 @@ interface Dinner {
   preparationTime: number;
   totalTime: number;
   images: string;
+  ingredients: string[];
+  steps: string[];
 }
 
-const DinnersView: React.FC = () => {
-  const [dinners, setDinners] = useState<Dinner[]>([]);
-  const [filteredDinners, setFilteredDinners] = useState<Dinner[]>([]);
-  const [currentDinnerIndex, setCurrentDinnerIndex] = useState<number | null>(
-    null
-  );
-  const [hovering, setHovering] = useState<string | null>(null);
-  const navigate = useNavigate();
+const DinnerDetails: React.FC = () => {
+  const { title } = useParams<{ title: string }>();
+  const [dinner, setDinner] = useState<DinnerDetails | null>(null);
 
   useEffect(() => {
-    const fetchDinners = async () => {
-      const token = localStorage.getItem("googleAuthToken");
-      if (token) {
-        try {
-          const response = await axios.get(`${ENDPOINT}/api/dinners`, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-
-          if (response.data.dinners && response.data.dinners.length > 0) {
-            setDinners(response.data.dinners);
-            setFilteredDinners(response.data.dinners);
-          } else {
-            console.error("No dinners found in the API response.");
-          }
-        } catch (error) {
-          console.error("Error fetching dinners:", error);
-        }
+    const fetchDinnerDetails = async () => {
+      try {
+        const response = await axios.get(`${ENDPOINT}/api/dinners`, {
+          params: { title },
+        });
+        setDinner(response.data);
+      } catch (error) {
+        console.error("Error fetching dinner details:", error);
       }
     };
 
-    fetchDinners();
-  }, []);
+    fetchDinnerDetails();
+  }, [title]);
 
-  const handlePrevious = () => {
-    setCurrentDinnerIndex((prevIndex) =>
-      prevIndex !== null && prevIndex > 0 ? prevIndex - 1 : filteredDinners.length - 1
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentDinnerIndex((prevIndex) =>
-      prevIndex !== null && prevIndex < filteredDinners.length - 1
-        ? prevIndex + 1
-        : 0
-    );
-  };
-
-  const handleRandomize = () => {
-    if (filteredDinners.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredDinners.length);
-      setCurrentDinnerIndex(randomIndex);
-    }
-  };
-
-  const handleSearchResults = (results: Dinner[]) => {
-    setFilteredDinners(results);
-    setCurrentDinnerIndex(null);
-  };
-
-  if (filteredDinners.length === 0) {
+  if (!dinner) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg">No dinners found...</p>
+        <p className="text-gray-600 text-lg">Loading dinner details...</p>
       </div>
     );
   }
 
-  const currentDinner =
-    currentDinnerIndex !== null && filteredDinners[currentDinnerIndex]
-      ? filteredDinners[currentDinnerIndex]
-      : null;
-
   return (
-    <div className="relative min-h-screen w-full">
-      <div className="absolute top-4 w-full z-10">
-        <SearchBar dinners={dinners} onSearchResults={handleSearchResults} />
+    <div className="min-h-screen p-8 bg-gray-100">
+      <div
+        className="relative w-full h-64 bg-cover bg-center rounded-lg mb-6"
+        style={{
+          backgroundImage: `url('${dinner.images}')`,
+        }}
+      ></div>
+
+      <h1 className="text-4xl font-bold mb-4">{dinner.title}</h1>
+      <p className="text-lg text-gray-700 mb-4">{dinner.description}</p>
+
+      <div className="mb-6">
+        <p className="font-medium text-gray-800">Difficulty: {dinner.difficulty}</p>
+        <p className="font-medium text-gray-800">
+          Preparation Time: {dinner.preparationTime} minutes
+        </p>
+        <p className="font-medium text-gray-800">
+          Total Time: {dinner.totalTime} minutes
+        </p>
       </div>
 
-      {currentDinner === null ? (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <button
-            onClick={handleRandomize}
-            className="w-40 h-40 rounded-full bg-gradient-to-br from-gray-300 via-gray-100 to-gray-300 shadow-md flex items-center justify-center hover:scale-105 transition-transform duration-300"
-          >
-            <span
-              className="text-lg font-bold text-gray-700 drop-shadow-lg font-sans"
-              style={{
-                textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
-              }}
-            >
-              DinnrMeUp
-            </span>
-          </button>
-        </div>
-      ) : (
-        <>
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('${currentDinner.images}')`,
-            }}
-          ></div>
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
+        <ul className="list-disc pl-5">
+          {dinner.ingredients.map((ingredient, index) => (
+            <li key={index} className="text-gray-700">{ingredient}</li>
+          ))}
+        </ul>
+      </div>
 
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-
-          <div className="absolute bottom-10 left-10 text-white space-y-4">
-            <h1
-              className="text-4xl font-bold"
-              onClick={() =>
-                navigate(`/dinner/${encodeURIComponent(currentDinner.title)}`)
-              }
-            >
-              {currentDinner.title}
-            </h1>
-            <p className="text-lg">{currentDinner.description}</p>
-            <p>
-              Difficulty:{" "}
-              <span className="font-medium">{currentDinner.difficulty}</span>
-            </p>
-            <p>
-              Preparation Time:{" "}
-              <span className="font-medium">
-                {currentDinner.preparationTime} minutes
-              </span>
-            </p>
-            <p>
-              Total Time:{" "}
-              <span className="font-medium">
-                {currentDinner.totalTime} minutes
-              </span>
-            </p>
-          </div>
-
-          <div
-            className="absolute top-0 left-0 w-1/2 h-1/4 cursor-pointer"
-            onClick={handlePrevious}
-            onMouseEnter={() => setHovering("Previous")}
-            onMouseLeave={() => setHovering(null)}
-          ></div>
-          <div
-            className="absolute top-0 right-0 w-1/2 h-1/4 cursor-pointer"
-            onClick={handleNext}
-            onMouseEnter={() => setHovering("Next")}
-            onMouseLeave={() => setHovering(null)}
-          ></div>
-
-          {hovering && (
-            <div
-              className={`absolute ${hovering === "Previous" ? "left-4" : "right-4"
-                } top-10 text-lg font-semibold text-white`}
-            >
-              {hovering}
-            </div>
-          )}
-        </>
-      )}
+      <div>
+        <h2 className="text-2xl font-semibold mb-2">Steps</h2>
+        <ol className="list-decimal pl-5">
+          {dinner.steps.map((step, index) => (
+            <li key={index} className="text-gray-700 mb-2">{step}</li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 };
 
-export default DinnersView;
+export default DinnerDetails;

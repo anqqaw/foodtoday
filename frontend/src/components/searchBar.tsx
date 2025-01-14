@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ dinners, onSearchResults }) => {
       dinner.title.toLowerCase().includes(query)
     );
 
-    onSearchResults(filteredDinners); // Pass filtered results back to the parent component
+    onSearchResults(filteredDinners);
   };
 
   return (
