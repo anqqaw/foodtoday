@@ -3,11 +3,10 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Hae kaikki dinnerit
 export const list = async (ctx: Context) => {
   try {
     const dinners = await prisma.dinner.findMany({
-      orderBy: { title: "asc" }, // Järjestä aakkosjärjestykseen
+      orderBy: { title: "asc" },
     });
     ctx.body = { dinners };
   } catch (error) {
@@ -27,20 +26,20 @@ export const getById = async (ctx: Context) => {
   }
 
   try {
-    const dinner = await prisma.dinner.findFirst({
-      { where: { id } },
+    const dinner = await prisma.dinner.findUnique({
+      where: { id: parseInt(id) }
     });
 
-  if (!dinner) {
-    ctx.status = 404;
-    ctx.body = { error: "Dinner not found" };
-    return;
-  }
+    if (!dinner) {
+      ctx.status = 404;
+      ctx.body = { error: "Dinner not found" };
+      return;
+    }
 
-  ctx.body = dinner;
-} catch (error) {
-  console.error("Error fetching dinner details:", error);
-  ctx.status = 500;
-  ctx.body = { error: "Internal server error" };
-}
+    ctx.body = dinner;
+  } catch (error) {
+    console.error("Error fetching dinner details:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
 };
