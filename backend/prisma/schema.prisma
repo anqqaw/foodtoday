@@ -22,7 +22,7 @@ model User {
 }
 
 model Dinner {
-  id String @id @default(uuid())
+  id Int @id @default(autoincrement())
 
   title           String
   description     String? @db.Text
@@ -46,7 +46,7 @@ model Dinner {
 model Bookmark {
   id       String  @id @default(uuid())
   userId   String?
-  dinnerId String?
+  dinnerId Int?
 
   user   User?   @relation(fields: [userId], references: [id])
   dinner Dinner? @relation(fields: [dinnerId], references: [id])
