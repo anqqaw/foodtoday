@@ -4,6 +4,12 @@ import axios from "axios";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
+interface IngredientDetail {
+  name: string;
+  unit?: string;
+  qty?: number;
+}
+
 interface DinnerDetails {
   id: number;
   title: string;
@@ -12,28 +18,38 @@ interface DinnerDetails {
   preparationTime: number;
   totalTime: number;
   images: string[];
-  ingredients: string[];
+  ingredients: IngredientDetail[];
   steps: string[];
 }
 
 const DinnerDetails: React.FC = () => {
-  const { title } = useParams<{ title: string }>();
+  const { id } = useParams<{ id: string }>();
   const [dinner, setDinner] = useState<DinnerDetails | null>(null);
 
   useEffect(() => {
     const fetchDinnerDetails = async () => {
-      try {
-        const response = await axios.get<DinnerDetails>(
-          `${ENDPOINT}/api/dinners/${title}`
-        );
-        setDinner(response.data);
-      } catch (error) {
-        console.error("Error fetching dinner details:", error);
+      const token = localStorage.getItem("googleAuthToken");
+      if (token) {
+        try {
+          const response = await axios.get<DinnerDetails>(
+            `${ENDPOINT}/api/dinners/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          setDinner(response.data);
+        } catch (error) {
+          console.error("Error fetching dinner details:", error);
+        }
       }
     };
 
     fetchDinnerDetails();
-  }, [title]);
+  }, [id]);
 
   if (!dinner) {
     return (
@@ -69,7 +85,7 @@ const DinnerDetails: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
         <ul className="list-disc pl-5">
           {dinner.ingredients.map((ingredient, index) => (
-            <li key={index} className="text-gray-700">{ingredient}</li>
+            <li key={index} className="text-gray-700">{ingredient.name}</li>
           ))}
         </ul>
       </div>

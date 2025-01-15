@@ -132,7 +132,7 @@ const DinnersView: React.FC = () => {
           <div className="absolute bottom-10 left-10 text-white space-y-4">
             <h1
               className="text-4xl font-bold"
-              onClick={() => navigate(`/dinner/${encodeURIComponent(currentDinner.title)}`)}
+              onClick={() => navigate(`/dinner/${currentDinner.id}`)}
             >
               {currentDinner.title}
             </h1>
