@@ -60,43 +60,64 @@ const DinnerDetails: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
+    <div className="min-h-screen bg-gray-50">
       <div
-        className="relative w-full h-64 bg-cover bg-center rounded-lg mb-6"
+        className="relative w-full h-96 bg-cover bg-center mb-8"
         style={{
           backgroundImage: `url('${dinner.images[0]}')`,
         }}
-      ></div>
-
-      <h1 className="text-4xl font-bold mb-4">{dinner.title}</h1>
-      <p className="text-lg text-gray-700 mb-4">{dinner.description}</p>
-
-      <div className="mb-6">
-        <p className="font-medium text-gray-800">Difficulty: {dinner.difficulty}</p>
-        <p className="font-medium text-gray-800">
-          Preparation Time: {dinner.preparationTime} minutes
-        </p>
-        <p className="font-medium text-gray-800">
-          Total Time: {dinner.totalTime} minutes
-        </p>
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <h1 className="text-white text-5xl font-bold text-center px-4">
+            {dinner.title}
+          </h1>
+        </div>
       </div>
 
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
-        <ul className="list-disc pl-5">
-          {dinner.ingredients.map((ingredient, index) => (
-            <li key={index} className="text-gray-700">{ingredient.name}</li>
-          ))}
-        </ul>
-      </div>
+      <div className="max-w-4xl mx-auto px-4 lg:px-0">
+        <p className="text-lg text-gray-700 leading-relaxed mb-8">
+          {dinner.description}
+        </p>
 
-      <div>
-        <h2 className="text-2xl font-semibold mb-2">Steps</h2>
-        <ol className="list-decimal pl-5">
-          {dinner.steps.map((step, index) => (
-            <li key={index} className="text-gray-700 mb-2">{step}</li>
-          ))}
-        </ol>
+        <div className="flex flex-wrap gap-4 mb-8">
+          <div className="flex-1 text-lg font-medium text-gray-800">
+            Difficulty: <span className="font-normal">{dinner.difficulty}</span>
+          </div>
+          <div className="flex-1 text-lg font-medium text-gray-800">
+            Prep Time:{" "}
+            <span className="font-normal">{dinner.preparationTime} mins</span>
+          </div>
+          <div className="flex-1 text-lg font-medium text-gray-800">
+            Total Time: <span className="font-normal">{dinner.totalTime} mins</span>
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold mb-4">Ingredients</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {dinner.ingredients.map((ingredient, index) => (
+              <div
+                key={index}
+                className="text-gray-700 text-lg bg-gray-100 p-3 rounded-md"
+              >
+                {ingredient.qty && ingredient.unit
+                  ? `${ingredient.qty} ${ingredient.unit} ${ingredient.name}`
+                  : ingredient.name}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold mb-4">Steps</h2>
+          <ol className="list-decimal pl-5 text-lg text-gray-700 space-y-4">
+            {dinner.steps.map((step, index) => (
+              <li key={index} className="leading-relaxed">
+                <span className="font-semibold mr-2"></span> {step}
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </div>
   );
