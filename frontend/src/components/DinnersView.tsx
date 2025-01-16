@@ -30,7 +30,7 @@ const DinnersView: React.FC = () => {
       const token = localStorage.getItem("googleAuthToken");
       if (token) {
         try {
-          const response = await axios.get(`${ENDPOINT}/api/dinners`, {
+          const response = await axios.get(`${ENDPOINT}/api/dinners-list`, {
             headers: { Authorization: `Bearer ${token}` },
           });
 

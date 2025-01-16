@@ -9,7 +9,6 @@ const HamburgerMenu: React.FC = () => {
 
   return (
     <div className="relative">
-      {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
         className="p-4 rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-100 transition-transform transform hover:scale-110 focus:outline-none"
@@ -30,7 +29,6 @@ const HamburgerMenu: React.FC = () => {
         </svg>
       </button>
 
-      {/* Menu Content */}
       {isOpen && (
         <div className="absolute top-14 left-0 bg-white w-80 rounded-lg shadow-2xl p-6 z-50 animate-fade-in">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">

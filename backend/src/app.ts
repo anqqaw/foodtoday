@@ -41,6 +41,7 @@ export function createApp(io: any) {
   privateRouter.use(rateLimitMiddleware);
 
   privateRouter.get('/dinners', dinners.list);
+  privateRouter.get('/dinners-list', dinners.list);
   privateRouter.get('/dinners/:id', dinners.getById);
 
   app.use(privateRouter.routes());
