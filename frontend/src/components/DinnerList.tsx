@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
 
@@ -18,18 +18,22 @@ const DinnerList: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDinners = async () => {
       try {
         setLoading(true);
         const token = localStorage.getItem("googleAuthToken");
-        const response = await axios.get<{ dinners: Dinner[] }>(`${ENDPOINT}/api/dinners`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get<{ dinners: Dinner[] }>(
+          `${ENDPOINT}/api/dinners-list`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         setDinners(response.data.dinners);
       } catch (err) {
@@ -67,10 +71,9 @@ const DinnerList: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {dinners.map((dinner) => (
-            <Link
-              key={dinner.id}
-              to={`/dinners/${dinner.id}`}
+            <div
               className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition duration-300"
+              onClick={() => navigate(`/dinner/${dinner.id}`)}
             >
               {dinner.images && dinner.images[0] && (
                 <div
@@ -93,7 +96,7 @@ const DinnerList: React.FC = () => {
                   Total Time: {dinner.totalTime} mins
                 </p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
