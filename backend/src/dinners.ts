@@ -43,3 +43,31 @@ export const getById = async (ctx: Context) => {
     ctx.body = { error: "Internal server error" };
   }
 };
+
+export const searchDinners = async (ctx: Context) => {
+  const { query } = ctx.request.query;
+
+  if (!query || typeof query !== "string") {
+    ctx.status = 400;
+    ctx.body = { error: "A valid search query is required." };
+    return;
+  }
+
+  try {
+    const results = await prisma.dinner.findMany({
+      where: {
+        title: {
+          contains: query,
+          mode: "insensitive",
+        },
+      },
+      take: 10,
+    });
+
+    ctx.body = { dinners: results };
+  } catch (error) {
+    console.error("Error searching for dinners:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error." };
+  }
+};

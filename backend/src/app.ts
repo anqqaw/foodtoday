@@ -43,6 +43,7 @@ export function createApp(io: any) {
   privateRouter.get('/dinners', dinners.list);
   privateRouter.get('/dinners-list', dinners.list);
   privateRouter.get('/dinners/:id', dinners.getById);
+  privateRouter.get('/search-dinners', dinners.searchDinners);
 
   app.use(privateRouter.routes());
   app.use(privateRouter.allowedMethods());

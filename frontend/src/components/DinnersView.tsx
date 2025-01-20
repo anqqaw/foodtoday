@@ -99,7 +99,7 @@ const DinnersView: React.FC = () => {
         <div className="absolute top-4 left-4">
           <HamburgerMenu />
         </div>
-        <SearchBar dinners={dinners} onSearchResults={handleSearchResults} />
+        <SearchBar onSearchResults={handleSearchResults} />
       </div>
 
       {currentDinner === null ? (
