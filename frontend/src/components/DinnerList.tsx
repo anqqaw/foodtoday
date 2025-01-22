@@ -22,15 +22,14 @@ const DinnerList: React.FC = () => {
 
   useEffect(() => {
     const fetchDinners = async () => {
+      const token = localStorage.getItem("googleAuthToken");
       try {
         setLoading(true);
-        const token = localStorage.getItem("googleAuthToken");
         const response = await axios.get<{ dinners: Dinner[] }>(
           `${ENDPOINT}/api/dinners-list`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
             },
           }
         );
