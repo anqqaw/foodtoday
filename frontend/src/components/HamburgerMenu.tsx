@@ -44,15 +44,6 @@ const HamburgerMenu: React.FC = () => {
             >
               Dinners
             </li>
-            <li
-              className="cursor-pointer p-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-              onClick={() => {
-                setIsOpen(false);
-                navigate("/contact-us");
-              }}
-            >
-              Contact Us
-            </li>
           </ul>
         </div>
       )}
