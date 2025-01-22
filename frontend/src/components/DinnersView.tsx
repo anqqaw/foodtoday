@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar";
 import HamburgerMenu from "./HamburgerMenu";
-import RandomizerButton from "./RandomizerButton";
 import DinnerCard from "./DinnerCard";
 import DinnerNavigation from "./DinnerNavigation";
 
@@ -33,11 +31,20 @@ const DinnersView: React.FC = () => {
       const token = localStorage.getItem("googleAuthToken");
       if (token) {
         try {
-          const response = await axios.get(`${ENDPOINT}/api/dinners-list`, {
-            headers: { Authorization: `Bearer ${token}` },
+          const response = await axios.get(`${ENDPOINT}/api/dinners`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           });
-          setDinners(response.data.dinners || []);
-          setFilteredDinners(response.data.dinners || []);
+
+          const fetchedDinners = response.data.dinners || [];
+          setDinners(fetchedDinners);
+          setFilteredDinners(fetchedDinners);
+
+          if (fetchedDinners.length > 0) {
+            const randomIndex = Math.floor(Math.random() * fetchedDinners.length);
+            setCurrentDinnerIndex(randomIndex);
+          }
         } catch (error) {
           console.error("Error fetching dinners:", error);
         }
@@ -46,18 +53,7 @@ const DinnersView: React.FC = () => {
     fetchDinners();
   }, []);
 
-  const handleRandomize = () => {
-    if (filteredDinners.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredDinners.length);
-      setCurrentDinnerIndex(randomIndex);
-    }
-  };
-
-  const handleSearchResults = (results: Dinner[]) => {
-    setFilteredDinners(results);
-    setCurrentDinnerIndex(null);
-  };
-
+  /*
   if (dinners.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -65,6 +61,7 @@ const DinnersView: React.FC = () => {
       </div>
     );
   }
+  */
 
   const currentDinner =
     currentDinnerIndex !== null && filteredDinners[currentDinnerIndex]
@@ -77,12 +74,8 @@ const DinnersView: React.FC = () => {
         <div className="absolute top-4 left-4">
           <HamburgerMenu />
         </div>
-        <SearchBar onSearchResults={handleSearchResults} />
       </div>
-
-      {currentDinner === null ? (
-        <RandomizerButton onClick={handleRandomize} />
-      ) : (
+      {currentDinner ? (
         <>
           <DinnerCard dinner={currentDinner} navigate={navigate} />
           <DinnerNavigation
@@ -91,6 +84,10 @@ const DinnersView: React.FC = () => {
             setCurrentDinnerIndex={setCurrentDinnerIndex}
           />
         </>
+      ) : (
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <p className="text-gray-600 text-lg">No dinner selected.</p>
+        </div>
       )}
     </div>
   );
