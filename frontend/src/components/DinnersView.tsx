@@ -42,7 +42,9 @@ const DinnersView: React.FC = () => {
           setFilteredDinners(fetchedDinners);
 
           if (fetchedDinners.length > 0) {
-            const randomIndex = Math.floor(Math.random() * fetchedDinners.length);
+            const randomIndex = Math.floor(
+              Math.random() * fetchedDinners.length
+            );
             setCurrentDinnerIndex(randomIndex);
           }
         } catch (error) {
@@ -53,16 +55,6 @@ const DinnersView: React.FC = () => {
     fetchDinners();
   }, []);
 
-  /*
-  if (dinners.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg">Loading dinners...</p>
-      </div>
-    );
-  }
-  */
-
   const currentDinner =
     currentDinnerIndex !== null && filteredDinners[currentDinnerIndex]
       ? filteredDinners[currentDinnerIndex]
@@ -70,20 +62,18 @@ const DinnersView: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full">
-      <div className="flex justify-between items-center p-4">
-        <div className="absolute top-4 left-4">
-          <HamburgerMenu />
-        </div>
-      </div>
       {currentDinner ? (
-        <>
+        <div>
           <DinnerCard dinner={currentDinner} navigate={navigate} />
           <DinnerNavigation
             currentIndex={currentDinnerIndex}
             dinners={filteredDinners}
             setCurrentDinnerIndex={setCurrentDinnerIndex}
           />
-        </>
+          <div className="absolute bottom-4 right-4">
+            <HamburgerMenu />
+          </div>
+        </div>
       ) : (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
           <p className="text-gray-600 text-lg">No dinner selected.</p>
