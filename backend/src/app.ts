@@ -9,7 +9,6 @@ import * as health from './health';
 
 import { requestLogger } from './logger';
 
-import { rateLimitMiddleware } from './middlewares/rate-limit';
 import { verifyGoogleToken } from './middlewares/google';
 
 export function createApp(io: any) {
@@ -38,7 +37,6 @@ export function createApp(io: any) {
   const privateRouter = new Router({ prefix: '/api' });
 
   privateRouter.use(verifyGoogleToken);
-  privateRouter.use(rateLimitMiddleware);
 
   privateRouter.get('/dinners', dinners.list);
   privateRouter.get('/dinners-list', dinners.list);
