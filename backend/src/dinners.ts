@@ -71,3 +71,28 @@ export const searchDinners = async (ctx: Context) => {
     ctx.body = { error: "Internal server error." };
   }
 };
+
+export const getRandom = async (ctx: Context) => {
+  try {
+    const count = await prisma.dinner.count();
+
+    if (count === 0) {
+      ctx.status = 404;
+      ctx.body = { error: "No dinners available" };
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * count);
+    const randomDinner = await prisma.dinner.findMany({
+      take: 1,
+      skip: randomIndex,
+    });
+
+    ctx.body = randomDinner.length > 0 ? randomDinner[0] : {};
+  } catch (error) {
+    console.error("Error fetching random dinner:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
+};
+
