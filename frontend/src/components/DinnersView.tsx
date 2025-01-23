@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { fetchDinners, Dinner } from "../helpers/api";
 import HamburgerMenu from "./HamburgerMenu";
 import DinnerCard from "./DinnerCard";
 import DinnerNavigation from "./DinnerNavigation";
-
-const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
-
-interface Dinner {
-  id: number;
-  title: string;
-  description: string;
-  difficulty: string;
-  preparationTime: number;
-  totalTime: number;
-  images: string;
-}
 
 const DinnersView: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
@@ -27,32 +15,22 @@ const DinnersView: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchDinners = async () => {
-      const token = localStorage.getItem("googleAuthToken");
-      if (token) {
-        try {
-          const response = await axios.get(`${ENDPOINT}/api/dinners`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+    const loadDinners = async () => {
+      try {
+        const fetchedDinners = await fetchDinners();
+        setDinners(fetchedDinners);
+        setFilteredDinners(fetchedDinners);
 
-          const fetchedDinners = response.data.dinners || [];
-          setDinners(fetchedDinners);
-          setFilteredDinners(fetchedDinners);
-
-          if (fetchedDinners.length > 0) {
-            const randomIndex = Math.floor(
-              Math.random() * fetchedDinners.length
-            );
-            setCurrentDinnerIndex(randomIndex);
-          }
-        } catch (error) {
-          console.error("Error fetching dinners:", error);
+        if (fetchedDinners.length > 0) {
+          const randomIndex = Math.floor(Math.random() * fetchedDinners.length);
+          setCurrentDinnerIndex(randomIndex);
         }
+      } catch (error) {
+        console.error("Error loading dinners:", error);
       }
     };
-    fetchDinners();
+
+    loadDinners();
   }, []);
 
   const currentDinner =

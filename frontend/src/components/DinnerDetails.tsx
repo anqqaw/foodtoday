@@ -1,53 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-
-const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
-
-interface IngredientDetail {
-  name: string;
-  unit?: string;
-  qty?: number;
-}
-
-interface DinnerDetails {
-  id: number;
-  title: string;
-  description: string;
-  difficulty: string;
-  preparationTime: number;
-  totalTime: number;
-  images: string[];
-  ingredients: IngredientDetail[];
-  steps: string[];
-}
+import { fetchDinnerDetails, DinnerDetails as DinnerDetailsType } from "../helpers/api";
 
 const DinnerDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [dinner, setDinner] = useState<DinnerDetails | null>(null);
+  const [dinner, setDinner] = useState<DinnerDetailsType | null>(null);
 
   useEffect(() => {
-    const fetchDinnerDetails = async () => {
-      const token = localStorage.getItem("googleAuthToken");
-      if (token) {
-        try {
-          const response = await axios.get<DinnerDetails>(
-            `${ENDPOINT}/api/dinners/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-
-          setDinner(response.data);
-        } catch (error) {
-          console.error("Error fetching dinner details:", error);
+    const loadDinnerDetails = async () => {
+      try {
+        if (id) {
+          const details = await fetchDinnerDetails(id);
+          setDinner(details);
         }
+      } catch (error) {
+        console.error("Error loading dinner details:", error);
       }
     };
 
-    fetchDinnerDetails();
+    loadDinnerDetails();
   }, [id]);
 
   if (!dinner) {
@@ -112,7 +83,7 @@ const DinnerDetails: React.FC = () => {
           <ol className="list-decimal pl-5 text-lg text-gray-700 space-y-4">
             {dinner.steps.map((step, index) => (
               <li key={index} className="leading-relaxed">
-                <span className="font-semibold mr-2"></span> {step}
+                {step}
               </li>
             ))}
           </ol>
