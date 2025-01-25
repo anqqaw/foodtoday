@@ -64,3 +64,21 @@ export const fetchDinnerDetails = async (id: string): Promise<DinnerDetails> => 
     throw error;
   }
 };
+
+export const fetchRandomDinner = async (): Promise<Dinner> => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get<{ dinner: Dinner }>(`${ENDPOINT}/api/dinners/random`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data.dinner;
+  } catch (error) {
+    console.error("Error fetching random dinner:", error);
+    throw error;
+  }
+};
