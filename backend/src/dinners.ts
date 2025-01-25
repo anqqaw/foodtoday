@@ -25,8 +25,6 @@ export const getById = async (ctx: Context) => {
     return;
   }
 
-  console.log(id);
-
   try {
     const dinner = await prisma.dinner.findUnique({
       where: { id: parseInt(id) }
