@@ -25,6 +25,8 @@ export const getById = async (ctx: Context) => {
     return;
   }
 
+  console.log(id);
+
   try {
     const dinner = await prisma.dinner.findUnique({
       where: { id: parseInt(id) }
@@ -84,15 +86,19 @@ export const getRandom = async (ctx: Context) => {
 
     const randomIndex = Math.floor(Math.random() * count);
     const randomDinner = await prisma.dinner.findMany({
-      take: 1,
       skip: randomIndex,
+      take: 1,
     });
 
-    ctx.body = randomDinner.length > 0 ? randomDinner[0] : {};
+    if (randomDinner.length > 0) {
+      ctx.body = { dinner: randomDinner[0] };
+    } else {
+      ctx.status = 404;
+      ctx.body = { error: "Random dinner not found" };
+    }
   } catch (error) {
     console.error("Error fetching random dinner:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
 };
-
