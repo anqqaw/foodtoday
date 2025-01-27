@@ -7,7 +7,7 @@ import Router from 'koa-router';
 import * as dinners from './dinners';
 import * as health from './health';
 
-import { requestLogger } from './logger';
+// import { requestLogger } from './logger';
 
 import { verifyGoogleToken } from './middlewares/google';
 
@@ -20,7 +20,7 @@ export function createApp(io: any) {
   app.use(cors({ credentials: true }));
   app.use(bodyParser());
 
-  app.use(requestLogger);
+  // app.use(requestLogger);
 
   app.use(async (ctx, next) => {
     ctx.io = io;
