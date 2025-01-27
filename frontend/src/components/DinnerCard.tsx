@@ -26,8 +26,6 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
         }}
       ></div>
 
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-
       <div className="absolute bottom-10 left-10 text-white space-y-4">
         <h1
           className="text-4xl font-bold"

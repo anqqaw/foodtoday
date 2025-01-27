@@ -1,24 +1,11 @@
-module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}", // Include all relevant files
+  ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
-      },
-      animation: {
-        'fade-in': 'fade-in 0.3s ease-out',
-      },
-      keyframes: {
-        'fade-in': {
-          from: { opacity: 0, transform: 'translateY(-10px)' },
-          to: { opacity: 1, transform: 'translateY(0)' },
-        }
-      }
-    },
-  },
-  variants: {
     extend: {},
   },
   plugins: [],
-}
+};

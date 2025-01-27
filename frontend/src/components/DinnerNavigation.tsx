@@ -7,7 +7,6 @@ interface DinnerNavigationProps {
 }
 
 const DinnerNavigation: React.FC<DinnerNavigationProps> = ({
-  currentIndex,
   dinners,
   setCurrentDinnerIndex,
 }) => {

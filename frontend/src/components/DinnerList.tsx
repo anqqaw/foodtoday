@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:9000";
+const ENDPOINT = import.meta.env.REACT_APP_API_URL || "http://localhost:9000";
 
 interface Dinner {
   id: number;
