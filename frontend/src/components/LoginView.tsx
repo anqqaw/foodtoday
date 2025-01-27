@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-const ENDPOINT = process.env.REACT_APP_API_URL || 'http://localhost:9000';
+const ENDPOINT = import.meta.env.REACT_APP_API_URL || 'http://localhost:9000';
 
 const LoginView: React.FC = () => {
   const navigate = useNavigate();
@@ -14,12 +14,12 @@ const LoginView: React.FC = () => {
       axios.get(`${ENDPOINT}/api/dinners`, {
         headers: { Authorization: `Bearer ${token}` }
       })
-      .then(() => {
-        navigate('/');
-      })
-      .catch(() => {
-        // Token is invalid or request failed, stay on the login page
-      });
+        .then(() => {
+          navigate('/');
+        })
+        .catch(() => {
+          // Token is invalid or request failed, stay on the login page
+        });
     }
   }, [navigate]);
 
@@ -34,7 +34,7 @@ const LoginView: React.FC = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || '296278558628-lf8ia7krfo08jo4m8esl3o5cj4hud76p.apps.googleusercontent.com'}>
+    <GoogleOAuthProvider clientId={import.meta.env.REACT_APP_GOOGLE_CLIENT_ID || '296278558628-lf8ia7krfo08jo4m8esl3o5cj4hud76p.apps.googleusercontent.com'}>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <h2 className="text-2xl font-bold mb-4">Login with Google</h2>
         <GoogleLogin

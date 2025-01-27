@@ -11,7 +11,7 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "dinners" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "preparationTime" INTEGER NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE "dinners" (
 CREATE TABLE "bookmarks" (
     "id" TEXT NOT NULL,
     "userId" TEXT,
-    "dinnerId" TEXT,
+    "dinnerId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

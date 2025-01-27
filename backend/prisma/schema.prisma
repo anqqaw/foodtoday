@@ -8,51 +8,51 @@ generator client {
 }
 
 model User {
-  id          String    @id @default(uuid())
-  email       String    @unique
+  id    String @id @default(uuid())
+  email String @unique
 
-  settings    Json?
+  settings Json?
 
-  bookmarks   Bookmark[]
+  bookmarks Bookmark[]
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
 
 model Dinner {
-  id          String    @id @default(uuid())
+  id Int @id @default(autoincrement())
 
-  title       String
-  description String?   @db.Text
+  title           String
+  description     String? @db.Text
   preparationTime Int
-  totalTime Int
-  difficulty Int
-  serves Int
-  ingredients Json?
-  steps Json?
-  shoppingList Json?
-  images Json?
+  totalTime       Int
+  difficulty      Int
+  serves          Int
+  ingredients     Json?
+  steps           Json?
+  shoppingList    Json?
+  images          Json?
 
-  bookmarks   Bookmark[]
+  bookmarks Bookmark[]
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("dinners")
 }
 
 model Bookmark {
-  id          String    @id @default(uuid())
-  userId      String?
-  dinnerId    String?
+  id       String  @id @default(uuid())
+  userId   String?
+  dinnerId Int?
 
-  user        User?     @relation(fields: [userId], references: [id])
-  dinner      Dinner?     @relation(fields: [dinnerId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
+  dinner Dinner? @relation(fields: [dinnerId], references: [id])
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("bookmarks")
 }

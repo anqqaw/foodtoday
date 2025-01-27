@@ -11,7 +11,7 @@ async function main() {
       totalTime: 45,
       difficulty: 2,
       serves: 4,
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 1500, unit: 'g', name: 'jauhoisia perunoita' },
         { qty: 800, unit: 'g', name: 'jauhelihaa' },
         { qty: 2, unit: 'kpl', name: 'salottisipulia' },
@@ -22,8 +22,8 @@ async function main() {
         { name: 'suolaa' },
         { name: 'pala parmesaania' },
         { name: 'pala mozzarellaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 800, unit: 'g', name: 'jauhelihaa' },
         { qty: 1, unit: 'kpl', name: 'valkosipulia' },
         { qty: 2, unit: 'kpl', name: 'salottisipulia' },
@@ -31,7 +31,7 @@ async function main() {
         { name: 'voita' },
         { name: 'parmesaania' },
         { name: 'mozzarellaa' },
-      ]),
+      ],
       steps: [
         'Kuullota salottisipuleja ja valkosipulinkynttä 5-10 min',
         'Kaada sekaan tomaatit ja anna kuplia 20min',
@@ -51,7 +51,7 @@ async function main() {
       totalTime: 30,
       difficulty: 2,
       serves: 4,
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 2, unit: 'kpl', name: 'purjoa' },
         { qty: 1, unit: 'kpl', name: 'salottisipuli' },
         { qty: 50, unit: 'g', name: 'voita' },
@@ -61,8 +61,8 @@ async function main() {
         { name: 'pippuria myllystä' },
         { name: 'puolikkaan sitruunan mehu' },
         { qty: 2, unit: 'dl', name: 'kuohukermaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 2, unit: 'kpl', name: 'purjoa' },
         { qty: 1, unit: 'kpl', name: 'salottisipulia' },
         { qty: 4, unit: 'kpl', name: 'perunas' },
@@ -70,7 +70,7 @@ async function main() {
         { name: 'voita' },
         { qty: 1, unit: 'kpl', name: 'sitruunaa' },
         { qty: 1, unit: 'dl', name: 'kuohukermaa' },
-      ]),
+      ],
       steps: [
         'Kuori perunat.',
         'Pilko purjot, vain valkoinen osa käytetään.',
@@ -101,7 +101,7 @@ async function main() {
         'Sekoita pasta ja kastike.',
         'Tee annos. Lisää päälle kananmunankeltuainen ja basilikaa.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 1, unit: 'kpl', name: 'pekonia' },
         { qty: 1, unit: 'kpl', name: 'salottisipulia' },
         { qty: 1, unit: 'kpl', name: 'valkosipulinkynsiä' },
@@ -111,8 +111,8 @@ async function main() {
         { name: 'tuoretta basilikaa' },
         { name: 'mustapippuria' },
         { name: 'suolaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 1, unit: 'kpl', name: 'pekonia' },
         { qty: 1, unit: 'kpl', name: 'salottisipulia' },
         { qty: 1, unit: 'kpl', name: 'valkosipulinkynsiä' },
@@ -120,7 +120,7 @@ async function main() {
         { qty: 4, unit: 'kpl', name: 'luomukananmunan keltuaista' },
         { name: 'spagettia' },
         { name: 'tuoretta basilikaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/carbonara.jpg',
       ],
@@ -151,7 +151,7 @@ async function main() {
         'Tarjoa tortillojen ja creme fraichen kera.',
         'Chili con carne on vielä parempaa seuraavana päivänä.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 5, unit: 'dl', name: 'vettä' },
         { qty: 3, unit: 'rkl', name: 'suolaa' },
         { qty: 150, unit: 'g', name: 'kidneypapuja' },
@@ -174,8 +174,8 @@ async function main() {
         { qty: 8, unit: 'kpl', name: 'tortillaa' },
         { name: 'tuoretta korianteria' },
         { name: 'ranskankermaa (creme fraiche)' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 1, unit: 'prk', name: 'kidneypapuja' },
         { qty: 2, unit: 'kpl', name: 'porkkanaa' },
         { qty: 2, unit: 'kpl', name: 'sipulia' },
@@ -197,7 +197,7 @@ async function main() {
         { qty: 1, unit: 'prk', name: 'ranskankermaa' },
         { name: 'rypsiöljyä' },
         { name: 'tuoretta korianteria' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/chiliconcarne.jpg',
       ],
@@ -219,7 +219,7 @@ async function main() {
         'Purista limemehu päälle.',
         'Keitä jasmiiniriisi paketin ohjeen mukaan.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 400, unit: 'g', name: 'broilerin fileesuikaleita' },
         { qty: 2, unit: 'rkl', name: 'vihreää currytahnaa' },
         { qty: 2, unit: 'kpl', name: 'valkosipulinkynttä' },
@@ -230,8 +230,8 @@ async function main() {
         { qty: 2, unit: 'kpl', name: 'limeä' },
         { name: 'pala inkivääriä' },
         { name: 'jasmiiniriisiä ' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 400, unit: 'g', name: 'broilerin fileesuikaleita' },
         { qty: 2, unit: 'rkl', name: 'vihreää currytahnaa' },
         { qty: 2, unit: 'kpl', name: 'valkosipulinkynttä' },
@@ -242,7 +242,7 @@ async function main() {
         { qty: 2, unit: 'kpl', name: 'limeä' },
         { name: 'pala inkivääriä' },
         { name: 'jasmiiniriisiä' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/kookoskana.jpg',
       ],
@@ -268,18 +268,18 @@ async function main() {
         'Poista pippurit liemestä ja mausta liemi suolalla.',
         'Tarjoa karjalanpaisti keitettyjen perunoiden ja suolakurkkujen kanssa.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 600, unit: 'g', name: 'luutonta lihaa (esim. naudan, porsaan ja karitsanlihaa)' },
         { qty: 3, unit: 'kpl', name: 'keltasipulia' },
         { qty: 10, unit: 'kpl', name: 'mustapippuria' },
         { qty: 2, unit: 'tl', name: 'suolaa' },
         { name: 'kylmää vettä' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 600, unit: 'g', name: 'luutonta lihaa' },
         { qty: 3, unit: 'kpl', name: 'keltasipulia' },
         { qty: 10, unit: 'kpl', name: 'mustapippuria' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/karjalanpaisti.jpg',
       ],
@@ -306,7 +306,7 @@ async function main() {
         'Ripottele juustoraaste makaronilaatikon pintaan ja gratinoi se kauniin ruskeaksi uunissa, noin 8 minuuttia.',
         'Tarjoa ketsupin kera.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 1, unit: 'kpl', name: 'salottisipuli' },
         { qty: 400, unit: 'g', name: 'jauhelihaa' },
         { qty: 2, unit: 'rkl', name: 'rypsiöljyä' },
@@ -317,8 +317,8 @@ async function main() {
         { qty: 100, unit: 'g', name: 'lempijuustoraastettasi (esim. cheddar)' },
         { name: 'valkopippuria myllystä' },
         { name: 'ripaus maustepippuria' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 1, unit: 'kpl', name: 'salottisipulia' },
         { qty: 400, unit: 'g', name: 'jauhelihaa' },
         { qty: 5, unit: 'dl', name: 'täysjyvämakaronia' },
@@ -329,7 +329,7 @@ async function main() {
         { name: 'valkopippuria' },
         { name: 'maustepippuria' },
         { name: 'ketsuppia' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/makaronilaatikko.jpg',
       ],
@@ -364,7 +364,7 @@ async function main() {
         'Kaada erikseen kypsennettyjen lohipalojen päälle ja sekoita.',
         'Tarjoa ruisleivän ja voin kera.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 1, unit: 'kpl', name: 'porkkana' },
         { qty: 600, unit: 'g', name: 'lohifilee nahalla' },
         { qty: 1, unit: 'kpl', name: 'laakerinlehti' },
@@ -376,8 +376,8 @@ async function main() {
         { qty: 8, unit: 'kpl', name: 'kiinteämaltoista perunaa' },
         { qty: 2, unit: 'dl', name: 'kuohukermaa' },
         { name: 'suolaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 1, unit: 'kpl', name: 'porkkanaa' },
         { qty: 600, unit: 'g', name: 'lohta' },
         { qty: 1, unit: 'kpl', name: 'laakerinlehtiä' },
@@ -388,7 +388,7 @@ async function main() {
         { qty: 8, unit: 'kpl', name: 'perunaa' },
         { qty: 2, unit: 'dl', name: 'kuohukermaa' },
         { name: 'voita' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/lohikeitto.jpg',
       ],
@@ -415,7 +415,7 @@ async function main() {
         'Paahda kurpitsansiemeniä pannulla oliiviöljyssä, mausta suolalla.',
         'Tee annos ja tarjoile.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 500, unit: 'g', name: 'kurpitsaa' },
         { qty: 3, unit: 'kpl', name: 'valkosipulinkynttä' },
         { qty: 6, unit: 'dl', name: 'kasvislientä' },
@@ -425,15 +425,15 @@ async function main() {
         { name: 'kurpitsansiemeniä' },
         { qty: 2, unit: 'rkl', name: 'oliiviöljyä' },
         { name: 'ripaus suolaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 500, unit: '', name: 'kurpitsaa' },
         { qty: 3, unit: '', name: 'valkosipulinkynttä' },
         { qty: 2, unit: '', name: 'kuohukermaa' },
         { name: 'valkoviinietikkaa' },
         { name: 'kasvislientä' },
         { name: 'kurpitsansiemeniä' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/kurpitsakeitto.jpg',
       ],
@@ -456,7 +456,7 @@ async function main() {
         'Sivele vielä halutessasi voisulalla.',
         'Tarjoa esimerkiksi voissa haudutetun pinaatin kanssa.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 3, unit: 'kpl', name: 'luomukananmunaa' },
         { qty: 1, unit: 'rkl', name: 'kermaa tai maitoa' },
         { name: 'suolaa' },
@@ -464,14 +464,14 @@ async function main() {
         { qty: 25, unit: 'g', name: 'parmesaania' },
         { qty: 6, unit: 'vartta', name: 'ruohosipulia' },
         { name: 'voita paistamiseen (ja valmiin munakkaan voisulalla sivelyyn)' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 3, unit: 'kpl', name: 'kananmunaa' },
         { qty: 0.5, unit: 'dl', name: 'kermaa' },
         { name: 'ruohosipulia' },
         { name: 'parmesaania' },
         { name: 'voita' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/munakas.jpg',
       ],
@@ -492,7 +492,7 @@ async function main() {
         '(Halutessasi voit sekoittaa joukkoon esimerkiksi lihaa tai kanaa.)',
         'Ripottele päälle kuutioitu punasipuli.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 3, unit: 'dl', name: 'kasvislientä' },
         { qty: 2, unit: 'dl', name: 'bulguria' },
         { qty: 2, unit: 'kpl', name: 'tomaattia' },
@@ -506,8 +506,8 @@ async function main() {
         { name: 'pippuria' },
         { name: 'punasipuli' },
         { name: '(halutessasi sekaan esim. lihaa tai kanaa)' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 3, unit: 'dl', name: 'kasvislientä' },
         { qty: 2, unit: 'dl', name: 'bulguria' },
         { qty: 2, unit: 'kpl', name: 'tomaatteja' },
@@ -517,7 +517,7 @@ async function main() {
         { qty: 1, unit: 'kpl', name: 'punasipuleita' },
         { name: 'minttua' },
         { name: 'lehtipersiljaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/tabbouleh.jpg',
       ],
@@ -540,7 +540,7 @@ async function main() {
         'Koristele lohi kapriksilla ja ruohosipulilla.',
         'Tarjoa lohi keitettyjen perunoiden ja etikkapunajuurien kera.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 600, unit: 'g', name: 'lohifileetä (muukin kala käy)' },
         { name: 'suolaa' },
         { name: 'valkopippuria' },
@@ -549,15 +549,15 @@ async function main() {
         { name: 'ruohosipulia koristeluun' },
         { name: 'kapriksia koristeluun' },
         { name: 'etikkapunajuuria tarjoiluun' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 600, unit: 'g', name: 'lohta' },
         { qty: 1, unit: 'prk', name: 'smetanaa' },
         { qty: 10, unit: 'kpl', name: 'perunaa' },
         { name: 'ruohosipulia' },
         { name: 'kapriksia' },
         { name: 'etikkapunajuuria' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/uunilohi.jpg',
       ],
@@ -585,7 +585,7 @@ async function main() {
         'Mausta suolalla ja pippurilla.',
         'Tarjoile smetanan ja lehtipersiljan kanssa.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 600, unit: 'g', name: 'paistilihaa' },
         { qty: 2, unit: 'kpl', name: 'punasipulia' },
         { qty: 2, unit: 'kpl', name: 'valkosipulinkynttä' },
@@ -598,8 +598,8 @@ async function main() {
         { qty: 1, unit: 'kpl', name: 'paprika' },
         { qty: 1, unit: 'tl', name: 'suolaa' },
         { name: 'pippuria myllystä' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 600, unit: 'g', name: 'paistilihaa' },
         { qty: 2, unit: 'kpl', name: 'punasipulia' },
         { qty: 2, unit: 'kpl', name: 'valkosipulinkynttä' },
@@ -611,7 +611,7 @@ async function main() {
         { qty: 5, unit: 'kpl', name: 'perunaa' },
         { qty: 1, unit: 'kpl', name: 'paprika' },
         { qty: 1, unit: 'tl', name: 'suolaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/gulassi.jpg',
       ],
@@ -640,7 +640,7 @@ async function main() {
         'Poista laakerinlehdet ja valkosipulinkynnet.',
         'Kruunaa ratatouille runsailla yrteillä, pippurilla ja sitruunamehulla.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 3, unit: 'kpl', name: 'salottisipulia' },
         { qty: 1, unit: 'kpl', name: 'punainen paprika' },
         { qty: 1, unit: 'kpl', name: 'keltainen paprika' },
@@ -654,8 +654,8 @@ async function main() {
         { name: 'kourallinen basilikaa ja lehtipersiljaa hienonnettuna' },
         { name: 'puolikkaan sitruunan mehu' },
         { name: 'merisuolaa ja mustapippuria myllystä' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 3, unit: 'kpl', name: 'salottisipulia' },
         { qty: 1, unit: 'kpl', name: 'punaista paprikaa' },
         { qty: 1, unit: 'kpl', name: 'keltaista paprikaa' },
@@ -669,7 +669,7 @@ async function main() {
         { qty: 1, unit: 'kpl', name: 'sitruunaa' },
         { name: 'basilikaa' },
         { name: 'lehtipersiljaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/ratatouille.jpg',
       ],
@@ -689,7 +689,7 @@ async function main() {
         'Lisää sitruunamehu ja tomaatit.',
         'Koristele tomaateilla ja basilikalla.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 7, unit: 'dl', name: 'kasvislientä' },
         { qty: 1.5, unit: 'dl', name: 'polentaa' },
         { qty: 100, unit: 'g', name: 'parmesaania' },
@@ -698,8 +698,8 @@ async function main() {
         { name: 'rucolaa' },
         { name: 'puolikkaan sitruunan menu' },
         { name: 'terttutomaatteja' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 7, unit: 'dl', name: 'kasvislientä' },
         { qty: 1.5, unit: 'dl', name: 'polentaa' },
         { qty: 100, unit: 'g', name: 'parmesaania' },
@@ -708,7 +708,7 @@ async function main() {
         { name: 'terttutomaatteja' },
         { name: 'basilikaa' },
         { name: 'rucolaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/polenta.jpg',
       ],
@@ -733,7 +733,7 @@ async function main() {
         'Kypsennä uunissa vielä 30 minuuttia.',
         'Koristele basilikalla ja persiljalla.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 1, unit: 'kpl', name: 'munakoiso' },
         { name: 'suolaa' },
         { qty: 5, unit: 'kpl', name: 'tomaattia' },
@@ -745,8 +745,8 @@ async function main() {
         { qty: 3, unit: 'kpl', name: 'kananmunaa' },
         { qty: 200, unit: 'g', name: 'fetaa' },
         { name: 'koristeluun basilikaa ja persiljaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 1, unit: 'kpl', name: 'munakoisoa' },
         { qty: 5, unit: 'kpl', name: 'tomaattia' },
         { qty: 1, unit: 'dl', name: 'basilikaa' },
@@ -757,7 +757,7 @@ async function main() {
         { name: 'maizenaa' },
         { name: 'basilikaa' },
         { name: 'persiljaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/moussaka.jpg',
       ],
@@ -782,21 +782,21 @@ async function main() {
         'Kaada uunivuokaan ja gratinoi 250-asteissa uunissa ylälämmöllä muutama minuutti.',
         'Voit valmistella vuoan jo edellisenä päivänä. Lämmitä silloin ensin miedommassa uunissa ja lopuksi gratinoi.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 1, unit: 'kpl', name: 'kukkakaali' },
         { qty: 8, unit: 'dl', name: 'maitoa' },
         { qty: 1, unit: 'rkl', name: 'maizenaa' },
         { qty: 200, unit: 'g', name: 'cheddar-juustoa raasteena' },
         { qty: 5, unit: 'dl', name: 'täysjyvämakaronia' },
         { name: 'suolaa ja pippuria' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 1, unit: 'kpl', name: 'kukkakaali' },
         { qty: 8, unit: 'dl', name: 'maitoa' },
         { qty: 200, unit: 'g', name: 'cheddar-juustoa' },
         { qty: 5, unit: 'dl', name: 'täysjyvämakaronia' },
         { name: 'maizenaa' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/macncheese.jpg',
       ],
@@ -820,7 +820,7 @@ async function main() {
         'Mausta reilulla mustapippurilla ja suolalla.',
         'Keitä spaghetti/pasta paketin ohjeen mukaan.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 600, unit: 'g', name: 'jauhelihaa' },
         { qty: 2, unit: 'kpl', name: 'sipulia' },
         { qty: 2, unit: 'kpl', name: 'valkosipulinkynttä' },
@@ -833,8 +833,8 @@ async function main() {
         { name: 'mustapippuria myllystä' },
         { name: 'suolaa' },
         { qty: 400, unit: 'g', name: 'spaghettia tai muuta kuivapastaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 600, unit: 'g', name: 'jauhelihaa' },
         { qty: 2, unit: 'kpl', name: 'sipulia' },
         { qty: 2, unit: 'kpl', name: 'valkosipulinkynttä' },
@@ -845,7 +845,7 @@ async function main() {
         { qty: 6, unit: 'dl', name: 'lihalientä' },
         { name: 'punaviinietikkaa' },
         { qty: 400, unit: 'g', name: 'spaghettia' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/bolognese.jpg',
       ],
@@ -868,7 +868,7 @@ async function main() {
         'Mausta suolalla ja sitruunamehulla.',
         'Keitä jasmiiniriisi paketin ohjeen mukaan ja tarjoa lisukkeena mustaherukkahyytelöä.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 2, unit: 'kpl', name: 'sipulia' },
         { qty: 2, unit: 'kpl', name: 'porkkanaa' },
         { qty: 4, unit: 'kpl', name: 'broilerin koipireittä' },
@@ -881,8 +881,8 @@ async function main() {
         { name: 'suolaa' },
         { qty: 5, unit: 'dl', name: 'jasmiiniriisiä' },
         { qty: 4, unit: 'rkl', name: 'mustaherukkahyytelöä' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 2, unit: 'kpl', name: 'sipulia' },
         { qty: 2, unit: 'kpl', name: 'porkkanaa' },
         { qty: 4, unit: 'kpl', name: 'broilerin koipireittä' },
@@ -894,7 +894,7 @@ async function main() {
         { name: 'voita' },
         { name: 'vehnäjauhoja' },
         { name: 'currya' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/kanaviillokki.jpg',
       ],
@@ -923,7 +923,7 @@ async function main() {
         'Siivilöi maito ja lisää sitä perunan joukkoon pienissä erissä, välillä sekoittaen. Tarkista maku.',
         'Tarjoa lindströminpihvit perunamuusin ja punajuurikastikkeen kera.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 400, unit: 'g', name: 'naudan jauhelihaa' },
         { qty: 3, unit: 'kpl', name: 'etikkapunajuurta' },
         { qty: 1, unit: 'kpl', name: 'punasipuli' },
@@ -938,8 +938,8 @@ async function main() {
         { qty: 2.5, unit: 'dl', name: 'maitoa' },
         { qty: 150, unit: 'g', name: 'voita' },
         { qty: 4, unit: 'tl', name: 'suolaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 400, unit: 'g', name: 'jauhelihaa' },
         { qty: 1, unit: 'kpl', name: 'punasipulia' },
         { qty: 1, unit: 'kpl', name: 'salottisipulia' },
@@ -950,7 +950,7 @@ async function main() {
         { name: 'lehtipersiljaa' },
         { name: 'etikkapunajuuria' },
         { name: 'voita' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/lindstrominpihvi.jpg',
       ],
@@ -976,7 +976,7 @@ async function main() {
         'Kaada sienet, sipulit ja liemi broilerien sekaan vuokaan.',
         'Koristele seesaminsiemenillä ja tarjoa keitetyn riisin kera.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 800, unit: 'g', name: 'broilerin koipireisiä' },
         { qty: 1, unit: 'dl', name: 'miriniä' },
         { qty: 1, unit: 'dl', name: 'soijaa' },
@@ -988,8 +988,8 @@ async function main() {
         { qty: 1, unit: 'rkl', name: 'oliiviöljyä' },
         { qty: 1, unit: 'tl', name: 'seesamöljyä' },
         { qty: 2, unit: 'rkl', name: 'seesaminsiemeniä' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 800, unit: 'g', name: 'broilerin koipireisiä' },
         { qty: 4, unit: 'cm', name: 'inkivääriä' },
         { qty: 200, unit: 'g', name: 'siitakesieniä' },
@@ -999,7 +999,7 @@ async function main() {
         { name: 'seesamöljyä' },
         { name: 'seesaminsiemeniä' },
         { name: 'sushiriisiä' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/japonesechicken.jpg',
       ],
@@ -1019,7 +1019,7 @@ async function main() {
         'tarjoa koftat esimerkiksi keitetyn riisin, tomaatti-sipulisalaatin tai tzatzikin kera',
         'korianteri, minttu ja lehtipersilja sopivat yrteiksi',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 600, unit: 'g', name: 'karitsanjauhelihaa' },
         { qty: 2, unit: 'tl', name: 'kuminansiemeniä' },
         { qty: 2, unit: 'tl', name: 'korianterinsiemeniä' },
@@ -1030,8 +1030,8 @@ async function main() {
         { name: 'sitruunan kuori' },
         { name: 'varrastikkuja' },
         { qty: 3, unit: 'rkl', name: 'rypsiöljyä paistamiseen ' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 600, unit: 'g', name: 'karitsanjauhelihaa' },
         { qty: 2, unit: 'tl', name: 'kuminansiemeniä' },
         { qty: 2, unit: 'tl', name: 'korianterinsiemeniä' },
@@ -1041,7 +1041,7 @@ async function main() {
         { qty: 1, unit: 'kpl', name: 'sitruunaa' },
         { name: 'pinjansiemeniä' },
         { name: 'varrastikkuja' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/lammaskofta.jpg',
       ],
@@ -1069,7 +1069,7 @@ async function main() {
         'Sekoita jauhe tuorejuuston joukkoon ja mausta halutessasi suolalla.',
         'Revi leipä paloiksi ja paahda leipäpalat oliiviöljyssä kauniin ruskeiksi.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 2, unit: 'kpl', name: 'salottisipulia' },
         { qty: 2, unit: 'rkl', name: 'oliiviöljyä' },
         { qty: 600, unit: 'g', name: 'porkkanaa (6-8 kpl)' },
@@ -1083,8 +1083,8 @@ async function main() {
         { name: 'suolaa' },
         { qty: 2, unit: 'rkl', name: 'oliiviöljyä' },
         { qty: 4, unit: 'kpl', name: 'vaaleaa leipäpalaa' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 2, unit: 'kpl', name: 'salottisipulia' },
         { qty: 8, unit: 'kpl', name: 'porkkanaa' },
         { qty: 2, unit: 'kpl', name: 'tähtianista' },
@@ -1093,7 +1093,7 @@ async function main() {
         { name: 'kuminansiemeniä' },
         { name: 'tähtianiksia' },
         { name: 'vaaleaa leipää' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/porkkanakeitto.jpg',
       ],
@@ -1114,7 +1114,7 @@ async function main() {
         'Lisää pannulle sinappi ja kerma. Kiehauta kastikkeeksi, mausta suolalla ja pippurilla.',
         'Tarjoa porsaankyljykset ja kastike esimerkiksi paistettujen perunoiden, suolakurkkujen ja hapankaalin kera.',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 4, unit: 'kpl', name: 'possunkyljystä á 130-150g' },
         { qty: 1, unit: 'tl', name: 'suolaa ' },
         { qty: 2, unit: 'rkl', name: 'vehnäjauhoja leivitykseen' },
@@ -1127,8 +1127,8 @@ async function main() {
         { qty: 4, unit: 'kpl', name: 'suolakurkkua' },
         { qty: 12, unit: 'kpl', name: 'keitettyä perunaa' },
         { qty: 4, unit: 'rkl', name: 'hapankaalia' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 4, unit: 'kpl', name: 'possunkyljystä' },
         { qty: 2, unit: 'dl', name: 'ruokakermaa' },
         { qty: 4, unit: 'kpl', name: 'suolakurkkua' },
@@ -1136,7 +1136,7 @@ async function main() {
         { qty: 4, unit: 'rkl', name: 'hapankaalia' },
         { name: 'vehnäjauhoja' },
         { name: 'kokojyväsinappia' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/porsaankyljykset.jpg',
       ],
@@ -1160,7 +1160,7 @@ async function main() {
         'lämmitä juurekset vielä ennen tarjoilua ja ripottele paahdetut pähkinät sekaan',
         'kruunaa vuohenjuustokiekoilla ja rosmariinin lehdillä',
       ],
-      ingredients: JSON.stringify([
+      ingredients: [
         { qty: 4, unit: 'kpl', name: 'punajuuria/keltajuuria' },
         { qty: 2, unit: 'kpl', name: 'porkkanaa' },
         { qty: 2, unit: 'kpl', name: 'palsternakka' },
@@ -1173,8 +1173,8 @@ async function main() {
         { qty: 2, unit: 'oksaa', name: 'rosmariinia' },
         { qty: 1, unit: 'tl', name: 'suolaa' },
         { name: 'mustapippuria myllystä' },
-      ]),
-      shoppingList: JSON.stringify([
+      ],
+      shoppingList: [
         { qty: 4, unit: 'kpl', name: 'punajuuria/keltajuuria' },
         { qty: 2, unit: 'kpl', name: 'porkkanaa' },
         { qty: 2, unit: 'kpl', name: 'palsternakka' },
@@ -1183,7 +1183,7 @@ async function main() {
         { qty: 1, unit: 'dl', name: 'saksanpähkinöitä' },
         { qty: 0.5, unit: 'dl', name: 'hunajaa' },
         { name: 'rosmariinia' },
-      ]),
+      ],
       images: [
         'http://api.dinnrit.com/dinnr_images/web/uunijuurekset.jpg',
       ],
