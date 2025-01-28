@@ -37,7 +37,7 @@ const DinnerDetails: React.FC = () => {
           backgroundImage: `url('${dinner.images[0]}')`,
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+        <div className="absolute inset-0 bg-opacity-40 flex items-center justify-center">
           <h1 className="text-white text-5xl font-bold text-center px-4">
             {dinner.title}
           </h1>
