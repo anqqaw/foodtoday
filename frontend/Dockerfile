@@ -7,12 +7,17 @@ RUN npm ci
 
 COPY . .
 
+ARG VITE_ENDPOINT
+
 RUN npm run build
+
+##
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/
 
-EXPOSE 5137
+COPY --from=build /app/dist /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]
