@@ -11,7 +11,7 @@ import * as health from './health';
 
 import { verifyGoogleToken } from './middlewares/google';
 
-export function createApp(io: any) {
+export function createApp() {
   const app = new Koa();
 
   if (process.env.NODE_ENV !== 'test') {
@@ -21,11 +21,6 @@ export function createApp(io: any) {
   app.use(bodyParser());
 
   // app.use(requestLogger);
-
-  app.use(async (ctx, next) => {
-    ctx.io = io;
-    await next();
-  });
 
   const publicRouter = new Router({ prefix: '/api' });
 
