@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import http from 'http';
-import { Server } from 'socket.io';
 import request from 'supertest';
 import { createApp } from '../src/app';
 import * as google from '../src/middlewares/google';
@@ -10,7 +9,7 @@ jest.mock('../src/middlewares/google');
 import { resetRedisMock } from './__mocks__/ioredis';
 
 const prisma = new PrismaClient();
-const app = createApp(new Server(http.createServer()));
+const app = createApp();
 const server = request(app.callback());
 
 describe('Dinners', () => {
