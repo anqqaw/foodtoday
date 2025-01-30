@@ -14,7 +14,7 @@ jobs:
         working-directory: backend
 
     env:
-      DATABASE_URL: postgres://dinner:dinner@db/dinner
+      DATABASE_URL: postgres://dinner:dinner@localhost/dinner
 
     services:
       db:
