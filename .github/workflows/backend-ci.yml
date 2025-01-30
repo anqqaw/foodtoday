@@ -1,0 +1,67 @@
+name: Backend Continuous Integration
+
+on: push
+
+jobs:
+  build:
+    name: Backend Continuous Integration
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    defaults:
+      run:
+        working-directory: backend
+
+    env:
+      DATABASE_URL: postgres://dinner:dinner@db/dinner
+
+    services:
+      db:
+        image: postgres:alpine
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: dinner
+          POSTGRES_USER: dinner
+          POSTGRES_PASSWORD: dinner
+        options: >-
+          --health-cmd="pg_isready -U dinner -d dinner"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Cache Prisma Client
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules/.prisma
+          key: prisma-${{ runner.os }}-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            prisma-${{ runner.os }}-
+
+      - name: Cache Node Modules
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-
+
+      - run: npm ci
+      - name: wait postgres
+        run: |
+          until nc -z localhost 5432; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+      - run: npx prisma migrate deploy
+      - run: npm run lint
+      - run: npm test
