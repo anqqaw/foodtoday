@@ -23,24 +23,24 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          uses: docker/login-action@v2
+          with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Tag Name
-        id: version
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        - name: Extract Tag Name
+          id: version
+          run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-      - name: Build Docker Image
-        run: |
-          docker build \
-            --build-arg VITE_ENDPOINT=${{ env.VITE_ENDPOINT }} \
-            -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:${{ env.tag }} ./${{ matrix.service }}
-          docker tag ghcr.io/${{ github.repository }}/${{ matrix.service }}:${{ env.tag }} ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest
+        - name: Build Docker Image
+          run: |
+            docker build \
+              --build-arg VITE_ENDPOINT=${{ env.VITE_ENDPOINT }} \
+              -t ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.tag }} ./${{ matrix.service }}
+            docker tag ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.tag }} ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
 
-      - name: Push Docker Image
-        run: |
-          docker push ghcr.io/${{ github.repository }}/${{ matrix.service }}:${{ env.tag }}
-          docker push ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest
+        - name: Push Docker Image
+          run: |
+            docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.tag }}
+            docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
