@@ -1,6 +1,7 @@
 name: Build Containers and Deploy
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
