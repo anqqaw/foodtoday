@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  # push:
-  #   tags:
-  #     - "v*"
 
 jobs:
   docker:
@@ -32,18 +29,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Tag Name
+      - name: Extract Pull Request SHA (Shortened)
         id: version
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        run: echo "TAG=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-7)" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: |
           docker build \
             --build-arg VITE_ENDPOINT=${{ env.VITE_ENDPOINT }} \
-            -t ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.tag }} ./${{ matrix.service }}
-          docker tag ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.tag }} ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
+            -t ghcr.io/foodtoday/${{ matrix.service }}:${{ env.TAG }} ./${{ matrix.service }}
+          docker tag ghcr.io/foodtoday/${{ matrix.service }}:${{ env.TAG }} ghcr.io/foodtoday/${{ matrix.service }}:latest
 
       - name: Push Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.tag }}
-          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
+          docker push ghcr.io/foodtoday/${{ matrix.service }}:${{ env.TAG }}
+          docker push ghcr.io/foodtoday/${{ matrix.service }}:latest
