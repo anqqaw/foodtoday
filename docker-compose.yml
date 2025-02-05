@@ -1,9 +1,4 @@
 services:
-  redis:
-    image: redis:alpine
-    ports:
-      - 6379:6379
-
   db:
     image: postgres:alpine
     environment:
@@ -16,10 +11,17 @@ services:
   backend:
     build: backend
     environment:
-      REDIS_URL: redis://redis:6379
       DATABASE_URL: postgres://dinner:dinner@db/dinner
     ports:
       - 9000:9000
     depends_on:
-      - redis
       - db
+
+  frontend:
+    build:
+      context: frontend
+      args:
+        VITE_ENDPOINT: http://localhost:9000
+    restart: always
+    ports:
+      - 8080:80

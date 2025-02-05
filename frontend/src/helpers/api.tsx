@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ENDPOINT = import.meta.env.REACT_APP_API_URL || "http://localhost:9000";
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
 export interface IngredientDetail {
   name: string;
