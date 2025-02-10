@@ -83,7 +83,7 @@ async function main() {
         'Vatkaa kuohukerma löysäksi vaahdoksi ja lisää keiton joukkoon juuri ennen tarjoilua.',
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/vichysoisse.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/vichysoisse.jpg',
       ],
     }, {
       title: 'Pasta Carbonara',
@@ -122,7 +122,7 @@ async function main() {
         { name: 'tuoretta basilikaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/carbonara.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/carbonara.jpg',
       ],
     },
     {
@@ -199,7 +199,7 @@ async function main() {
         { name: 'tuoretta korianteria' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/chiliconcarne.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/chiliconcarne.jpg',
       ],
     },
     {
@@ -244,7 +244,7 @@ async function main() {
         { name: 'jasmiiniriisiä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/kookoskana.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/kookoskana.jpg',
       ],
     },
     {
@@ -281,7 +281,7 @@ async function main() {
         { qty: 10, unit: 'kpl', name: 'mustapippuria' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/karjalanpaisti.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/karjalanpaisti.jpg',
       ],
     },
     {
@@ -331,7 +331,7 @@ async function main() {
         { name: 'ketsuppia' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/makaronilaatikko.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/makaronilaatikko.jpg',
       ],
     },
     {
@@ -390,7 +390,7 @@ async function main() {
         { name: 'voita' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/lohikeitto.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/lohikeitto.jpg',
       ],
     },
     {
@@ -435,7 +435,7 @@ async function main() {
         { name: 'kurpitsansiemeniä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/kurpitsakeitto.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/kurpitsakeitto.jpg',
       ],
     },
     {
@@ -473,7 +473,7 @@ async function main() {
         { name: 'voita' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/munakas.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/munakas.jpg',
       ],
     },
     {
@@ -519,7 +519,7 @@ async function main() {
         { name: 'lehtipersiljaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/tabbouleh.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/tabbouleh.jpg',
       ],
     },
     {
@@ -559,7 +559,7 @@ async function main() {
         { name: 'etikkapunajuuria' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/uunilohi.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/uunilohi.jpg',
       ],
     },
     {
@@ -613,7 +613,7 @@ async function main() {
         { qty: 1, unit: 'tl', name: 'suolaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/gulassi.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/gulassi.jpg',
       ],
     },
     {
@@ -671,7 +671,7 @@ async function main() {
         { name: 'lehtipersiljaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/ratatouille.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/ratatouille.jpg',
       ],
     },
     {
@@ -710,7 +710,7 @@ async function main() {
         { name: 'rucolaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/polenta.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/polenta.jpg',
       ],
     },
     {
@@ -759,7 +759,7 @@ async function main() {
         { name: 'persiljaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/moussaka.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/moussaka.jpg',
       ],
     },
     {
@@ -798,7 +798,7 @@ async function main() {
         { name: 'maizenaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/macncheese.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/macncheese.jpg',
       ],
     },
     {
@@ -847,7 +847,7 @@ async function main() {
         { qty: 400, unit: 'g', name: 'spaghettia' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/bolognese.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/bolognese.jpg',
       ],
     },
     {
@@ -896,7 +896,7 @@ async function main() {
         { name: 'currya' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/kanaviillokki.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/kanaviillokki.jpg',
       ],
     },
     {
@@ -952,7 +952,7 @@ async function main() {
         { name: 'voita' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/lindstrominpihvi.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/lindstrominpihvi.jpg',
       ],
     },
     {
@@ -1001,7 +1001,7 @@ async function main() {
         { name: 'sushiriisiä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/japonesechicken.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/japonesechicken.jpg',
       ],
     }, {
       title: 'Lammaskofa ja tsatsiki',
@@ -1043,7 +1043,7 @@ async function main() {
         { name: 'varrastikkuja' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/lammaskofta.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/lammaskofta.jpg',
       ],
     }, {
       title: 'Porkkanakeitto ja tuorejuustoa',
@@ -1095,7 +1095,7 @@ async function main() {
         { name: 'vaaleaa leipää' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/porkkanakeitto.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/porkkanakeitto.jpg',
       ],
     },
     {
@@ -1138,7 +1138,7 @@ async function main() {
         { name: 'kokojyväsinappia' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/porsaankyljykset.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/porsaankyljykset.jpg',
       ],
     }, {
       title: 'Uunijuurekset',
@@ -1185,7 +1185,7 @@ async function main() {
         { name: 'rosmariinia' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/uunijuurekset.jpg',
+        'https://storage.googleapis.com/ruoka-co/web/uunijuurekset.jpg',
       ],
     }
   ];
