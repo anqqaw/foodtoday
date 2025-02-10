@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/mrako/foodtoday/compare/v1.0.0...v1.0.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* Update endpoint name ([9e2a2db](https://github.com/mrako/foodtoday/commit/9e2a2db97fc86012fec2e8b6d0bf83912d07b89b))
+* Update package names ([612891a](https://github.com/mrako/foodtoday/commit/612891a54f434972b487483cef7c136dffee3dbb))
+
 ## 1.0.0 (2025-02-05)
 
 
