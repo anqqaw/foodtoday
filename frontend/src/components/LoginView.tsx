@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-const ENDPOINT = import.meta.env.REACT_APP_API_URL || 'http://localhost:9000';
+const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
 const LoginView: React.FC = () => {
   const navigate = useNavigate();

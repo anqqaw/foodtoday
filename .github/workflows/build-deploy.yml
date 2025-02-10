@@ -42,10 +42,10 @@ jobs:
         run: |
           docker build \
             --build-arg VITE_ENDPOINT=${{ env.VITE_ENDPOINT }} \
-            -t ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.TAG }} ./${{ matrix.service }}
-          docker tag ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.TAG }} ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
+            -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:${{ env.TAG }} ./${{ matrix.service }}
+          docker tag ghcr.io/${{ github.repository }}/${{ matrix.service }}:${{ env.TAG }} ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest
 
       - name: Push Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.TAG }}
-          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:latest
+          docker push ghcr.io/${{ github.repository }}/${{ matrix.service }}:${{ env.TAG }}
+          docker push ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest
