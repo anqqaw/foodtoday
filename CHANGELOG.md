@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/mrako/foodtoday/compare/v1.0.1...v1.1.0) (2025-02-10)
+
+
+### Features
+
+* add automated deployment of the built containers ([d555520](https://github.com/mrako/foodtoday/commit/d555520daf7d14b82c340125a746aacd7f2a0128))
+* Changed title name to foodtoday ([1f2b5bc](https://github.com/mrako/foodtoday/commit/1f2b5bca2565bef808da9e1a602228467b808b84))
+
+
+### Bug Fixes
+
+* fixed images ([1497ea1](https://github.com/mrako/foodtoday/commit/1497ea188091dd2d0e301fd114007a25baec416a))
+
 ## [1.0.1](https://github.com/mrako/foodtoday/compare/v1.0.0...v1.0.1) (2025-02-10)
 
 
