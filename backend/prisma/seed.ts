@@ -2256,7 +2256,6 @@ async function main() {
         'http://api.dinnrit.com/dinnr_images/web/possuburger.jpg',
       ],
     }
-
   ];
 
   for (const dinner of dinners) {
