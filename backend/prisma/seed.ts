@@ -2074,43 +2074,6 @@ async function main() {
         'http://api.dinnrit.com/dinnr_images/web/bouillabaisse.jpg',
       ],
     }, {
-      title: 'Lohiconffit',
-      description: 'Tämä herkullinen annos syntyy käden käänteessä.',
-      preparationTime: 30,
-      totalTime: 30,
-      difficulty: 2,
-      serves: 4,
-      steps: [
-        'Suolaa kala',
-        'Laita kala kattilaan ja peitä öljyllä',
-        'Laita öljyn joukkoon sitruunankuori, korianteri, fenkoli ja mustapippuri',
-        '60-asteiseen uuniin (sisälämpötila 42) 20 min',
-        'Ripottele ruohosipulia lohelle',
-
-        'Ruskista voi pannulla kuumentamalla sitä kunnes vaahtoaminen lakkaa',
-        'Sammuta liesi ja lisää salottisipulit',
-        'Freesaa pinaatti ja lehtisalaatti voissa',
-        'Lisää sitruunamehua ja suolaa',
-
-        'Kokoa annos',
-      ],
-      ingredients: [
-        { qty: 1, unit: 'rkl', name: 'korianterinsiemeniä' },
-        { qty: 1, unit: 'rkl', name: 'fenkolinsiemeniä' },
-        { qty: 10, unit: 'kpl', name: 'mustapippuria' },
-        { qty: 1, unit: 'kpl', name: 'sitruunan kuori' },
-        { qty: 2, unit: 'dl', name: 'öljyä' },
-        { qty: 2, unit: 'kpl', name: 'salottisipulia' },
-        { name: 'pinaattia' },
-        { name: 'lehtisalaattia' },
-      ],
-      shoppingList: [
-
-      ],
-      images: [
-        '',
-      ],
-    }, {
       title: 'Lohi-confit',
       description: 'Tämä herkullinen annos syntyy käden käänteessä.',
       preparationTime: 20,
