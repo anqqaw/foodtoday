@@ -1228,7 +1228,7 @@ async function main() {
         { qty: 400, unit: 'g', name: 'katkarapuja' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/katkarapusalaatti.jpg'
+        'https://storage.googleapis.com/foodtoday/web/katkarapusalaatti.jpg'
       ],
     }, {
       title: 'Focaccia',
@@ -1270,7 +1270,7 @@ async function main() {
         { name: '(mausteeksi esim. yrttejä, mausteita, valkosipulia, kapriksia, oliiveja, chiliä tai tomaattia)' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/focaccia.jpg',
+        'https://storage.googleapis.com/foodtoday/web/focaccia.jpg',
       ],
     }, {
       title: 'Paahdettu kurpitsakeitto',
@@ -1314,7 +1314,7 @@ async function main() {
         { name: 'oliiviöljyä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/kurpitsakeitto.jpg',
+        'https://storage.googleapis.com/foodtoday/web/kurpitsakeitto.jpg',
       ],
     }, {
       title: 'Paistetut silakat ja perunamuusi',
@@ -1354,7 +1354,7 @@ async function main() {
         { name: 'Tarjoiluun tilliä ja etikkapunajuuria' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/silakat.jpg',
+        'https://storage.googleapis.com/foodtoday/web/silakat.jpg',
       ],
     }, {
       title: 'Pannacotta',
@@ -1387,7 +1387,7 @@ async function main() {
         { name: 'tarjoiluun esim. mansikkamehua, marjoja, keksejä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/pannacotta.jpg',
+        'https://storage.googleapis.com/foodtoday/web/pannacotta.jpg',
       ],
     }, {
       title: 'Pannukakku',
@@ -1426,7 +1426,7 @@ async function main() {
         { name: 'Tarjoiluun hilloa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/pannukakku.jpg',
+        'https://storage.googleapis.com/foodtoday/web/pannukakku.jpg',
       ],
     }, {
       title: 'Pihvi',
@@ -1465,7 +1465,7 @@ async function main() {
         { name: '(kastiketta varten kuohukermaa, pippuria ja tilkka viiniä tai konjakkia)' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/pihvi.jpg',
+        'https://storage.googleapis.com/foodtoday/web/pihvi.jpg',
       ],
     }, {
       title: 'Sienirisotto',
@@ -1519,7 +1519,7 @@ async function main() {
         { name: 'lehtipersiljaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/sienirisotto.jpg',
+        'https://storage.googleapis.com/foodtoday/web/sienirisotto.jpg',
       ],
     }, {
       title: 'Sipulikeitto',
@@ -1578,7 +1578,7 @@ async function main() {
         { name: '(konjakkia)' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/sipulikeitto.jpg',
+        'https://storage.googleapis.com/foodtoday/web/sipulikeitto.jpg',
       ],
     }, {
       title: 'Nizzansalaatti',
@@ -1636,7 +1636,7 @@ async function main() {
         { name: 'oliiviöljyä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/nizzansalaatti.jpg',
+        'https://storage.googleapis.com/foodtoday/web/nizzansalaatti.jpg',
       ],
     }, {
       title: 'Tonnikalapasta',
@@ -1686,7 +1686,7 @@ async function main() {
         { name: 'tagliatelle-pastaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/tonnikalapasta.jpg',
+        'https://storage.googleapis.com/foodtoday/web/tonnikalapasta.jpg',
       ],
     }, {
       title: 'Misokeitto',
@@ -1728,7 +1728,7 @@ async function main() {
         { name: 'ruohosipulia' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/misokeitto.jpg',
+        'https://storage.googleapis.com/foodtoday/web/misokeitto.jpg',
       ],
     }, {
       title: 'Savukala Panzanella',
@@ -1770,7 +1770,7 @@ async function main() {
         { qty: 400, unit: 'g', name: 'savukalaa (esim. lohta tai siikaa)' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/panzanella.jpg',
+        'https://storage.googleapis.com/foodtoday/web/panzanella.jpg',
       ],
     }, {
       title: 'Ceasar-salaatti kanalla',
@@ -1810,7 +1810,7 @@ async function main() {
         { name: 'oliiviöljyä' }
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/caesarsalaatti.jpg',
+        'https://storage.googleapis.com/foodtoday/web/caesarsalaatti.jpg',
       ],
     }, {
       title: 'Toast Skagen',
@@ -1856,7 +1856,7 @@ async function main() {
         { qty: 400, unit: 'g', name: 'katkarapuja' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/toastskagen.jpg',
+        'https://storage.googleapis.com/foodtoday/web/toastskagen.jpg',
       ],
     }, {
       title: 'Omena-frangipane',
@@ -1895,7 +1895,7 @@ async function main() {
         { name: 'Frangipanen kanssa tarjolle vaniljajäätelöä tai kermavaahtoa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/frangipane.jpg',
+        'https://storage.googleapis.com/foodtoday/web/frangipane.jpg',
       ],
     }, {
       title: 'Suklaamousse',
@@ -1927,7 +1927,7 @@ async function main() {
         { name: 'tarjoiluun hedelmiä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/suklaamousse.jpg',
+        'https://storage.googleapis.com/foodtoday/web/suklaamousse.jpg',
       ],
     }, {
       title: 'Ankanrintaa ras-el-hanout',
@@ -1959,7 +1959,7 @@ async function main() {
         { name: 'maustamatonta jugurttia' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/ankkaaraselhanout.jpg',
+        'https://storage.googleapis.com/foodtoday/web/ankkaaraselhanout.jpg',
       ],
     }, {
       title: 'Kuhaa Mannerheim',
@@ -2008,7 +2008,7 @@ async function main() {
         { qty: 2, unit: 'dl', name: 'kermaa' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/kuhaamannerheim.jpg',
+        'https://storage.googleapis.com/foodtoday/web/kuhaamannerheim.jpg',
       ],
     }, {
       title: 'Bouillabaisse',
@@ -2071,7 +2071,7 @@ async function main() {
         { name: 'maalaisleipää' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/bouillabaisse.jpg',
+        'https://storage.googleapis.com/foodtoday/web/bouillabaisse.jpg',
       ],
     }, {
       title: 'Lohi-confit',
@@ -2125,7 +2125,7 @@ async function main() {
         { name: 'oliiviöljyä' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/lohiconfit.jpg',
+        'https://storage.googleapis.com/foodtoday/web/lohiconfit.jpg',
       ],
     }, {
       title: 'Lammaskaali',
@@ -2157,7 +2157,7 @@ async function main() {
         { name: '(lisäkkeeksi 10-12 perunaa)' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/lammaskaali.jpg',
+        'https://storage.googleapis.com/foodtoday/web/lammaskaali.jpg',
       ],
     }, {
       title: 'Pulled Pork Burger',
@@ -2216,7 +2216,7 @@ async function main() {
         { qty: 4, unit: '', name: 'sämpylää tai ciabatta' },
       ],
       images: [
-        'http://api.dinnrit.com/dinnr_images/web/possuburger.jpg',
+        'https://storage.googleapis.com/foodtoday/web/possuburger.jpg',
       ],
     }
   ];
