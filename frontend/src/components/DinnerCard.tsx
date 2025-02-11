@@ -23,6 +23,7 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url('${dinner.images}')`,
+          imageRendering: 'auto',
         }}
       ></div>
 
