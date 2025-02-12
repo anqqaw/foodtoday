@@ -1882,7 +1882,7 @@ async function main() {
         { qty: 2, unit: 'dl', name: 'mantelijauhoja' },
         { qty: 3, unit: 'rkl', name: 'vehnäjauhoja' },
         { name: '(2 vaniljatankoa)' },
-        { qty: 4, unit: '', name: 'pientä omenaa' },
+        { qty: 4, unit: 'kpl', name: 'pientä omenaa' },
       ],
       shoppingList: [
         { qty: 4, unit: '', name: 'pientä omenaa' },
