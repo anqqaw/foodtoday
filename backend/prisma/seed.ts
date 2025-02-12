@@ -1895,7 +1895,7 @@ async function main() {
         { name: 'Frangipanen kanssa tarjolle vaniljajäätelöä tai kermavaahtoa' },
       ],
       images: [
-        'https://storage.googleapis.com/foodtoday/web/frangipane.jpg',
+        'https://storage.googleapis.com/foodtoday/web/omenafrangipane.jpg',
       ],
     }, {
       title: 'Suklaamousse',
@@ -2125,7 +2125,7 @@ async function main() {
         { name: 'oliiviöljyä' },
       ],
       images: [
-        'https://storage.googleapis.com/foodtoday/web/lohiconfit.jpg',
+        'https://storage.googleapis.com/foodtoday/web/lohi.jpg',
       ],
     }, {
       title: 'Lammaskaali',
@@ -2157,7 +2157,7 @@ async function main() {
         { name: '(lisäkkeeksi 10-12 perunaa)' },
       ],
       images: [
-        'https://storage.googleapis.com/foodtoday/web/lammaskaali.jpg',
+        'https://storage.googleapis.com/foodtoday/web/farikol.jpg',
       ],
     }, {
       title: 'Pulled Pork Burger',
