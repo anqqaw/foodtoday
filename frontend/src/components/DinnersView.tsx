@@ -12,7 +12,6 @@ const DinnersView: React.FC = () => {
     const loadRandomDinner = async () => {
       try {
         const randomDinner = await fetchRandomDinner();
-        console.log(randomDinner);
         setCurrentDinner(randomDinner);
       } catch (error) {
         console.error("Error fetching random dinner:", error);
