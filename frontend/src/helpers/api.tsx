@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ENDPOINT = import.meta.env.VITE_ENDPOINT;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
 export interface IngredientDetail {
   name: string;
@@ -90,6 +90,9 @@ export const searchDinners = async (query: string): Promise<Dinner[]> => {
       `${ENDPOINT}/api/search-dinners?q=${query}`,
       {
         headers: { Authorization: `Bearer ${token}` },
+        params: {
+          query: query,
+        }
       }
     );
     return response.data.dinners;

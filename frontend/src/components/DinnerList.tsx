@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchDinners, searchDinners, Dinner } from "../helpers/api";
 
@@ -9,11 +9,19 @@ const DinnerList: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
 
+  const debounceTimeoutRef = useRef<number | null>(null);
+
   useEffect(() => {
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
+
     const fetchData = async () => {
       setLoading(true);
       try {
-        const result = searchQuery ? await searchDinners(searchQuery) : await fetchDinners();
+        const result = searchQuery
+          ? await searchDinners(searchQuery)
+          : await fetchDinners();
         setDinners(result);
       } catch (err) {
         setError("Failed to fetch dinners. Please try again later.");
@@ -22,8 +30,15 @@ const DinnerList: React.FC = () => {
       }
     };
 
-    const debounceFetch = setTimeout(fetchData, 300);
-    return () => clearTimeout(debounceFetch);
+    debounceTimeoutRef.current = setTimeout(() => {
+      fetchData();
+    }, 300);
+
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
   }, [searchQuery]);
 
   if (loading) {
