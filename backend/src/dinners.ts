@@ -45,7 +45,7 @@ export const getById = async (ctx: Context) => {
 };
 
 export const searchDinners = async (ctx: Context) => {
-  const { query } = ctx.request.query;
+  const query = ctx.request.query.query as string;
 
   if (!query || typeof query !== "string") {
     ctx.status = 400;
@@ -57,10 +57,11 @@ export const searchDinners = async (ctx: Context) => {
     const results = await prisma.dinner.findMany({
       where: {
         title: {
-          contains: query,
+          contains: query.trim(),
           mode: "insensitive",
         },
       },
+      orderBy: { title: "asc" },
       take: 10,
     });
 
@@ -71,6 +72,7 @@ export const searchDinners = async (ctx: Context) => {
     ctx.body = { error: "Internal server error." };
   }
 };
+
 
 export const getRandom = async (ctx: Context) => {
   try {
