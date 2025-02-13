@@ -1,50 +1,30 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-const ENDPOINT = import.meta.env.VITE_ENDPOINT || "http://localhost:9000";
-
-interface Dinner {
-  id: number;
-  title: string;
-  description: string;
-  difficulty: string;
-  preparationTime: number;
-  totalTime: number;
-  images?: string[];
-}
+import { fetchDinners, searchDinners, Dinner } from "../helpers/api";
 
 const DinnerList: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchDinners = async () => {
-      const token = localStorage.getItem("googleAuthToken");
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-        const response = await axios.get<{ dinners: Dinner[] }>(
-          `${ENDPOINT}/api/dinners-list`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setDinners(response.data.dinners);
+        const result = searchQuery ? await searchDinners(searchQuery) : await fetchDinners();
+        setDinners(result);
       } catch (err) {
-        console.error("Error fetching dinners:", err);
         setError("Failed to fetch dinners. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchDinners();
-  }, []);
+    const debounceFetch = setTimeout(fetchData, 300);
+    return () => clearTimeout(debounceFetch);
+  }, [searchQuery]);
 
   if (loading) {
     return (
@@ -64,22 +44,31 @@ const DinnerList: React.FC = () => {
 
   return (
     <div className="min-h-screen p-8 bg-gray-100">
-      <h1 className="text-4xl font-bold mb-6">Available Dinners</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-4xl font-bold">Available Dinners</h1>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search dinners..."
+          className="w-64 p-2 border rounded shadow-sm"
+        />
+      </div>
+
       {dinners.length === 0 ? (
-        <p className="text-gray-600 text-lg">No dinners available at the moment.</p>
+        <p className="text-gray-600 text-lg">No dinners found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {dinners.map((dinner) => (
             <div
-              className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition duration-300"
+              key={dinner.id}
+              className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer"
               onClick={() => navigate(`/dinner/${dinner.id}`)}
             >
-              {dinner.images && dinner.images[0] && (
+              {dinner.images && (
                 <div
                   className="h-40 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url('${dinner.images[0]}')`,
-                  }}
+                  style={{ backgroundImage: `url('${dinner.images}')` }}
                 ></div>
               )}
               <div className="p-4">
