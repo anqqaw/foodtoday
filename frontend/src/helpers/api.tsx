@@ -82,3 +82,19 @@ export const fetchRandomDinner = async (): Promise<Dinner> => {
     throw error;
   }
 };
+
+export const searchDinners = async (query: string): Promise<Dinner[]> => {
+  try {
+    const token = localStorage.getItem("googleAuthToken");
+    const response = await axios.get<{ dinners: Dinner[] }>(
+      `${ENDPOINT}/api/search-dinners?q=${query}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data.dinners;
+  } catch (error) {
+    console.error("Error fetching search results:", error);
+    return [];
+  }
+};
