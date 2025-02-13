@@ -4,69 +4,45 @@ import { fetchDinners, searchDinners, Dinner } from "../helpers/api";
 
 const DinnerList: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
-
   const debounceTimeoutRef = useRef<number | null>(null);
+
+  const fetchData = async (query: string) => {
+    try {
+      const result = query ? await searchDinners(query) : await fetchDinners();
+      setDinners(result);
+    } catch (error) {
+      console.error("Error fetching dinners:", error);
+    }
+  };
 
   useEffect(() => {
     if (debounceTimeoutRef.current) {
       clearTimeout(debounceTimeoutRef.current);
     }
 
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const result = searchQuery
-          ? await searchDinners(searchQuery)
-          : await fetchDinners();
-        setDinners(result);
-      } catch (err) {
-        setError("Failed to fetch dinners. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    debounceTimeoutRef.current = setTimeout(() => {
-      fetchData();
-    }, 300);
+    debounceTimeoutRef.current = window.setTimeout(() => {
+      fetchData(searchQuery);
+    }, 500);
 
     return () => {
       if (debounceTimeoutRef.current) {
         clearTimeout(debounceTimeoutRef.current);
       }
     };
-  }, [searchQuery]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg">Loading dinners...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-red-600 text-lg">{error}</p>
-      </div>
-    );
-  }
+  }, [searchQuery, fetchData]);
 
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
+    <div className="min-h-screen p-8 bg-gray-50">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-bold">Available Dinners</h1>
+        <h1 className="text-4xl font-bold text-gray-900">Available Dinners</h1>
         <input
-          type="text"
+          type="search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search dinners..."
-          className="w-64 p-2 border rounded shadow-sm"
+          className="w-64 p-3 border rounded-lg shadow-md focus:ring-2 focus:ring-indigo-500"
         />
       </div>
 
@@ -77,22 +53,19 @@ const DinnerList: React.FC = () => {
           {dinners.map((dinner) => (
             <div
               key={dinner.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer"
+              className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer"
               onClick={() => navigate(`/dinner/${dinner.id}`)}
             >
               {dinner.images && (
                 <div
-                  className="h-40 bg-cover bg-center"
+                  className="h-32 bg-cover bg-center rounded-t-xl"
                   style={{ backgroundImage: `url('${dinner.images}')` }}
                 ></div>
               )}
-              <div className="p-4">
-                <h2 className="text-2xl font-bold text-gray-800">{dinner.title}</h2>
-                <p className="text-gray-600 mt-2">{dinner.description}</p>
+              <div className="p-5">
+                <h2 className="text-xl font-semibold text-gray-900">{dinner.title}</h2>
+                <p className="text-gray-700 mt-2">{dinner.description}</p>
                 <p className="text-sm text-gray-500 mt-2">
-                  Difficulty: <span className="font-medium">{dinner.difficulty}</span>
-                </p>
-                <p className="text-sm text-gray-500">
                   Preparation Time: {dinner.preparationTime} mins
                 </p>
                 <p className="text-sm text-gray-500">
