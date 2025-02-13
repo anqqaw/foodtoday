@@ -45,6 +45,7 @@ const DinnerList: React.FC = () => {
   return (
     <div className="min-h-screen p-8 bg-gray-100">
       <div className="flex justify-between items-center mb-6">
+        <h1 className="text-4xl font-bold">Available Dinners</h1>
         <input
           type="text"
           value={searchQuery}
@@ -52,7 +53,6 @@ const DinnerList: React.FC = () => {
           placeholder="Search dinners..."
           className="w-64 p-2 border rounded shadow-sm"
         />
-        <h1 className="text-4xl font-bold">Available Dinners</h1>
       </div>
 
       {dinners.length === 0 ? (
