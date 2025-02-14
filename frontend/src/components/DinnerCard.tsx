@@ -5,7 +5,7 @@ interface Dinner {
   id: number;
   title: string;
   description: string;
-  difficulty: string;
+  serves: string;
   preparationTime: number;
   totalTime: number;
   images: string;
@@ -38,7 +38,7 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
         </h1>
         <p className="text-lg">{dinner.description}</p>
         <p>
-          Difficulty: <span className="font-medium">{dinner.difficulty}</span>
+          Serves: <span className="font-medium">{dinner.serves}</span>
         </p>
         <p>
           Preparation Time: <span className="font-medium">{dinner.preparationTime} minutes</span>

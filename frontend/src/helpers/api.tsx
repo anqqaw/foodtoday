@@ -12,7 +12,7 @@ export interface Dinner {
   id: number;
   title: string;
   description: string;
-  difficulty: string;
+  serves: string;
   preparationTime: number;
   totalTime: number;
   images: string;

@@ -47,7 +47,7 @@ const DinnerDetails: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="text-lg font-medium text-gray-800 bg-white shadow-md p-4 rounded-lg">
-            Difficulty: <span className="font-normal">{dinner.difficulty}</span>
+            Serves: <span className="font-normal">{dinner.serves}</span>
           </div>
           <div className="text-lg font-medium text-gray-800 bg-white shadow-md p-4 rounded-lg">
             Prep Time: <span className="font-normal">{dinner.preparationTime} mins</span>
