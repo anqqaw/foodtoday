@@ -20,10 +20,12 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
   return (
     <>
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 w-full h-full flex items-center justify-center bg-black"
         style={{
           backgroundImage: `url('${dinner.images}')`,
-          imageRendering: 'auto',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       ></div>
 
