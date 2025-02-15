@@ -20,16 +20,15 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
   return (
     <>
       <div
-        className="absolute inset-0 w-full h-full flex items-center justify-center bg-black"
+        className="absolute inset-0 w-full h-full"
         style={{
           backgroundImage: `url('${dinner.images}')`,
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
         }}
       ></div>
 
-      <div className="absolute bottom-10 left-10 text-white space-y-4">
+      <div className="absolute bottom-10 left-10 text-white space-y-4 font-['Space_Grotesk']">
         <h1
           className="text-4xl font-bold"
           onClick={() => navigate(`/dinner/${dinner.id}`)}
