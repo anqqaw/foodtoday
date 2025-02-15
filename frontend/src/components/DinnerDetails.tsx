@@ -30,7 +30,7 @@ const DinnerDetails: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen bg-gray-50 font-['Space_Grotesk']">
       <div
         className="relative w-full h-96 bg-no-repeat bg-cover bg-center mb-10"
         style={{ backgroundImage: `url('${dinner.images[0]}')` }}
