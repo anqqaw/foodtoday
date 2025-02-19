@@ -5,24 +5,19 @@ import HamburgerMenu from "./HamburgerMenu";
 import DinnerCard from "./DinnerCard";
 
 const DinnersView: React.FC = () => {
-  const [currentDinner, setCurrentDinner] = useState<Dinner | null>(null);
+  const [dinners, setDinners] = useState<Dinner[]>([]);
   const navigate = useNavigate();
   const isFetching = useRef(false);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const loadRandomDinner = async () => {
     if (isFetching.current) return;
     isFetching.current = true;
-    console.log("isFetching:", isFetching.current);
 
     try {
       const newDinner = await fetchRandomDinner();
-      setCurrentDinner(newDinner);
-      console.log("Loaded new dinner!");
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 100);
+      setDinners((prev) => [...prev, newDinner]);
     } catch (error) {
-      console.error("Error fetching random dinner:", error);
     } finally {
       isFetching.current = false;
     }
@@ -34,15 +29,18 @@ const DinnersView: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight;
+      if (isFetching.current) return;
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
-      console.log(`🔍 SCROLL LOGS: scrollTop=${scrollTop}, windowHeight=${windowHeight}, fullHeight=${fullHeight}`);
+      debounceTimeout.current = setTimeout(() => {
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const fullHeight = document.documentElement.scrollHeight;
 
-      if (scrollTop + windowHeight >= fullHeight - 50) {
-        loadRandomDinner();
-      }
+        if (scrollTop + windowHeight >= fullHeight - 50) {
+          loadRandomDinner();
+        }
+      }, 300);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -52,21 +50,16 @@ const DinnersView: React.FC = () => {
     };
   }, []);
 
-
   return (
-    <div className="relative min-h-screen w-full" style={{ height: "200vh", background: "lightgray" }}>
-      {currentDinner ? (
-        <div className="relative h-screen">
-          <DinnerCard dinner={currentDinner} navigate={navigate} />
-          <div className="absolute bottom-4 right-4">
-            <HamburgerMenu />
-          </div>
+    <div className="relative w-full">
+      {dinners.map((dinner, index) => (
+        <div key={index} className="relative min-h-screen flex flex-col items-center justify-center">
+          <DinnerCard dinner={dinner} navigate={navigate} />
         </div>
-      ) : (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <p className="text-gray-600 text-lg">No dinner selected.</p>
-        </div>
-      )}
+      ))}
+      <div className="absolute bottom-4 right-4">
+        <HamburgerMenu />
+      </div>
     </div>
   );
 };
