@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchDinners, searchDinners, Dinner } from "../helpers/api";
 
@@ -6,7 +6,7 @@ const DinnerList: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
-  const debounceTimeoutRef = useRef<number | null>(null);
+  let debounceTimeout: number | null = null;
 
   const fetchData = async (query: string) => {
     try {
@@ -18,20 +18,16 @@ const DinnerList: React.FC = () => {
   };
 
   useEffect(() => {
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-    }
+    if (debounceTimeout) clearTimeout(debounceTimeout);
 
-    debounceTimeoutRef.current = window.setTimeout(() => {
+    debounceTimeout = window.setTimeout(() => {
       fetchData(searchQuery);
     }, 500);
 
     return () => {
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
-      }
+      if (debounceTimeout) clearTimeout(debounceTimeout);
     };
-  }, [searchQuery, fetchData]);
+  }, [searchQuery]);
 
   return (
     <div className="min-h-screen p-8 bg-gray-50">
