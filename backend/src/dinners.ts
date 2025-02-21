@@ -45,7 +45,7 @@ export const getById = async (ctx: Context) => {
 };
 
 export const searchDinners = async (ctx: Context) => {
-  const query = ctx.request.query.query as string;
+  const { query } = ctx.request.query;
 
   if (!query || typeof query !== "string") {
     ctx.status = 400;
