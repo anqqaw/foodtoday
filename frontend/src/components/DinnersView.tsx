@@ -8,7 +8,9 @@ const DinnersView: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
   const navigate = useNavigate();
   const isFetching = useRef(false);
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+  const dinnerRefs = useRef<HTMLDivElement[]>([]);
+  const currentDinnerIndex = useRef(0);
+  const isScrolling = useRef(false);
 
   const loadRandomDinner = async () => {
     if (isFetching.current) return;
@@ -19,7 +21,9 @@ const DinnersView: React.FC = () => {
       setDinners((prev) => [...prev, newDinner]);
     } catch (error) {
     } finally {
-      isFetching.current = false;
+      setTimeout(() => {
+        isFetching.current = false;
+      }, 500);
     }
   };
 
@@ -28,36 +32,67 @@ const DinnersView: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (isFetching.current) return;
-      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+    const handleScroll = (event: WheelEvent) => {
+      event.preventDefault();
 
-      debounceTimeout.current = setTimeout(() => {
-        const scrollTop = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const fullHeight = document.documentElement.scrollHeight;
+      if (isScrolling.current || isFetching.current || dinners.length === 0) return;
+      isScrolling.current = true;
 
-        if (scrollTop + windowHeight >= fullHeight - 50) {
-          loadRandomDinner();
+      const deltaY = event.deltaY;
+
+      if (deltaY > 0) {
+        if (currentDinnerIndex.current < dinners.length - 1) {
+          currentDinnerIndex.current += 1;
+        } else {
+          loadRandomDinner().then(() => {
+            setTimeout(() => {
+              currentDinnerIndex.current += 1;
+              const nextDinner = dinnerRefs.current[currentDinnerIndex.current];
+              if (nextDinner) {
+                nextDinner.scrollIntoView({ behavior: "smooth" });
+              }
+              setTimeout(() => {
+                isScrolling.current = false;
+              }, 500);
+            }, 500);
+          });
+          return;
         }
-      }, 300);
+      }
+
+      setTimeout(() => {
+        const nextDinner = dinnerRefs.current[currentDinnerIndex.current];
+        if (nextDinner) {
+          nextDinner.scrollIntoView({ behavior: "smooth" });
+        }
+        setTimeout(() => {
+          isScrolling.current = false;
+        }, 500);
+      }, 500);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("wheel", handleScroll, { passive: false });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleScroll);
     };
-  }, []);
+  }, [dinners]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full h-screen overflow-hidden">
       {dinners.map((dinner, index) => (
-        <div key={index} className="relative min-h-screen flex flex-col items-center justify-center">
+        <div
+          key={index}
+          ref={(el) => {
+            if (el) dinnerRefs.current[index] = el;
+          }}
+          className="relative min-h-screen flex flex-col items-center justify-center"
+        >
           <DinnerCard dinner={dinner} navigate={navigate} />
         </div>
       ))}
-      <div className="absolute bottom-4 right-4">
+
+      <div className="fixed bottom-4 right-4 z-50">
         <HamburgerMenu />
       </div>
     </div>
