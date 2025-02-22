@@ -5,7 +5,7 @@ const HamburgerMenu: React.FC = () => {
   const navigate = useNavigate();
 
   const handleMenuClick = () => {
-    navigate("/dinners-list");
+    navigate("/dinners");
   };
 
   return (
