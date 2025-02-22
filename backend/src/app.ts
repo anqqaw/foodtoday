@@ -33,8 +33,8 @@ export function createApp() {
 
   privateRouter.use(verifyGoogleToken);
 
-  privateRouter.get('/dinners', dinners.list);
-  privateRouter.get('/dinners-list', dinners.list);
+  privateRouter.get('/dinners', dinners.searchDinners);
+  privateRouter.get('/dinners-list', dinners.searchDinners);
   privateRouter.get('/dinners/random', dinners.getRandom);
   privateRouter.get('/dinners/:id', dinners.getById);
   privateRouter.get('/search-dinners', dinners.searchDinners);
