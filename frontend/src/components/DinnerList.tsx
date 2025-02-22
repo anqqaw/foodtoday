@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchDinners, searchDinners, Dinner } from "../helpers/api";
+import { searchDinners, Dinner } from "../helpers/api";
 
 const DinnerList: React.FC = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
@@ -10,7 +10,7 @@ const DinnerList: React.FC = () => {
 
   const fetchData = async (query: string) => {
     try {
-      const result = query ? await searchDinners(query) : await fetchDinners();
+      const result = await searchDinners(query);
       setDinners(result);
     } catch (error) {
       console.error("Error fetching dinners:", error);
