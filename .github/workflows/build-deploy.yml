@@ -1,7 +1,6 @@
 name: Build Containers and Deploy
 
 on:
-  pull_request:
   push:
     tags:
       - "v*"
