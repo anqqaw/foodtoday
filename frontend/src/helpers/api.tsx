@@ -68,11 +68,11 @@ export const searchDinners = async (query: string): Promise<Dinner[]> => {
   try {
     const token = localStorage.getItem("googleAuthToken");
     const response = await axios.get<{ dinners: Dinner[] }>(
-      `${ENDPOINT}/api/dinners?q=${query}`,
+      `${ENDPOINT}/api/dinners`,
       {
         headers: { Authorization: `Bearer ${token}` },
         params: {
-          query: query,
+          query,
         }
       }
     );
