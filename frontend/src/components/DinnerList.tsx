@@ -30,7 +30,7 @@ const DinnerList: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen p-8 bg-gray-50">
+    <div className="min-h-screen p-8 bg-gray-50 font-['Space_Grotesk']">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold text-gray-900">Available Dinners</h1>
         <input
@@ -49,24 +49,23 @@ const DinnerList: React.FC = () => {
           {dinners.map((dinner) => (
             <div
               key={dinner.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer"
+              className="rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer relative border border-gray-300 bg-white"
               onClick={() => navigate(`/dinner/${dinner.id}`)}
             >
               {dinner.images && (
                 <div
-                  className="h-32 bg-cover bg-center rounded-t-xl"
+                  className="w-full h-64 bg-cover bg-center"
                   style={{ backgroundImage: `url('${dinner.images}')` }}
                 ></div>
               )}
               <div className="p-5">
                 <h2 className="text-xl font-semibold text-gray-900">{dinner.title}</h2>
                 <p className="text-gray-700 mt-2">{dinner.description}</p>
-                <p className="text-sm text-gray-500 mt-2">
-                  Preparation Time: {dinner.preparationTime} mins
-                </p>
-                <p className="text-sm text-gray-500">
-                  Total Time: {dinner.totalTime} mins
-                </p>
+              </div>
+              <div className="border-t border-gray-300 flex justify-end items-center p-4 text-gray-700 text-lg bottom-0 right-0">
+                <span>{dinner.preparationTime} min</span>
+                <div className="w-0.25 h-6 bg-gray-300 mx-2"></div>
+                <span>{dinner.totalTime} min</span>
               </div>
             </div>
           ))}
