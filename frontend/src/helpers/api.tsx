@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ENDPOINT = import.meta.env.VITE_ENDPOINT;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
 export interface IngredientDetail {
   name: string;
@@ -23,25 +23,6 @@ export interface DinnerDetails extends Omit<Dinner, "images"> {
   ingredients: IngredientDetail[];
   steps: string[];
 }
-
-export const fetchDinners = async (): Promise<Dinner[]> => {
-  const token = localStorage.getItem("googleAuthToken");
-  if (!token) {
-    throw new Error("No authentication token found");
-  }
-
-  try {
-    const response = await axios.get(`${ENDPOINT}/api/dinners`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data.dinners || [];
-  } catch (error) {
-    console.error("Error fetching dinners:", error);
-    throw error;
-  }
-};
 
 export const fetchDinnerDetails = async (id: string): Promise<DinnerDetails> => {
   const token = localStorage.getItem("googleAuthToken");
@@ -80,5 +61,24 @@ export const fetchRandomDinner = async (): Promise<Dinner> => {
   } catch (error) {
     console.error("Error fetching random dinner:", error);
     throw error;
+  }
+};
+
+export const searchDinners = async (query: string): Promise<Dinner[]> => {
+  try {
+    const token = localStorage.getItem("googleAuthToken");
+    const response = await axios.get<{ dinners: Dinner[] }>(
+      `${ENDPOINT}/api/dinners`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        params: {
+          query,
+        }
+      }
+    );
+    return response.data.dinners;
+  } catch (error) {
+    console.error("Error fetching search results:", error);
+    return [];
   }
 };
