@@ -23,7 +23,7 @@ const App: React.FC = () => {
           <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
           <Route path="/login" element={<LoginView />} />
           <Route path="/dinner/:id" element={<DinnerDetails />} />
-          <Route path='/dinners-list' element={<DinnerList />} />
+          <Route path='/dinners' element={<DinnerList />} />
         </Routes>
       </div>
     </Router>
