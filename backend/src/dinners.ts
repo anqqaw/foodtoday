@@ -3,19 +3,6 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const list = async (ctx: Context) => {
-  try {
-    const dinners = await prisma.dinner.findMany({
-      orderBy: { title: "asc" },
-    });
-    ctx.body = { dinners };
-  } catch (error) {
-    console.error("Error fetching dinners:", error);
-    ctx.status = 500;
-    ctx.body = { error: "Error fetching dinners" };
-  }
-};
-
 export const getById = async (ctx: Context) => {
   const { id } = ctx.params;
 
@@ -47,31 +34,34 @@ export const getById = async (ctx: Context) => {
 export const searchDinners = async (ctx: Context) => {
   const { query } = ctx.request.query;
 
-  if (!query || typeof query !== "string") {
-    ctx.status = 400;
-    ctx.body = { error: "A valid search query is required." };
-    return;
-  }
-
   try {
-    const results = await prisma.dinner.findMany({
-      where: {
-        title: {
-          contains: query.trim(),
-          mode: "insensitive",
-        },
-      },
-      orderBy: { title: "asc" },
-      take: 10,
-    });
+    let dinners;
 
-    ctx.body = { dinners: results };
+    if (!query || typeof query !== "string" || query.trim() === "") {
+      dinners = await prisma.dinner.findMany({
+        orderBy: { title: "asc" },
+      });
+    } else {
+      dinners = await prisma.dinner.findMany({
+        where: {
+          title: {
+            contains: query.trim(),
+            mode: "insensitive",
+          },
+        },
+        orderBy: { title: "asc" },
+        take: 10,
+      });
+    }
+
+    ctx.body = { dinners };
   } catch (error) {
     console.error("Error searching for dinners:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error." };
   }
 };
+
 
 
 export const getRandom = async (ctx: Context) => {
