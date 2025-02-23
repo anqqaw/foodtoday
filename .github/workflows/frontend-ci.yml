@@ -9,6 +9,7 @@ jobs:
     timeout-minutes: 10
 
     env:
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       VITE_ENDPOINT: http://localhost:9000
       VITE_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
 
