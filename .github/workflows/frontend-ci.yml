@@ -1,0 +1,83 @@
+name: Frontend Continuous Integration
+
+on: push
+
+jobs:
+  test:
+    name: Frontend Acceptance Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      VITE_ENDPOINT: http://localhost:9000
+      VITE_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
+      - name: Start DB service
+        run: docker compose up -d db
+
+      - name: Wait for services to be ready
+        run: |
+          until nc -z localhost 5432; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+
+      - name: Build Docker images
+        run: docker compose build
+
+      - name: Run database migrations
+        run: docker compose run --rm backend npm run db:migrate
+
+      - name: Run database seed
+        run: docker compose run --rm backend npm run db:seed
+
+      - name: Start backend and frontend services
+        run: docker compose up -d backend frontend
+
+      - run: npm install
+        working-directory: ./frontend
+
+      - name: Install Playwright dependencies
+        run: npx playwright install chromium --with-deps
+        working-directory: ./frontend
+
+      - name: Run Playwright tests (headless)
+        env:
+          AUTH_JSON: ${{ secrets.GOOGLE_AUTH_JSON }}
+        run: npm run test:e2e -- --output=playwright-results
+        working-directory: ./frontend
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: ./frontend/playwright-results
+          retention-days: 7
+
+      - name: Tear down Docker Compose
+        if: always()
+        run: docker compose down -v
