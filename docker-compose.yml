@@ -12,6 +12,7 @@ services:
     build: backend
     environment:
       DATABASE_URL: postgres://dinner:dinner@db/dinner
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     ports:
       - 9000:9000
     depends_on:
@@ -22,6 +23,7 @@ services:
       context: frontend
       args:
         VITE_ENDPOINT: http://localhost:9000
+        VITE_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     restart: always
     ports:
       - 8080:80
