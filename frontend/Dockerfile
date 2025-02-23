@@ -8,6 +8,7 @@ RUN npm ci
 COPY . .
 
 ARG VITE_ENDPOINT
+ARG VITE_GOOGLE_CLIENT_ID
 
 RUN npm run build
 
