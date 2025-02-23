@@ -2227,6 +2227,12 @@ async function main() {
     });
   }
 
+  await prisma.user.create({
+    data: {
+      email: 'pentti.nahkaorava@gmail.com',
+    },
+  });
+
   console.log("Seeding completed!");
 }
 
