@@ -66,7 +66,7 @@ jobs:
 
       - name: Run Playwright tests (headless)
         env:
-          AUTH_JSON: ${{ secrets.GOOGLE_AUTH_JSON }}
+          GOOGLE_AUTH_JSON: ${{ secrets.GOOGLE_AUTH_JSON }}
         run: npm run test:e2e -- --output=playwright-results
         working-directory: ./frontend
 
