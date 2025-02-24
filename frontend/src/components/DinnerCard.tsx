@@ -28,7 +28,7 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
         }}
       ></div>
 
-      <div className="absolute bottom-0 left-0 w-full h-1/4 bg-black/70 text-white font-['Space_Grotesk'] p-10 flex flex-col items-center">
+      <div className="absolute bottom-0 left-0 w-full bg-black/70 text-white font-['Space_Grotesk'] p-10 flex flex-col items-center">
         <h1
           className="text-4xl font-bold text-center mb-4"
           onClick={() => navigate(`/dinner/${dinner.id}`)}
