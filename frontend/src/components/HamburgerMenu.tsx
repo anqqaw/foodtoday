@@ -12,11 +12,11 @@ const HamburgerMenu: React.FC = () => {
     <div className="relative">
       <button
         onClick={handleMenuClick}
-        className="p-4 rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-100 transition-transform transform hover:scale-110 focus:outline-none"
+        className="p-3 rounded-full bg-white shadow-md text-gray-700 hover:bg-gray-100 transition-transform transform hover:scale-110 focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
+          className="h-6 w-6"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
