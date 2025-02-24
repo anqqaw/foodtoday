@@ -28,23 +28,26 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
         }}
       ></div>
 
-      <div className="absolute bottom-10 left-10 text-white space-y-4 font-['Space_Grotesk']">
+      <div className="absolute bottom-0 left-0 w-full h-1/4 bg-black/70 text-white font-['Space_Grotesk'] p-10 flex flex-col items-center">
         <h1
-          className="text-4xl font-bold"
+          className="text-4xl font-bold text-center mb-4"
           onClick={() => navigate(`/dinner/${dinner.id}`)}
         >
           {dinner.title}
         </h1>
-        <p className="text-lg">{dinner.description}</p>
-        <p>
-          Serves: <span className="font-medium">{dinner.serves}</span>
-        </p>
-        <p>
-          Preparation Time: <span className="font-medium">{dinner.preparationTime} minutes</span>
-        </p>
-        <p>
-          Total Time: <span className="font-medium">{dinner.totalTime} minutes</span>
-        </p>
+
+        {/* <p className="text-lg">{dinner.description}</p> */}
+        <div className="flex gap-6">
+          <p>
+            Prep: <span className="font-medium">{dinner.preparationTime} min</span>
+          </p>
+          <p>
+            Total: <span className="font-medium">{dinner.totalTime} min</span>
+          </p>
+          <p>
+            Serves: <span className="font-medium">{dinner.serves}</span>
+          </p>
+        </div>
       </div>
     </>
   );
