@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchRandomDinner, Dinner } from "../helpers/api";
-import HamburgerMenu from "./HamburgerMenu";
 import DinnerCard from "./DinnerCard";
 
 const DinnersView: React.FC = () => {
@@ -79,7 +78,7 @@ const DinnersView: React.FC = () => {
   }, [dinners]);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden pb-16">
       {dinners.map((dinner, index) => (
         <div
           key={index}
@@ -91,10 +90,6 @@ const DinnersView: React.FC = () => {
           <DinnerCard dinner={dinner} navigate={navigate} />
         </div>
       ))}
-
-      <div className="fixed bottom-4 right-4 z-50">
-        <HamburgerMenu />
-      </div>
     </div>
   );
 };

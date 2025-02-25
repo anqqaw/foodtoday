@@ -6,6 +6,7 @@ import DinnerDetails from './components/DinnerDetails';
 import DinnerList from './components/DinnerList';
 
 import './App.css';
+import BottomNavBar from './components/BottomNavBar';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
@@ -25,6 +26,8 @@ const App: React.FC = () => {
           <Route path="/dinner/:id" element={<DinnerDetails />} />
           <Route path='/dinners' element={<DinnerList />} />
         </Routes>
+
+        <BottomNavBar />
       </div>
     </Router>
   );
