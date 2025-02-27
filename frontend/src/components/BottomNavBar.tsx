@@ -8,7 +8,7 @@ const BottomNavBar: React.FC = () => {
   const menuItems = [
     { emoji: "🏠", label: "Home", path: "/" },
     { emoji: "🍽️", label: "Dinners", path: "/dinners" },
-    { emoji: "⚙️", label: "Settings", path: "/settings" },
+    { emoji: "", label: "Shopping List", path: "/shoppinglist" },
   ];
 
   return (
