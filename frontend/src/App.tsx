@@ -5,7 +5,6 @@ import LoginView from './components/LoginView';
 import DinnerDetails from './components/DinnerDetails';
 import DinnerList from './components/DinnerList';
 
-import './App.css';
 import BottomNavBar from './components/BottomNavBar';
 
 const App: React.FC = () => {
@@ -13,20 +12,24 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('googleAuthToken');
-
     setIsAuthenticated(!!token);
   }, []);
 
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
-          <Route path="/login" element={<LoginView />} />
-          <Route path="/dinner/:id" element={<DinnerDetails />} />
-          <Route path='/dinners' element={<DinnerList />} />
-        </Routes>
+      {/* Pääkontaineri, joka ottaa navigaatiopalkin huomioon */}
+      <div className="flex flex-col min-h-screen">
+        {/* Pääsisältö ottaa kaiken tilan ja jättää tilaa navipalkille */}
+        <div className="flex-1 overflow-auto pb-20">
+          <Routes>
+            <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
+            <Route path="/login" element={<LoginView />} />
+            <Route path="/dinner/:id" element={<DinnerDetails />} />
+            <Route path="/dinners" element={<DinnerList />} />
+          </Routes>
+        </div>
 
+        {/* Navigaatiopalkki pohjalle */}
         <BottomNavBar />
       </div>
     </Router>

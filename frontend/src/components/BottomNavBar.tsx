@@ -6,13 +6,13 @@ const BottomNavBar: React.FC = () => {
   const location = useLocation();
 
   const menuItems = [
-    { emoji: "🏠", label: "Home", path: "/" },
-    { emoji: "🍽️", label: "Dinners", path: "/dinners" },
+    { emoji: "", label: "Random", path: "/" },
+    { emoji: "", label: "Dinners", path: "/dinners" },
     { emoji: "", label: "Shopping List", path: "/shoppinglist" },
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white shadow-md flex justify-around items-center py-3 border-t border-gray-200 z-50">
+    <div className="fixed bottom-0 left-0 w-full h-16 bg-white shadow-md flex justify-around items-center border-t border-gray-200 z-50">
       {menuItems.map((item, index) => (
         <button
           key={index}

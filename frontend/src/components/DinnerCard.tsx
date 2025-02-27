@@ -28,7 +28,8 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
         }}
       ></div>
 
-      <div className="absolute bottom-0 left-0 w-full bg-black/70 text-white font-['Space_Grotesk'] p-10 flex flex-col items-center">
+      {/* Tässä lisätty pb-20, jotta teksti ei jää navigaatiopalkin alle */}
+      <div className="absolute bottom-0 left-0 w-full bg-black/70 text-white font-['Space_Grotesk'] p-10 flex flex-col items-center pb-20">
         <h1
           className="text-4xl font-bold text-center mb-4"
           onClick={() => navigate(`/dinner/${dinner.id}`)}
@@ -36,7 +37,6 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
           {dinner.title}
         </h1>
 
-        {/* <p className="text-lg">{dinner.description}</p> */}
         <div className="flex gap-6">
           <p>
             Prep: <span className="font-medium">{dinner.preparationTime} min</span>
