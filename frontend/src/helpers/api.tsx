@@ -82,3 +82,19 @@ export const searchDinners = async (query: string): Promise<Dinner[]> => {
     return [];
   }
 };
+
+export const addToShoppingList = async (id: string): Promise<void> => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    await axios.get(`${ENDPOINT}/api/dinners/${id}/add_to_shopping_list`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    console.error("Error adding dinner to shopping list:", error);
+    throw error;
+  }
+}
