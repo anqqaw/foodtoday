@@ -34,7 +34,7 @@ const LoginView: React.FC = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId={import.meta.env.REACT_APP_GOOGLE_CLIENT_ID || '296278558628-lf8ia7krfo08jo4m8esl3o5cj4hud76p.apps.googleusercontent.com'}>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <h2 className="text-2xl font-bold mb-4">Login with Google</h2>
         <GoogleLogin
