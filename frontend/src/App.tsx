@@ -17,9 +17,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      {/* Pääkontaineri, joka ottaa navigaatiopalkin huomioon */}
       <div className="flex flex-col min-h-screen">
-        {/* Pääsisältö ottaa kaiken tilan ja jättää tilaa navipalkille */}
         <div className="flex-1 overflow-auto pb-20">
           <Routes>
             <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
@@ -29,7 +27,6 @@ const App: React.FC = () => {
           </Routes>
         </div>
 
-        {/* Navigaatiopalkki pohjalle */}
         <BottomNavBar />
       </div>
     </Router>
