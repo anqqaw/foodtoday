@@ -2204,7 +2204,7 @@ async function main() {
         { qty: 2, unit: '', name: 'pihvitomaattia' },
         { name: 'lehtisalaattia' },
         { qty: 2, unit: '', name: 'maustekurkkua' },
-        { qty: 1, unit: '', name: 'kuivattu chili' },
+        { qty: 2, unit: '', name: 'sipulia' },
         { name: 'tähtianiksia' },
         { name: 'neilikoita' },
         { name: 'kokonaisia mustapippureita' },
