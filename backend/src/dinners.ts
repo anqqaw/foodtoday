@@ -62,8 +62,6 @@ export const searchDinners = async (ctx: Context) => {
   }
 };
 
-
-
 export const getRandom = async (ctx: Context) => {
   try {
     const count = await prisma.dinner.count();
@@ -90,5 +88,70 @@ export const getRandom = async (ctx: Context) => {
     console.error("Error fetching random dinner:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
+  }
+};
+
+export const addToUserShoppingList = async (ctx: Context) => {
+  const { id } = ctx.params;
+
+  if (!id) {
+    ctx.status = 400;
+    ctx.body = { error: "ID parameter is required" };
+    return;
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: { shoppingList: true },
+    });
+
+    if (!user) {
+      ctx.status = 404;
+      ctx.body = { error: "User not found" };
+      return;
+    }
+
+    const dinners = await prisma.dinner.findMany({
+      select: { shoppingList: true },
+    });
+
+    const userShoppingList = user.shoppingList ? JSON.parse(user.shoppingList as string) : [];
+    const dinnerShoppingLists = dinners.map(d =>
+      d.shoppingList ? JSON.parse(d.shoppingList as string) : []
+    );
+
+    const combinedItems: { [key: string]: { qty: number; unit: string; name: string } } = {};
+
+    const addItemsToList = (list: any[]) => {
+      for (const item of list) {
+        const key = item.name.toLowerCase().trim();
+
+        if (combinedItems[key]) {
+          combinedItems[key].qty += item.qty;
+        } else {
+          combinedItems[key] = { ...item };
+        }
+      }
+    };
+
+    addItemsToList(userShoppingList);
+    for (const dinnerList of dinnerShoppingLists) {
+      addItemsToList(dinnerList);
+    }
+
+    const updatedShoppingList = Object.values(combinedItems);
+
+    await prisma.user.update({
+      where: { id },
+      data: { shoppingList: JSON.stringify(updatedShoppingList) },
+    });
+
+    ctx.status = 200;
+    ctx.body = { message: "Shopping list updated", shoppingList: updatedShoppingList };
+  } catch (error) {
+    console.error("Error updating shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal Server Error" };
   }
 };
