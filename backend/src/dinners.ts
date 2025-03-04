@@ -1,5 +1,6 @@
 import { Context } from "koa";
 import { PrismaClient } from "@prisma/client";
+import { JsonArray } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
@@ -91,8 +92,9 @@ export const getRandom = async (ctx: Context) => {
   }
 };
 
-export const addToUserShoppingList = async (ctx: Context) => {
+export const addToShoppingList = async (ctx: Context) => {
   const { id } = ctx.params;
+  const { user } = ctx.state;
 
   if (!id) {
     ctx.status = 400;
@@ -101,57 +103,35 @@ export const addToUserShoppingList = async (ctx: Context) => {
   }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { id },
-      select: { shoppingList: true },
-    });
+    const dinner = await prisma.dinner.findUnique({
+      where: { id: Number(id) },
+    })
 
-    if (!user) {
+    if (!dinner) {
       ctx.status = 404;
-      ctx.body = { error: "User not found" };
+      ctx.body = { error: "Dinner not found" };
       return;
     }
 
-    const dinners = await prisma.dinner.findMany({
-      select: { shoppingList: true },
+    console.log("User shoppinglsit", user.shoppingList);
+    console.log("Dinner shoppinglsit", dinner.shoppingList);
+
+    const currentShoppingList = user.shoppingList || [];
+
+    const mergedShoppingList = [...currentShoppingList, ...dinner.shoppingList as JsonArray];
+
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        shoppingList: mergedShoppingList,
+      },
     });
 
-    const userShoppingList = user.shoppingList ? JSON.parse(user.shoppingList as string) : [];
-    const dinnerShoppingLists = dinners.map(d =>
-      d.shoppingList ? JSON.parse(d.shoppingList as string) : []
-    );
-
-    const combinedItems: { [key: string]: { qty: number; unit: string; name: string } } = {};
-
-    const addItemsToList = (list: any[]) => {
-      for (const item of list) {
-        const key = item.name.toLowerCase().trim();
-
-        if (combinedItems[key]) {
-          combinedItems[key].qty += item.qty;
-        } else {
-          combinedItems[key] = { ...item };
-        }
-      }
-    };
-
-    addItemsToList(userShoppingList);
-    for (const dinnerList of dinnerShoppingLists) {
-      addItemsToList(dinnerList);
-    }
-
-    const updatedShoppingList = Object.values(combinedItems);
-
-    await prisma.user.update({
-      where: { id },
-      data: { shoppingList: JSON.stringify(updatedShoppingList) },
-    });
 
     ctx.status = 200;
-    ctx.body = { message: "Shopping list updated", shoppingList: updatedShoppingList };
-  } catch (error) {
-    console.error("Error updating shopping list:", error);
-    ctx.status = 500;
-    ctx.body = { error: "Internal Server Error" };
+    ctx.body = { shoppingList: updatedUser.shoppingList };
+
+  } catch (e) {
+    console.log("Error loading dinner:", e);
   }
 };
