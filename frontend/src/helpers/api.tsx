@@ -83,18 +83,40 @@ export const searchDinners = async (query: string): Promise<Dinner[]> => {
   }
 };
 
-export const addToShoppingList = async (id: string): Promise<void> => {
+export const fetchShoppingList = async (): Promise<[]> => {
   const token = localStorage.getItem("googleAuthToken");
   if (!token) {
     throw new Error("No authentication token found");
   }
 
   try {
-    await axios.get(`${ENDPOINT}/api/dinners/${id}/add_to_shopping_list`, {
+    const response = await axios.get(`${ENDPOINT}/api/users/shoppinglist`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
+    console.log("Fetched Shopping List:", response.data);
+    return response.data;
   } catch (error) {
-    console.error("Error adding dinner to shopping list:", error);
+    console.error("Error fetching shopping list:", error);
     throw error;
   }
-}
+};
+
+export const addToShoppingList = async (id: string) => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/dinners/${id}/addtoshoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log("Added to Shopping List successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error adding to Shopping list:", error);
+    throw error;
+  }
+};
