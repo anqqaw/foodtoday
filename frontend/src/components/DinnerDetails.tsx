@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDinnerDetails, DinnerDetails as DinnerDetailsType } from "../helpers/api";
+import { fetchDinnerDetails, DinnerDetails as DinnerDetailsType, addToShoppingList } from "../helpers/api";
 
 const DinnerDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,6 +20,16 @@ const DinnerDetails: React.FC = () => {
 
     loadDinnerDetails();
   }, [id]);
+
+  const shoppingList = async () => {
+    try {
+      if (id) {
+        await addToShoppingList(id);
+      }
+    } catch (error) {
+      console.log("Error adding to Shopping list:", error);
+    }
+  };
 
   if (!dinner) {
     return (
@@ -44,6 +54,8 @@ const DinnerDetails: React.FC = () => {
 
       <div className="max-w-6xl mx-auto px-6 lg:px-0">
         <p className="text-lg text-gray-700 leading-relaxed mb-8">{dinner.description}</p>
+
+        <button onClick={(() => shoppingList())}>LISÄÄ OSTOSKORIIN</button>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="text-lg font-medium text-gray-800 bg-white shadow-md p-4 rounded-lg">
