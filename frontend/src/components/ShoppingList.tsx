@@ -19,8 +19,8 @@ const ShoppingList: React.FC = () => {
 
   const handleRemove = async (itemName: string) => {
     try {
-      const updateList = await deleteFromShoppingList(itemName);
-      setShoppingList(updateList);
+      await deleteFromShoppingList(itemName);
+      setShoppingList(prevList => prevList.filter(item => item.name !== itemName));
     } catch (e) {
       console.error('Error deleting item from shopping list:', e);
     }
