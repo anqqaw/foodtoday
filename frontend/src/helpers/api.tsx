@@ -120,3 +120,22 @@ export const addToShoppingList = async (id: string) => {
     throw error;
   }
 };
+
+export const clearShoppingList = async () => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/users/clearshoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log("Cleared Shopping list successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error clearing Shopping list", error);
+    throw error;
+  }
+}
