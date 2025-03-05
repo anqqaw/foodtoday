@@ -113,9 +113,6 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    console.log("User shoppinglsit", user.shoppingList);
-    console.log("Dinner shoppinglsit", dinner.shoppingList);
-
     const currentShoppingList = user.shoppingList || [];
 
     const mergedShoppingList = [...currentShoppingList, ...dinner.shoppingList as JsonArray];
@@ -133,5 +130,25 @@ export const addToShoppingList = async (ctx: Context) => {
 
   } catch (e) {
     console.log("Error loading dinner:", e);
+  }
+};
+
+export const clearShoppingList = async (ctx: Context) => {
+  const { user } = ctx.state;
+
+  try {
+    const updateduser = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        shoppingList: [],
+      }
+    });
+
+    ctx.status = 200;
+    ctx.body = { message: "Shopping list cleared" };
+  } catch (error) {
+    console.log("Error clearing shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
   }
 };
