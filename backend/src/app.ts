@@ -39,6 +39,7 @@ export function createApp() {
   privateRouter.get('/dinners/random', dinners.getRandom);
   privateRouter.get('/dinners/:id', dinners.getById);
   privateRouter.get('/dinners/:id/addtoshoppinglist', dinners.addToShoppingList);
+  privateRouter.get('/dinners/:id/clearShoppingList', dinners.clearShoppingList);
 
   privateRouter.get('/users/shoppinglist', users.getShoppingList);
 
