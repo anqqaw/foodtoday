@@ -145,7 +145,7 @@ export const clearShoppingList = async (ctx: Context) => {
     });
 
     ctx.status = 200;
-    ctx.body = { message: "Shopping list cleared" };
+    ctx.body = { message: "Shopping list cleared", shoppingList: updateduser.shoppingList };
   } catch (error) {
     console.log("Error clearing shopping list:", error);
     ctx.status = 500;
