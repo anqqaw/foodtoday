@@ -149,6 +149,7 @@ export const deleteFromShoppingList = async (item: string) => {
   try {
     const response = await axios.get(`${ENDPOINT}/api/users/deletefromshoppinglist`, {
       headers: { Authorization: `Bearer ${token}` },
+      params: { item },
     });
 
     console.log(`Deleted ${item} from Shopping list successfully`, response.data);
