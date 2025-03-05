@@ -132,25 +132,3 @@ export const addToShoppingList = async (ctx: Context) => {
     console.log("Error loading dinner:", e);
   }
 };
-
-export const clearShoppingList = async (ctx: Context) => {
-  const { user } = ctx.state;
-
-  try {
-    const emptyShoppingList: JsonArray = [];
-
-    const updateduser = await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        shoppingList: emptyShoppingList,
-      }
-    });
-
-    ctx.status = 200;
-    ctx.body = { message: "Shopping list cleared", shoppingList: updateduser.shoppingList as JsonArray };
-  } catch (error) {
-    console.log("Error clearing shopping list:", error);
-    ctx.status = 500;
-    ctx.body = { error: "Internal server error" };
-  }
-};
