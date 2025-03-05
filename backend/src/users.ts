@@ -28,3 +28,33 @@ export const clearShoppingList = async (ctx: Context) => {
     ctx.body = { error: "Internal server error" };
   }
 };
+
+export const deleteFromShoppingList = async (ctx: Context) => {
+  const { item } = ctx.request.body as any;
+  const { user } = ctx.state;
+
+  if (!item) {
+    ctx.status = 404;
+    ctx.body = { error: "Item is required" };
+  }
+
+  try {
+    const currentShoppingList: any[] = user.shoppingList || [];
+
+    const updatedShoppingList = currentShoppingList.filter((i) => i !== item);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        shoppingList: updatedShoppingList,
+      }
+    });
+
+    ctx.status = 200;
+    ctx.body = { message: "Item deleted from shopping list", shoppingList: updatedUser.shoppingList };
+  } catch (error) {
+    console.log("Error deleting item from shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
+};
