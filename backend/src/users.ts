@@ -1,5 +1,6 @@
 import { Context } from "koa";
 import { PrismaClient } from "@prisma/client";
+import { isReturnStatement } from "typescript";
 
 const prisma = new PrismaClient();
 
@@ -34,14 +35,15 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
 
   if (!item) {
-    ctx.status = 404;
+    ctx.status = 400;
     ctx.body = { error: "Item is required" };
+    return;
   }
 
   try {
     const currentShoppingList: any[] = user.shoppingList || [];
 
-    const updatedShoppingList = currentShoppingList.filter((i) => i !== item);
+    const updatedShoppingList = currentShoppingList.filter(i => i.name !== item);
 
     const updatedUser = await prisma.user.update({
       where: { id: user.id },
