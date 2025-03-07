@@ -34,6 +34,9 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   const { item } = ctx.request.body as any;
   const { user } = ctx.state;
 
+  console.log("Item to delete:", item);
+  console.log("User:", user);
+
   if (!item) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
