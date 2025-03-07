@@ -147,10 +147,12 @@ export const deleteFromShoppingList = async (item: string) => {
   }
 
   try {
-    const response = await axios.get(`${ENDPOINT}/api/users/deletefromshoppinglist`, {
+    const response = await axios.delete(`${ENDPOINT}/api/users/deletefromshoppinglist`, {
       headers: { Authorization: `Bearer ${token}` },
       params: { item },
     });
+
+    console.log(item);
 
     console.log(`Deleted ${item} from Shopping list successfully`, response.data);
     return response.data;
