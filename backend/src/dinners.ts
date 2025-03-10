@@ -113,7 +113,7 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    if (!dinner.shoppingList || !Array.isArray(dinner.shoppingList)) {
+    if (!Array.isArray(dinner.shoppingList)) {
       ctx.status = 400;
       ctx.body = { error: "Dinner does not have a valid shopping list" };
       return;
@@ -124,10 +124,9 @@ export const addToShoppingList = async (ctx: Context) => {
       userId: user.id,
     }));
 
-    console.log("Adding shopping list items:", newShoppingListItems);
-
     await prisma.shoppingList.createMany({
       data: newShoppingListItems,
+      skipDuplicates: true,
     });
 
     const updatedShoppingList = await prisma.shoppingList.findMany({
@@ -137,7 +136,7 @@ export const addToShoppingList = async (ctx: Context) => {
     ctx.status = 200;
     ctx.body = { shoppingList: updatedShoppingList };
   } catch (e) {
-    console.log("Error adding to shopping list:", e);
+    console.error("Error adding to shopping list:", e);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
