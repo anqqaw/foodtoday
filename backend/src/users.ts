@@ -6,6 +6,19 @@ const prisma = new PrismaClient();
 
 export const getShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
+  try {
+    const shoppingList = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { shoppinglists: true },
+    })
+
+    ctx.status = 200;
+    ctx.body = { shoppingList: shoppingList || [] }
+  } catch (error) {
+    console.error("Error fetching shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
 
   ctx.body = user.shoppingList;
 };
