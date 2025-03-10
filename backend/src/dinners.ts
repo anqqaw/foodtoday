@@ -105,7 +105,7 @@ export const addToShoppingList = async (ctx: Context) => {
   try {
     const dinner = await prisma.dinner.findUnique({
       where: { id: Number(id) },
-    })
+    });
 
     if (!dinner) {
       ctx.status = 404;
@@ -113,22 +113,32 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    const currentShoppingList = user.shoppingList || [];
+    if (!dinner.shoppingList || !Array.isArray(dinner.shoppingList)) {
+      ctx.status = 400;
+      ctx.body = { error: "Dinner does not have a valid shopping list" };
+      return;
+    }
 
-    const mergedShoppingList = [...currentShoppingList, ...dinner.shoppingList as JsonArray];
+    const newShoppingListItems = dinner.shoppingList.map((item: any) => ({
+      title: item.name,
+      userId: user.id,
+    }));
 
-    const updatedUser = await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        shoppingList: mergedShoppingList,
-      },
+    console.log("Adding shopping list items:", newShoppingListItems);
+
+    await prisma.shoppingList.createMany({
+      data: newShoppingListItems,
     });
 
+    const updatedShoppingList = await prisma.shoppingList.findMany({
+      where: { userId: user.id },
+    });
 
     ctx.status = 200;
-    ctx.body = { shoppingList: updatedUser.shoppingList };
-
+    ctx.body = { shoppingList: updatedShoppingList };
   } catch (e) {
-    console.log("Error loading dinner:", e);
+    console.log("Error adding to shopping list:", e);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
   }
 };
