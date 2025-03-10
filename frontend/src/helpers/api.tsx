@@ -94,7 +94,6 @@ export const fetchShoppingList = async (): Promise<[]> => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log("Fetched Shopping List:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching shopping list:", error);
