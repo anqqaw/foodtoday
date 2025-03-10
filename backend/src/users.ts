@@ -14,15 +14,13 @@ export const getShoppingList = async (ctx: Context) => {
     })
 
     ctx.status = 200;
-    ctx.body = { shoppingList: userShoppingList?.shoppinglists ?? [] }
+    ctx.body = { shoppingList: userShoppingList?.shoppinglists || [] };
 
   } catch (error) {
     console.error("Error fetching shopping list:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
-
-  ctx.body = user.shoppingList;
 };
 
 export const clearShoppingList = async (ctx: Context) => {
