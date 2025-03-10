@@ -6,14 +6,16 @@ const prisma = new PrismaClient();
 
 export const getShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
+
   try {
-    const shoppingList = await prisma.user.findUnique({
+    const userShoppingList = await prisma.user.findUnique({
       where: { id: user.id },
-      select: { shoppinglists: true },
+      include: { shoppinglists: true },
     })
 
     ctx.status = 200;
-    ctx.body = { shoppingList: shoppingList || [] }
+    ctx.body = { shoppingList: userShoppingList?.shoppinglists ?? [] }
+
   } catch (error) {
     console.error("Error fetching shopping list:", error);
     ctx.status = 500;
