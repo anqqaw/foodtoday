@@ -14,15 +14,12 @@ export const clearShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
 
   try {
-    const updatedUser = await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        shoppingList: [],
-      }
+    await prisma.shoppingList.deleteMany({
+      where: { userId: user.id },
     });
 
     ctx.status = 200;
-    ctx.body = { message: "Shopping list cleared", shoppingList: updatedUser.shoppingList };
+    ctx.body = { message: "Shopping list cleared", shoppingList: [] };
   } catch (error) {
     console.log("Error clearing shopping list:", error);
     ctx.status = 500;
@@ -34,9 +31,6 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   const { item } = ctx.request.body as any;
   const { user } = ctx.state;
 
-  console.log("Item to delete:", item);
-  console.log("User:", user);
-
   if (!item) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
@@ -44,19 +38,26 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   }
 
   try {
-    const currentShoppingList: any[] = user.shoppingList || [];
+    const shoppingItem = await prisma.shoppingList.findFirst({
+      where: { title: item, userId: user.id },
+    });
 
-    const updatedShoppingList = currentShoppingList.filter(i => i.name !== item);
+    if (!shoppingItem) {
+      ctx.status = 404;
+      ctx.body = { error: "Item not found in shopping list" };
+      return;
+    }
 
-    const updatedUser = await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        shoppingList: updatedShoppingList,
-      }
+    await prisma.shoppingList.delete({
+      where: { id: shoppingItem.id },
+    });
+
+    const updatedShoppingList = await prisma.shoppingList.findMany({
+      where: { userId: user.id },
     });
 
     ctx.status = 200;
-    ctx.body = { message: "Item deleted from shopping list", shoppingList: updatedUser.shoppingList };
+    ctx.body = { message: "Item deleted from shopping list", shoppingList: updatedShoppingList };
   } catch (error) {
     console.log("Error deleting item from shopping list:", error);
     ctx.status = 500;
