@@ -84,15 +84,6 @@ const ShoppingList: React.FC = () => {
               >
                 <div className="p-6 flex justify-between items-center">
                   <h2 className="text-xl font-bold text-gray-900">{item.itemName}</h2>
-                  {/* <button
-                    className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveItem(item.id, item.itemName);
-                    }}
-                  >
-                    ❌
-                  </button> */}
                 </div>
               </div>
             ))}
