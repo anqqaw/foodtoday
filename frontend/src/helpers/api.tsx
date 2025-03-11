@@ -160,3 +160,23 @@ export const deleteFromShoppingList = async (item: string) => {
     throw error;
   }
 };
+
+export const convertShoppingList = async (id: String) => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/dinners/convertshoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { id },
+    });
+
+    console.log("Converted Shopping list successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error converting Shopping list:", error);
+    throw error;
+  }
+}
