@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDinnerDetails, DinnerDetails as DinnerDetailsType, addToShoppingList, clearShoppingList } from "../helpers/api";
+import { fetchDinnerDetails, DinnerDetails as DinnerDetailsType, addToShoppingList } from "../helpers/api";
 
 const DinnerDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,14 +31,6 @@ const DinnerDetails: React.FC = () => {
     }
   };
 
-  const clearList = async () => {
-    try {
-      await clearShoppingList();
-    } catch (error) {
-      console.error("Error clearing shopping list:", error);
-    }
-  }
-
   if (!dinner) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -64,7 +56,6 @@ const DinnerDetails: React.FC = () => {
         <p className="text-lg text-gray-700 leading-relaxed mb-8">{dinner.description}</p>
 
         <button onClick={(() => addShoppingList())}>LISÄÄ OSTOSKORIIN</button>
-        <button onClick={(() => clearList())}>TYHJENNÄ OSTOSKORI</button>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="text-lg font-medium text-gray-800 bg-white shadow-md p-4 rounded-lg">
