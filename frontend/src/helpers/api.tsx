@@ -2,6 +2,7 @@ import axios from "axios";
 
 const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
+// Type Definitions
 export interface IngredientDetail {
   name: string;
   unit?: string;
@@ -22,6 +23,19 @@ export interface DinnerDetails extends Omit<Dinner, "images"> {
   images: string[];
   ingredients: IngredientDetail[];
   steps: string[];
+}
+
+export interface ShoppingListItem {
+  id: number;
+  title: string;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+}
+
+export interface ShoppingListResponse {
+  shoppingList: ShoppingListItem[];
 }
 
 export const fetchDinnerDetails = async (id: string): Promise<DinnerDetails> => {
@@ -83,14 +97,14 @@ export const searchDinners = async (query: string): Promise<Dinner[]> => {
   }
 };
 
-export const fetchShoppingList = async (): Promise<[]> => {
+export const fetchShoppingList = async (): Promise<ShoppingListResponse> => {
   const token = localStorage.getItem("googleAuthToken");
   if (!token) {
     throw new Error("No authentication token found");
   }
 
   try {
-    const response = await axios.get(`${ENDPOINT}/api/users/shoppinglist`, {
+    const response = await axios.get<ShoppingListResponse>(`${ENDPOINT}/api/users/shoppinglist`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -137,9 +151,9 @@ export const clearShoppingList = async () => {
     console.log("Error clearing Shopping list", error);
     throw error;
   }
-}
+};
 
-export const deleteFromShoppingList = async (item: string) => {
+export const deleteFromShoppingList = async (id: number) => {
   const token = localStorage.getItem("googleAuthToken");
   if (!token) {
     throw new Error("No authentication token found");
@@ -148,12 +162,10 @@ export const deleteFromShoppingList = async (item: string) => {
   try {
     const response = await axios.delete(`${ENDPOINT}/api/users/deletefromshoppinglist`, {
       headers: { Authorization: `Bearer ${token}` },
-      params: { item },
+      params: { id },
     });
 
-    console.log(item);
-
-    console.log(`Deleted ${item} from Shopping list successfully`, response.data);
+    console.log(`Deleted item with ID ${id} from Shopping list successfully`, response.data);
     return response.data;
   } catch (error) {
     console.log("Error deleting item from shopping list:", error);
