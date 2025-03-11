@@ -6,7 +6,6 @@ const ShoppingList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch Shopping List & Split Items
   useEffect(() => {
     const loadShoppingList = async () => {
       setLoading(true);
