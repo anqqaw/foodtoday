@@ -143,34 +143,38 @@ export const addToShoppingList = async (ctx: Context) => {
 };
 
 export const convertShoppingList = async (ctx: Context) => {
-  const { id } = ctx.params;
+  try {
+    const { id } = ctx.params;
 
-  const dinner = await prisma.dinner.findUnique({
-    where: { id: id },
-    select: { shoppingList: true }
-  });
+    const dinner = await prisma.dinner.findUnique({
+      where: { id: id },
+      select: { shoppingList: true }
+    });
 
-  if (!dinner || !dinner.shoppingList) {
-    throw new Error("Dinner not found or has no shopping list");
+    if (!dinner || !dinner.shoppingList) {
+      throw new Error("Dinner not found or has no shopping list");
 
+    }
+
+    const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
+    const shoppingListString = shoppingListArray
+      .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
+      .join(', ');
+
+    const shoppingList = await prisma.shoppingList.create({
+      data: {
+        title: shoppingListString,
+        userId: id,
+      },
+    });
+
+    console.log("Shopping list converted:", shoppingList);
+
+    ctx.status = 200;
+    ctx.body = { message: "Shopping list converted", shoppingList };
+  } catch (error) {
+    console.error("Error converting shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
   }
-
-  const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
-  const shoppingListString = shoppingListArray
-    .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
-    .join(', ');
-
-  const shoppingList = await prisma.shoppingList.create({
-    data: {
-      title: shoppingListString,
-      userId: id,
-    },
-  });
-
-  console.log("Shopping list converted:", shoppingList);
-
-  ctx.status = 200;
-  ctx.body = { message: "Shopping list converted", shoppingList };
-
-
 };
