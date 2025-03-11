@@ -103,7 +103,6 @@ export const addToShoppingList = async (ctx: Context) => {
   }
 
   try {
-    // Fetch the dinner and its shopping list
     const dinner = await prisma.dinner.findUnique({
       where: { id: Number(id) },
       select: { shoppingList: true, id: true },
@@ -121,23 +120,20 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    // Convert the shopping list into a formatted string
     const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
     const shoppingListString = shoppingListArray
       .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
       .join(', ');
 
-    // Create a new shopping list entry
     const shoppingList = await prisma.shoppingList.create({
       data: {
         title: shoppingListString,
-        userId: user.id, // Use the authenticated user's ID
+        userId: user.id,
       },
     });
 
     console.log("Shopping list converted:", shoppingList);
 
-    // Fetch updated shopping list for the user
     const updatedShoppingList = await prisma.shoppingList.findMany({
       where: { userId: user.id },
     });
