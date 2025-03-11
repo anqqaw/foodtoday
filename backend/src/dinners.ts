@@ -103,8 +103,10 @@ export const addToShoppingList = async (ctx: Context) => {
   }
 
   try {
+    // Fetch the dinner and its shopping list
     const dinner = await prisma.dinner.findUnique({
       where: { id: Number(id) },
+      select: { shoppingList: true, id: true },
     });
 
     if (!dinner) {
@@ -119,61 +121,31 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    const newShoppingListItems = dinner.shoppingList.map((item: any) => ({
-      title: item.name,
-      userId: user.id,
-    }));
-
-    await prisma.shoppingList.createMany({
-      data: newShoppingListItems,
-      skipDuplicates: true,
-    });
-
-    const updatedShoppingList = await prisma.shoppingList.findMany({
-      where: { userId: user.id },
-    });
-
-    ctx.status = 200;
-    ctx.body = { shoppingList: updatedShoppingList };
-  } catch (e) {
-    console.error("Error adding to shopping list:", e);
-    ctx.status = 500;
-    ctx.body = { error: "Internal server error" };
-  }
-};
-
-export const convertShoppingList = async (ctx: Context) => {
-  try {
-    const { id } = ctx.params;
-
-    const dinner = await prisma.dinner.findUnique({
-      where: { id: id },
-      select: { shoppingList: true }
-    });
-
-    if (!dinner || !dinner.shoppingList) {
-      throw new Error("Dinner not found or has no shopping list");
-
-    }
-
+    // Convert the shopping list into a formatted string
     const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
     const shoppingListString = shoppingListArray
       .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
       .join(', ');
 
+    // Create a new shopping list entry
     const shoppingList = await prisma.shoppingList.create({
       data: {
         title: shoppingListString,
-        userId: id,
+        userId: user.id, // Use the authenticated user's ID
       },
     });
 
     console.log("Shopping list converted:", shoppingList);
 
+    // Fetch updated shopping list for the user
+    const updatedShoppingList = await prisma.shoppingList.findMany({
+      where: { userId: user.id },
+    });
+
     ctx.status = 200;
-    ctx.body = { message: "Shopping list converted", shoppingList };
-  } catch (error) {
-    console.error("Error converting shopping list:", error);
+    ctx.body = { message: "Shopping list converted and added", shoppingList: updatedShoppingList };
+  } catch (e) {
+    console.error("Error adding to shopping list:", e);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
