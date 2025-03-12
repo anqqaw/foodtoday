@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchShoppingList, clearShoppingList, deleteFromShoppingList } from "../helpers/api";
+import { fetchShoppingList, clearShoppingList, /*deleteFromShoppingList*/ } from "../helpers/api";
 
 const ShoppingList: React.FC = () => {
   const [shoppingList, setShoppingList] = useState<{ id: number; itemName: string }[]>([]);
