@@ -15,7 +15,7 @@ const DinnersView: React.FC = () => {
       const newDinner = await fetchRandomDinner();
       setDinners((prev) => {
         const updatedDinners = [...prev, newDinner];
-        setCurrentIndex(updatedDinners.length - 1); // Correctly set index to last item
+        setCurrentIndex(updatedDinners.length - 1);
         return updatedDinners;
       });
     } catch (error) {
@@ -25,20 +25,20 @@ const DinnersView: React.FC = () => {
 
   useEffect(() => {
     if (dinners.length === 0) {
-      loadRandomDinner(); // Load the first dinner on mount
+      loadRandomDinner();
     }
   }, [dinners.length, loadRandomDinner]);
 
   // Swipe handlers
   const handlers = useSwipeable({
-    onSwipedLeft: () => loadRandomDinner(), // Swipe left to get a new recipe
-    onSwipedRight: () => {
+    onSwipedDown: () => loadRandomDinner(), // Swipe left to get a new recipe
+    onSwipedUp: () => {
       if (currentIndex > 0) {
         setCurrentIndex((prev) => prev - 1); // Swipe right to go back
       }
     },
     preventScrollOnSwipe: true,
-    trackMouse: true, // Enables mouse dragging
+    trackMouse: true,
   });
 
   return (
