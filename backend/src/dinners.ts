@@ -132,8 +132,6 @@ export const addToShoppingList = async (ctx: Context) => {
       },
     });
 
-    console.log("Shopping list converted:", shoppingList);
-
     const updatedShoppingList = await prisma.shoppingList.findMany({
       where: { userId: user.id },
     });
