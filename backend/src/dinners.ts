@@ -1,6 +1,5 @@
 import { Context } from "koa";
 import { PrismaClient } from "@prisma/client";
-import { JsonArray } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
