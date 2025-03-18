@@ -13,8 +13,8 @@ model User {
 
   settings Json?
 
-  bookmarks     Bookmark[]
-  shoppinglists ShoppingList[]
+  bookmarks         Bookmark[]
+  shoppingListItems ShoppingListItems[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -58,7 +58,7 @@ model Bookmark {
   @@map("bookmarks")
 }
 
-model ShoppingList {
+model ShoppingListItems {
   id Int @id @default(autoincrement())
 
   title     String
