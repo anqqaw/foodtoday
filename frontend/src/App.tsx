@@ -5,7 +5,7 @@ import LoginView from './components/LoginView';
 import DinnerDetails from './components/DinnerDetails';
 import DinnerList from './components/DinnerList';
 import ShoppingList from './components/ShoppingList';
-import Layout from "./Layout";
+import Layout from './components/Layout';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
