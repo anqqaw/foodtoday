@@ -10,11 +10,11 @@ export const getShoppingList = async (ctx: Context) => {
   try {
     const userShoppingList = await prisma.user.findUnique({
       where: { id: user.id },
-      include: { shoppinglists: true },
+      include: { shoppingListItems: true },
     })
 
     ctx.status = 200;
-    ctx.body = { shoppingList: userShoppingList?.shoppinglists || [] };
+    ctx.body = { shoppingList: userShoppingList?.shoppingListItems || [] };
 
   } catch (error) {
     console.error("Error fetching shopping list:", error);
@@ -27,7 +27,7 @@ export const clearShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
 
   try {
-    await prisma.shoppingList.deleteMany({
+    await prisma.shoppingListItems.deleteMany({
       where: { userId: user.id },
     });
 
@@ -51,7 +51,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   }
 
   try {
-    const shoppingItem = await prisma.shoppingList.findFirst({
+    const shoppingItem = await prisma.shoppingListItems.findFirst({
       where: { title: item, userId: user.id },
     });
 
@@ -61,11 +61,11 @@ export const deleteFromShoppingList = async (ctx: Context) => {
       return;
     }
 
-    await prisma.shoppingList.delete({
+    await prisma.shoppingListItems.delete({
       where: { id: shoppingItem.id },
     });
 
-    const updatedShoppingList = await prisma.shoppingList.findMany({
+    const updatedShoppingList = await prisma.shoppingListItems.findMany({
       where: { userId: user.id },
     });
 
