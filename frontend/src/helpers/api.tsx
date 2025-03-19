@@ -2,6 +2,7 @@ import axios from "axios";
 
 const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
+// Type Definitions
 export interface IngredientDetail {
   name: string;
   unit?: string;
@@ -22,6 +23,19 @@ export interface DinnerDetails extends Omit<Dinner, "images"> {
   images: string[];
   ingredients: IngredientDetail[];
   steps: string[];
+}
+
+export interface ShoppingListItem {
+  id: number;
+  title: string;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+}
+
+export interface ShoppingListResponse {
+  shoppingList: ShoppingListItem[];
 }
 
 export const fetchDinnerDetails = async (id: string): Promise<DinnerDetails> => {
@@ -80,5 +94,81 @@ export const searchDinners = async (query: string): Promise<Dinner[]> => {
   } catch (error) {
     console.error("Error fetching search results:", error);
     return [];
+  }
+};
+
+export const fetchShoppingList = async (): Promise<ShoppingListResponse> => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get<ShoppingListResponse>(`${ENDPOINT}/api/users/shoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching shopping list:", error);
+    throw error;
+  }
+};
+
+export const addToShoppingList = async (id: string) => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/dinners/${id}/addtoshoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log("Added to Shopping List successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error adding to Shopping list:", error);
+    throw error;
+  }
+};
+
+export const clearShoppingList = async () => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/users/clearshoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log("Cleared Shopping list successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error clearing Shopping list", error);
+    throw error;
+  }
+};
+
+export const deleteFromShoppingList = async (id: number) => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.delete(`${ENDPOINT}/api/users/deletefromshoppinglist`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { id },
+    });
+
+    console.log(`Deleted item with ID ${id} from Shopping list successfully`, response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error deleting item from shopping list:", error);
+    throw error;
   }
 };

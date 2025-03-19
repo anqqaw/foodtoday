@@ -30,7 +30,7 @@ const DinnerList: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen p-8 bg-gray-50 font-['Space_Grotesk']">
+    <div className="min-h-screen p-8 bg-gray-50 font-['Space_Grotesk'] pb-20">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold text-gray-900">Available Dinners</h1>
         <input

@@ -62,8 +62,6 @@ export const searchDinners = async (ctx: Context) => {
   }
 };
 
-
-
 export const getRandom = async (ctx: Context) => {
   try {
     const count = await prisma.dinner.count();
@@ -88,6 +86,59 @@ export const getRandom = async (ctx: Context) => {
     }
   } catch (error) {
     console.error("Error fetching random dinner:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
+};
+
+export const addToShoppingList = async (ctx: Context) => {
+  const { id } = ctx.params;
+  const { user } = ctx.state;
+
+  if (!id) {
+    ctx.status = 400;
+    ctx.body = { error: "ID parameter is required" };
+    return;
+  }
+
+  try {
+    const dinner = await prisma.dinner.findUnique({
+      where: { id: Number(id) },
+      select: { shoppingList: true, id: true },
+    });
+
+    if (!dinner) {
+      ctx.status = 404;
+      ctx.body = { error: "Dinner not found" };
+      return;
+    }
+
+    if (!Array.isArray(dinner.shoppingList)) {
+      ctx.status = 400;
+      ctx.body = { error: "Dinner does not have a valid shopping list" };
+      return;
+    }
+
+    const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
+    const shoppingListString = shoppingListArray
+      .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
+      .join(', ');
+
+    const shoppingList = await prisma.shoppingListItems.create({
+      data: {
+        title: shoppingListString,
+        userId: user.id,
+      },
+    });
+
+    const updatedShoppingList = await prisma.shoppingListItems.findMany({
+      where: { userId: user.id },
+    });
+
+    ctx.status = 200;
+    ctx.body = { message: "Shopping list converted and added", shoppingList: updatedShoppingList };
+  } catch (e) {
+    console.error("Error adding to shopping list:", e);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }

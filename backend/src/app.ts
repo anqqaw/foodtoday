@@ -5,6 +5,8 @@ import logger from 'koa-logger';
 import Router from 'koa-router';
 
 import * as dinners from './dinners';
+import * as users from './users';
+
 import * as health from './health';
 
 // import { requestLogger } from './logger';
@@ -36,6 +38,11 @@ export function createApp() {
   privateRouter.get('/dinners', dinners.searchDinners);
   privateRouter.get('/dinners/random', dinners.getRandom);
   privateRouter.get('/dinners/:id', dinners.getById);
+  privateRouter.get('/dinners/:id/addtoshoppinglist', dinners.addToShoppingList);
+
+  privateRouter.get('/users/clearshoppinglist', users.clearShoppingList);
+  privateRouter.delete('/users/deletefromshoppinglist', users.deleteFromShoppingList);
+  privateRouter.get('/users/shoppinglist', users.getShoppingList);
 
   app.use(privateRouter.routes());
   app.use(privateRouter.allowedMethods());

@@ -13,7 +13,8 @@ model User {
 
   settings Json?
 
-  bookmarks Bookmark[]
+  bookmarks         Bookmark[]
+  shoppingListItems ShoppingListItems[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -55,4 +56,19 @@ model Bookmark {
   updatedAt DateTime @updatedAt
 
   @@map("bookmarks")
+}
+
+model ShoppingListItems {
+  id Int @id @default(autoincrement())
+
+  title     String
+  completed Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  @@map("shopping_lists")
 }
