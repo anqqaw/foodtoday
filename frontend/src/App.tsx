@@ -5,8 +5,7 @@ import LoginView from './components/LoginView';
 import DinnerDetails from './components/DinnerDetails';
 import DinnerList from './components/DinnerList';
 import ShoppingList from './components/ShoppingList';
-
-import BottomNavBar from './components/BottomNavBar';
+import Layout from './components/Layout';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
@@ -18,19 +17,16 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <div className="flex-1 overflow-auto pb-20">
-          <Routes>
-            <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
-            <Route path="/login" element={<LoginView />} />
-            <Route path="/dinner/:id" element={<DinnerDetails />} />
-            <Route path="/dinners" element={<DinnerList />} />
-            <Route path="/shoppinglist" element={<ShoppingList />} />
-          </Routes>
-        </div>
+      <Routes>
+        <Route path="/login" element={<LoginView />} />
 
-        <BottomNavBar />
-      </div>
+        <Route element={<Layout />}>
+          <Route path="/" element={isAuthenticated ? <DinnersView /> : <Navigate to="/login" />} />
+          <Route path="/dinner/:id" element={<DinnerDetails />} />
+          <Route path="/dinners" element={<DinnerList />} />
+          <Route path="/shoppinglist" element={<ShoppingList />} />
+        </Route>
+      </Routes>
     </Router>
   );
 };
