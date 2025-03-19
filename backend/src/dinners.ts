@@ -124,14 +124,14 @@ export const addToShoppingList = async (ctx: Context) => {
       .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
       .join(', ');
 
-    const shoppingList = await prisma.shoppingList.create({
+    const shoppingList = await prisma.shoppingListItems.create({
       data: {
         title: shoppingListString,
         userId: user.id,
       },
     });
 
-    const updatedShoppingList = await prisma.shoppingList.findMany({
+    const updatedShoppingList = await prisma.shoppingListItems.findMany({
       where: { userId: user.id },
     });
 
