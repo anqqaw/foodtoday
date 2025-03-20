@@ -1949,13 +1949,13 @@ async function main() {
         { qty: 2, unit: '', name: 'ankanrintaa' },
         { name: 'suolaa' },
         { qty: 2, unit: 'tl', name: 'ras-el-hanout-mausteseosta (tai currya)' },
-        { qty: 500, unit: 'g', name: 'kasviksia, esim. punakaalia, lehtikaalia, omenaa' },
+        { qty: 500, unit: 'g', name: 'kasviksia esim. punakaalia, lehtikaalia, omenaa' },
         { qty: 3, unit: 'rkl', name: 'maustamatonta jugurttia' },
       ],
       shoppingList: [
         { qty: 2, unit: '', name: 'ankanrintaa' },
         { name: 'ras-el-hanout-mausteseosta' },
-        { qty: 500, unit: 'g', name: 'kasviksia, esim. punakaalia, lehtikaalia ja omenaa' },
+        { qty: 500, unit: 'g', name: 'kasviksia esim. punakaalia, lehtikaalia ja omenaa' },
         { name: 'maustamatonta jugurttia' },
       ],
       images: [
