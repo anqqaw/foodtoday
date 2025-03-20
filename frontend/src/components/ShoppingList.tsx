@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchShoppingList, clearShoppingList, /*deleteFromShoppingList*/ } from "../helpers/api";
+import { fetchShoppingList, clearShoppingList, deleteFromShoppingList } from "../helpers/api";
 
 const ShoppingList: React.FC = () => {
   const [shoppingList, setShoppingList] = useState<{ id: number; itemName: string }[]>([]);
@@ -46,6 +46,16 @@ const ShoppingList: React.FC = () => {
     }
   };
 
+  const handleRemoveItem = async (id: number, itemName: string) => {
+    try {
+      await deleteFromShoppingList(id);
+      setShoppingList((prevList) => prevList.filter((item) => item.itemName !== itemName));
+    } catch (error) {
+      console.error("Error deleting item from shopping list:", error);
+      setError("Failed to delete item.");
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -69,7 +79,7 @@ const ShoppingList: React.FC = () => {
               <div
                 key={index}
                 className="bg-white shadow-lg rounded-xl overflow-hidden transform transition hover:scale-105 cursor-pointer"
-              // onClick={() => handleRemoveItem(item.id, item.itemName)}
+                onClick={() => handleRemoveItem(item.id, item.itemName)}
               >
                 <div className="p-6 flex justify-between items-center">
                   <h2 className="text-xl font-bold text-gray-900">{item.itemName}</h2>
