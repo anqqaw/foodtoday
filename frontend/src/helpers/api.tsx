@@ -169,3 +169,22 @@ export const deleteFromShoppingList = async (id: number) => {
     throw error;
   }
 };
+
+export const toggleItemCompleted = async (id: number) => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/users/shoppinglist/toggle`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { id },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log("Error toggling item completed:", error);
+    throw error;
+  }
+};
