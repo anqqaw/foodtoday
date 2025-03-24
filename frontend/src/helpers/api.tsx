@@ -151,7 +151,7 @@ export const clearShoppingList = async () => {
   }
 };
 
-export const deleteFromShoppingList = async (id: number) => {
+export const deleteFromShoppingList = async (item: string) => {
   const token = localStorage.getItem("googleAuthToken");
   if (!token) {
     throw new Error("No authentication token found");
@@ -160,7 +160,7 @@ export const deleteFromShoppingList = async (id: number) => {
   try {
     const response = await axios.delete(`${ENDPOINT}/api/users/shoppinglist`, {
       headers: { Authorization: `Bearer ${token}` },
-      data: { id },
+      data: { item },
     });
 
     return response.data;

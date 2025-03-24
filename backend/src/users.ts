@@ -41,10 +41,10 @@ export const clearShoppingList = async (ctx: Context) => {
 };
 
 export const deleteFromShoppingList = async (ctx: Context) => {
-  const { id } = ctx.request.query as any;
+  const { item } = ctx.request.body as any;
   const { user } = ctx.state;
 
-  if (!id) {
+  if (!item) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
     return;
@@ -55,7 +55,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
       where: {
         userId: user.id,
         title: {
-          contains: id,
+          contains: item,
         },
       },
     });
@@ -67,7 +67,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
     }
 
     const itemsArray = shoppingItem.title.split(",").map(i => i.trim());
-    const updatedItems = itemsArray.filter(i => i !== id);
+    const updatedItems = itemsArray.filter(i => i !== item);
 
     if (updatedItems.length === 0) {
       await prisma.shoppingListItems.delete({
