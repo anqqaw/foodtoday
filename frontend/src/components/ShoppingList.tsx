@@ -66,6 +66,13 @@ const ShoppingList: React.FC = () => {
     }
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleRemoveItem(shoppingList[0].itemName),
+    onSwipedRight: () => handleToggleItem(shoppingList[0].id),
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
