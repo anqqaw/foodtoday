@@ -126,7 +126,6 @@ export const addToShoppingList = async (id: string) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log("Added to Shopping List successfully:", response.data);
     return response.data;
   } catch (error) {
     console.log("Error adding to Shopping list:", error);
@@ -145,7 +144,6 @@ export const clearShoppingList = async () => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log("Cleared Shopping list successfully:", response.data);
     return response.data;
   } catch (error) {
     console.log("Error clearing Shopping list", error);
