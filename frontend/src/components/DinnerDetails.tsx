@@ -55,7 +55,12 @@ const DinnerDetails: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 lg:px-0">
         <p className="text-lg text-gray-700 leading-relaxed mb-8">{dinner.description}</p>
 
-        <button onClick={(() => addShoppingList())}>LISÄÄ OSTOSKORIIN</button>
+        <button
+          className="bg-white-500 hover:bg-white-600 text-black font-semibold py-3 px-6 rounded-2xl shadow-md transition-all duration-200 transform hover:scale-105 active:scale-95"
+          onClick={(() => addShoppingList())}
+        >
+          Add to Shopping List
+        </button>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="text-lg font-medium text-gray-800 bg-white shadow-md p-4 rounded-lg">
