@@ -41,10 +41,10 @@ export const clearShoppingList = async (ctx: Context) => {
 };
 
 export const deleteFromShoppingList = async (ctx: Context) => {
-  const { item } = ctx.request.body as any;
+  const { id } = ctx.request.body as any;
   const { user } = ctx.state;
 
-  if (!item) {
+  if (!id) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
     return;
@@ -55,7 +55,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
       where: {
         userId: user.id,
         title: {
-          contains: item,
+          contains: id,
         },
       },
     });
@@ -67,7 +67,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
     }
 
     const itemsArray = shoppingItem.title.split(",").map(i => i.trim());
-    const updatedItems = itemsArray.filter(i => i !== item);
+    const updatedItems = itemsArray.filter(i => i !== id);
 
     if (updatedItems.length === 0) {
       await prisma.shoppingListItems.delete({
@@ -91,6 +91,44 @@ export const deleteFromShoppingList = async (ctx: Context) => {
     };
   } catch (error) {
     console.error("Error deleting item from shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
+};
+
+export const toggleItemCompleted = async (ctx: Context) => {
+  const { id } = ctx.request.body as any;
+  const { user } = ctx.state;
+
+  if (!id) {
+    ctx.status = 400;
+    ctx.body = { error: "ID is required" };
+    return;
+  }
+
+  try {
+    const item = await prisma.shoppingListItems.findFirst({
+      where: { id },
+    });
+
+    if (!item || item.userId !== user.id) {
+      ctx.status = 404;
+      ctx.body = { error: "Item not found or unauthorized" };
+      return;
+    }
+
+    const updatedItem = await prisma.shoppingListItems.update({
+      where: { id },
+      data: { completed: !item.completed },
+    });
+
+    ctx.status = 200;
+    ctx.body = {
+      message: `Item ${updatedItem.completed ? "marked as completed" : "marked as uncompleted"}`,
+      item: updatedItem,
+    }
+  } catch (error) {
+    console.error("Error toggling item completed:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
