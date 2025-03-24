@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fetchShoppingList, clearShoppingList, deleteFromShoppingList } from "../helpers/api";
+import { useSwipeable } from "react-swipeable";
+import { fetchShoppingList, clearShoppingList, deleteFromShoppingList, toggleItemCompleted } from "../helpers/api";
 
 const ShoppingList: React.FC = () => {
   const [shoppingList, setShoppingList] = useState<{ id: number; itemName: string }[]>([]);
@@ -53,6 +54,15 @@ const ShoppingList: React.FC = () => {
     } catch (error) {
       console.error("Error deleting item from shopping list:", error);
       setError("Failed to delete item.");
+    }
+  };
+
+  const handleToggleItem = async (id: number) => {
+    try {
+      await toggleItemCompleted(id);
+    } catch (error) {
+      console.error("Error toggling item in shopping list:", error);
+      setError("Failed to toggle item");
     }
   };
 
