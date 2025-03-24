@@ -165,7 +165,6 @@ export const deleteFromShoppingList = async (item: string) => {
       data: { item },
     });
 
-    console.log(`Deleted item with ID ${item} from Shopping list successfully`, response.data);
     return response.data;
   } catch (error) {
     console.log("Error deleting item from shopping list:", error);
