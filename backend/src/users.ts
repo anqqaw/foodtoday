@@ -52,7 +52,12 @@ export const deleteFromShoppingList = async (ctx: Context) => {
 
   try {
     const shoppingItem = await prisma.shoppingListItems.findFirst({
-      where: { title: item, userId: user.id },
+      where: {
+        userId: user.id,
+        title: {
+          contains: item,
+        },
+      },
     });
 
     if (!shoppingItem) {
@@ -61,18 +66,31 @@ export const deleteFromShoppingList = async (ctx: Context) => {
       return;
     }
 
-    await prisma.shoppingListItems.delete({
-      where: { id: shoppingItem.id },
-    });
+    const itemsArray = shoppingItem.title.split(",").map(i => i.trim());
+    const updatedItems = itemsArray.filter(i => i !== item);
+
+    if (updatedItems.length === 0) {
+      await prisma.shoppingListItems.delete({
+        where: { id: shoppingItem.id },
+      });
+    } else {
+      await prisma.shoppingListItems.update({
+        where: { id: shoppingItem.id },
+        data: { title: updatedItems.join(", ") },
+      });
+    }
 
     const updatedShoppingList = await prisma.shoppingListItems.findMany({
       where: { userId: user.id },
     });
 
     ctx.status = 200;
-    ctx.body = { message: "Item deleted from shopping list", shoppingList: updatedShoppingList };
+    ctx.body = {
+      message: "Item deleted from shopping list",
+      shoppingList: updatedShoppingList,
+    };
   } catch (error) {
-    console.log("Error deleting item from shopping list:", error);
+    console.error("Error deleting item from shopping list:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
