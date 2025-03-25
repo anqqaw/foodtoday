@@ -47,9 +47,9 @@ const ShoppingList: React.FC = () => {
     }
   };
 
-  const handleRemoveItem = async (id: number, itemName: string) => {
+  const handleRemoveItem = async (itemName: string) => {
     try {
-      await deleteFromShoppingList(id, itemName);
+      await deleteFromShoppingList(itemName);
       setShoppingList((prevList) => prevList.filter((item) => item.itemName !== itemName));
     } catch (error) {
       console.error("Error deleting item from shopping list:", error);
@@ -67,7 +67,7 @@ const ShoppingList: React.FC = () => {
   };
 
   const handlers = useSwipeable({
-    onSwipedLeft: () => handleRemoveItem(shoppingList[0].id, shoppingList[0].itemName),
+    onSwipedLeft: () => handleRemoveItem(shoppingList[0].itemName),
     onSwipedRight: () => handleToggleItem(shoppingList[0].id),
     preventScrollOnSwipe: true,
     trackMouse: true,
@@ -96,7 +96,7 @@ const ShoppingList: React.FC = () => {
               <div
                 key={index}
                 className="bg-white shadow-lg rounded-xl overflow-hidden transform transition hover:scale-105 cursor-pointer"
-                onClick={() => handleRemoveItem(item.id, item.itemName)}
+                onClick={() => handleRemoveItem(item.itemName)}
               >
                 <div className="p-6 flex justify-between items-center">
                   <h2 className="text-xl font-bold text-gray-900">{item.itemName}</h2>
