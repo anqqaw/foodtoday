@@ -122,7 +122,7 @@ export const addToShoppingList = async (ctx: Context) => {
     const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
     const shoppingListString = shoppingListArray
       .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
-      .join(', ');
+      .join(': ');
 
     const shoppingList = await prisma.shoppingListItems.create({
       data: {
