@@ -16,7 +16,7 @@ const ShoppingList: React.FC = () => {
 
         if (response && Array.isArray(response.shoppingList)) {
           const extractedItems = response.shoppingList.flatMap((listItem) =>
-            listItem.title.split(",").map((item) => ({
+            listItem.title.split(":").map((item) => ({
               id: listItem.id,
               itemName: item.trim(),
             }))
