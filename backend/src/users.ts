@@ -41,33 +41,30 @@ export const clearShoppingList = async (ctx: Context) => {
 };
 
 export const deleteFromShoppingList = async (ctx: Context) => {
-  const { item } = ctx.request.body as any;
+  const { item, id } = ctx.request.body as any;
   const { user } = ctx.state;
 
-  if (!item) {
+  if (!item || !id) {
     ctx.status = 400;
-    ctx.body = { error: "Item is required" };
+    ctx.body = { error: "Item and id are required" };
     return;
   }
 
   try {
     const shoppingItem = await prisma.shoppingListItems.findFirst({
-      where: {
-        userId: user.id,
-        title: {
-          contains: item,
-        },
-      },
+      where: { id: id }
     });
 
-    if (!shoppingItem) {
+    if (!shoppingItem || shoppingItem.userId !== user.id) {
       ctx.status = 404;
       ctx.body = { error: "Item not found in shopping list" };
       return;
     }
 
-    const itemsArray = shoppingItem.title.split(",").map(i => i.trim());
-    const updatedItems = itemsArray.filter(i => i !== item);
+    const itemsArray = shoppingItem.title.split(",").map((i) => i.trim());
+    const updatedItems = itemsArray.filter(
+      (i) => i.toLowerCase() !== item.trim().toLowerCase()
+    );
 
     if (updatedItems.length === 0) {
       await prisma.shoppingListItems.delete({
