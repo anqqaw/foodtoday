@@ -27,7 +27,7 @@ export const clearShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
 
   try {
-    await prisma.shoppingListItems.deleteMany({
+    await prisma.shoppingListItem.deleteMany({
       where: { userId: user.id },
     });
 
@@ -51,7 +51,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   }
 
   try {
-    const shoppingItem = await prisma.shoppingListItems.findFirst({
+    const shoppingItem = await prisma.shoppingListItem.findFirst({
       where: {
         title: {
           contains: item.trim(),
@@ -74,11 +74,11 @@ export const deleteFromShoppingList = async (ctx: Context) => {
     );
 
     if (updatedItems.length === 0) {
-      await prisma.shoppingListItems.delete({
+      await prisma.shoppingListItem.delete({
         where: { id: shoppingItem.id },
       });
     } else {
-      await prisma.shoppingListItems.update({
+      await prisma.shoppingListItem.update({
         where: { id: shoppingItem.id },
         data: {
           title: updatedItems.join(" : "),
@@ -86,7 +86,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
       });
     }
 
-    const updatedShoppingList = await prisma.shoppingListItems.findMany({
+    const updatedShoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },
     });
 
@@ -113,7 +113,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
   }
 
   try {
-    const item = await prisma.shoppingListItems.findFirst({
+    const item = await prisma.shoppingListItem.findFirst({
       where: { id },
     });
 
@@ -123,7 +123,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
       return;
     }
 
-    const updatedItem = await prisma.shoppingListItems.update({
+    const updatedItem = await prisma.shoppingListItem.update({
       where: { id },
       data: { completed: !item.completed },
     });
