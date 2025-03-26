@@ -125,6 +125,7 @@ export const addToShoppingList = async (ctx: Context) => {
       name: string;
     }[];
 
+    // Does not get added in order could be 1, 3, 2 ,4
     const createdItems = await Promise.all(
       shoppingListArray.map((item) => {
         const qty = item.qty !== undefined ? item.qty : '';
