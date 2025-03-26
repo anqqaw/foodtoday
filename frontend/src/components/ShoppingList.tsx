@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSwipeable } from "react-swipeable";
 import { fetchShoppingList, clearShoppingList, deleteFromShoppingList, toggleItemCompleted } from "../helpers/api";
+import ShoppingListItemCard from "./ShoppingListItemCard";
+
+interface ShoppingListItem {
+  id: number;
+  title: string;
+  completed?: boolean;
+}
 
 const ShoppingList: React.FC = () => {
-  const [shoppingList, setShoppingList] = useState<{ id: number; itemName: string }[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -15,14 +21,13 @@ const ShoppingList: React.FC = () => {
         const response = await fetchShoppingList();
 
         if (response && Array.isArray(response.shoppingList)) {
-          const extractedItems = response.shoppingList.flatMap((listItem) =>
-            listItem.title.split(":").map((item) => ({
-              id: listItem.id,
-              itemName: item.trim(),
-            }))
-          );
+          const items = response.shoppingList.map((item: any) => ({
+            id: item.id,
+            title: item.title,
+            completed: item.completed ?? false,
+          }));
 
-          setShoppingList(extractedItems);
+          setShoppingList(items);
         } else {
           setError("Unexpected shopping list format");
         }
@@ -50,7 +55,7 @@ const ShoppingList: React.FC = () => {
   const handleRemoveItem = async (id: number) => {
     try {
       await deleteFromShoppingList(id);
-      setShoppingList((prevList) => prevList.filter((item) => item.id !== id));
+      setShoppingList((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting item from shopping list:", error);
       setError("Failed to delete item.");
@@ -60,18 +65,16 @@ const ShoppingList: React.FC = () => {
   const handleToggleItem = async (id: number) => {
     try {
       await toggleItemCompleted(id);
+      setShoppingList((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, completed: !item.completed } : item
+        )
+      );
     } catch (error) {
       console.error("Error toggling item in shopping list:", error);
-      setError("Failed to toggle item");
+      setError("Failed to toggle item.");
     }
   };
-
-  const handlers = useSwipeable({
-    onSwipedLeft: () => handleRemoveItem(shoppingList[0].id),
-    onSwipedRight: () => handleToggleItem(shoppingList[0].id),
-    preventScrollOnSwipe: true,
-    trackMouse: true,
-  });
 
   if (loading) {
     return (
@@ -91,17 +94,16 @@ const ShoppingList: React.FC = () => {
         ) : shoppingList.length === 0 ? (
           <p className="text-gray-500 text-center text-lg">Your shopping list is empty</p>
         ) : (
-          <div {...handlers} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {shoppingList.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-lg rounded-xl overflow-hidden transform transition hover:scale-105 cursor-pointer"
-                onClick={() => handleRemoveItem(item.id)}
-              >
-                <div className="p-6 flex justify-between items-center">
-                  <h2 className="text-xl font-bold text-gray-900">{item.itemName}</h2>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {shoppingList.map((item) => (
+              <ShoppingListItemCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                completed={item.completed}
+                onDelete={handleRemoveItem}
+                onToggle={handleToggleItem}
+              />
             ))}
           </div>
         )}
