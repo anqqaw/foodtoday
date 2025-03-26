@@ -41,10 +41,10 @@ export const clearShoppingList = async (ctx: Context) => {
 };
 
 export const deleteFromShoppingList = async (ctx: Context) => {
-  const { item } = ctx.request.body as { item: string };
+  const { id } = ctx.request.body as { id: number };
   const { user } = ctx.state;
 
-  if (!item) {
+  if (!id) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
     return;
@@ -53,38 +53,20 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   try {
     const shoppingItem = await prisma.shoppingListItem.findFirst({
       where: {
-        title: {
-          contains: item.trim(),
-          mode: "insensitive",
-        },
-        userId: user.id,
+        id,
+        userId: user.id
       },
     });
 
     if (!shoppingItem) {
       ctx.status = 404;
-      ctx.body = { error: "Item not found in shopping list" };
+      ctx.body = { error: "Item not found" };
       return;
     }
 
-    const rawItems = shoppingItem.title.split(/[:]/).map((i) => i.trim());
-
-    const updatedItems = rawItems.filter(
-      (i) => i.toLowerCase() !== item.trim().toLowerCase()
-    );
-
-    if (updatedItems.length === 0) {
-      await prisma.shoppingListItem.delete({
-        where: { id: shoppingItem.id },
-      });
-    } else {
-      await prisma.shoppingListItem.update({
-        where: { id: shoppingItem.id },
-        data: {
-          title: updatedItems.join(" : "),
-        },
-      });
-    }
+    await prisma.shoppingListItem.delete({
+      where: { id },
+    });
 
     const updatedShoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },
