@@ -104,7 +104,7 @@ export const addToShoppingList = async (ctx: Context) => {
   try {
     const dinner = await prisma.dinner.findUnique({
       where: { id: Number(id) },
-      select: { shoppingList: true, id: true },
+      select: { shoppingList: true },
     });
 
     if (!dinner) {
@@ -119,24 +119,32 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    const shoppingListArray = dinner.shoppingList as { qty?: number; unit?: string; name: string }[];
-    const shoppingListString = shoppingListArray
-      .map(item => `${item.qty ? item.qty + (item.unit ? ` ${item.unit} ` : " ") : ""}${item.name}`)
-      .join(' : ');
+    const shoppingListArray = dinner.shoppingList as {
+      qty?: number | string;
+      unit?: string;
+      name: string;
+    }[];
 
-    const shoppingList = await prisma.shoppingListItems.create({
-      data: {
-        title: shoppingListString,
-        userId: user.id,
-      },
-    });
+    const createdItems = await Promise.all(
+      shoppingListArray.map((item) => {
+        const qty = item.qty !== undefined ? item.qty : '';
+        const unit = item.unit ?? '';
+        const title = [qty, unit, item.name].filter(Boolean).join(' ').trim();
 
-    const updatedShoppingList = await prisma.shoppingListItems.findMany({
-      where: { userId: user.id },
-    });
+        return prisma.shoppingListItem.create({
+          data: {
+            title,
+            userId: user.id,
+          },
+        });
+      })
+    );
 
     ctx.status = 200;
-    ctx.body = { message: "Shopping list converted and added", shoppingList: updatedShoppingList };
+    ctx.body = {
+      message: "All shopping list items added one by one",
+      shoppingList: createdItems,
+    };
   } catch (e) {
     console.error("Error adding to shopping list:", e);
     ctx.status = 500;
