@@ -103,7 +103,7 @@ export const addToShoppingList = async (ctx: Context) => {
 
   try {
     const dinner = await prisma.dinner.findUnique({
-      where: { id: id },
+      where: { id: Number(id) },
       select: { shoppingList: true },
     });
 
