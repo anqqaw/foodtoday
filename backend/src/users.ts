@@ -41,7 +41,7 @@ export const clearShoppingList = async (ctx: Context) => {
 };
 
 export const deleteFromShoppingList = async (ctx: Context) => {
-  const { id } = ctx.request.body as { id: number };
+  const { id } = ctx.params;
   const { user } = ctx.state;
 
   if (!id) {
