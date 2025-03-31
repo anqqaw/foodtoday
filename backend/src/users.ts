@@ -53,7 +53,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   try {
     const shoppingItem = await prisma.shoppingListItem.findFirst({
       where: {
-        id,
+        id: Number(id),
         userId: user.id
       },
     });
@@ -65,7 +65,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
     }
 
     await prisma.shoppingListItem.delete({
-      where: { id },
+      where: { id: Number(id) },
     });
 
     const updatedShoppingList = await prisma.shoppingListItem.findMany({
