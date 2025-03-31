@@ -176,9 +176,8 @@ export const toggleItemCompleted = async (id: number) => {
   }
 
   try {
-    const response = await axios.get(`${ENDPOINT}/api/users/shoppinglist/toggle`, {
+    const response = await axios.get(`${ENDPOINT}/api/users/shoppinglist/${id}/toggle`, {
       headers: { Authorization: `Bearer ${token}` },
-      params: { id },
     });
 
     return response.data;
