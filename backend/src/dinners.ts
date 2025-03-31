@@ -143,7 +143,7 @@ export const addToShoppingList = async (ctx: Context) => {
 
     ctx.status = 200;
     ctx.body = {
-      message: "All shopping list items added one by one",
+      message: "Shopping list converted and added",
       shoppingList: createdItems,
     };
   } catch (e) {
