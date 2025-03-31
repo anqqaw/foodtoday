@@ -85,7 +85,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
 };
 
 export const toggleItemCompleted = async (ctx: Context) => {
-  const id = Number(ctx.request.query.id);
+  const id = ctx.params;
   const { user } = ctx.state;
 
   if (!id) {
