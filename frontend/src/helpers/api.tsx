@@ -158,9 +158,8 @@ export const deleteFromShoppingList = async (id: number) => {
   }
 
   try {
-    const response = await axios.delete(`${ENDPOINT}/api/users/shoppinglist`, {
+    const response = await axios.delete(`${ENDPOINT}/api/users/shoppinglist/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
-      data: { id },
     });
 
     return response.data;
