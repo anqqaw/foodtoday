@@ -85,7 +85,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
 };
 
 export const toggleItemCompleted = async (ctx: Context) => {
-  const id = ctx.params;
+  const { id } = ctx.params;
   const { user } = ctx.state;
 
   if (!id) {
@@ -96,7 +96,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
 
   try {
     const item = await prisma.shoppingListItem.findFirst({
-      where: { id },
+      where: { id: Number(id) },
     });
 
     if (!item || item.userId !== user.id) {
@@ -106,7 +106,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
     }
 
     const updatedItem = await prisma.shoppingListItem.update({
-      where: { id },
+      where: { id: Number(id) },
       data: { completed: !item.completed },
     });
 
