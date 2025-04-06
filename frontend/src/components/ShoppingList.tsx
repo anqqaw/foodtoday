@@ -65,12 +65,8 @@ const ShoppingList: React.FC = () => {
 
   const handleToggleItem = async (id: number) => {
     try {
-      await toggleItemCompleted(id);
-      setShoppingList((prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, completed: !item.completed } : item
-        )
-      );
+      const response = await toggleItemCompleted(id);
+      setShoppingList(response.shoppingList);
     } catch (error) {
       console.error("Error toggling item in shopping list:", error);
       setError("Failed to toggle item.");
