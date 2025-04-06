@@ -88,9 +88,11 @@ export const toggleItemCompleted = async (ctx: Context) => {
   const { id } = ctx.params;
   const { user } = ctx.state;
 
+  console.log("Toggle item completed:", id);
+
   if (!id) {
     ctx.status = 400;
-    ctx.body = { error: "ID is required" };
+    ctx.body = { error: "Valid ID is required" };
     return;
   }
 
@@ -105,16 +107,23 @@ export const toggleItemCompleted = async (ctx: Context) => {
       return;
     }
 
-    const updatedItem = await prisma.shoppingListItem.update({
+    await prisma.shoppingListItem.update({
       where: { id: Number(id) },
       data: { completed: !item.completed },
     });
 
+    const updatedShoppingList = await prisma.shoppingListItem.findMany({
+      where: { userId: user.id },
+      orderBy: { id: "desc" },
+    });
+
+    console.log("Updated shopping list:", updatedShoppingList);
+
     ctx.status = 200;
     ctx.body = {
-      message: `Item ${updatedItem.completed ? "marked as completed" : "marked as uncompleted"}`,
-      item: updatedItem,
-    }
+      message: "Item toggled",
+      shoppingList: updatedShoppingList,
+    };
   } catch (error) {
     console.error("Error toggling item completed:", error);
     ctx.status = 500;
