@@ -107,43 +107,33 @@ export const addToShoppingList = async (ctx: Context) => {
       select: { shoppingList: true },
     });
 
-    if (!dinner) {
-      ctx.status = 404;
-      ctx.body = { error: "Dinner not found" };
-      return;
-    }
-
-    if (!Array.isArray(dinner.shoppingList)) {
+    if (!dinner?.shoppingList || !Array.isArray(dinner.shoppingList)) {
       ctx.status = 400;
-      ctx.body = { error: "Dinner does not have a valid shopping list" };
+      ctx.body = { error: "Invalid shopping list" };
       return;
     }
 
-    const shoppingListArray = dinner.shoppingList as {
-      qty?: number | string;
-      unit?: string;
-      name: string;
-    }[];
+    const createdItems = [];
 
-    // Does not get added in order could be 1, 3, 2 ,4
-    const createdItems = await Promise.all(
-      shoppingListArray.map((item) => {
-        const qty = item.qty !== undefined ? item.qty : '';
-        const unit = item.unit ?? '';
-        const title = [qty, unit, item.name].filter(Boolean).join(' ').trim();
+    for (const item of dinner.shoppingList as { qty?: number | string; unit?: string; name: string }[]) {
+      const title = [item.qty ?? '', item.unit ?? '', item.name]
+        .filter(Boolean)
+        .join(' ')
+        .trim();
 
-        return prisma.shoppingListItem.create({
-          data: {
-            title,
-            userId: user.id,
-          },
-        });
-      })
-    );
+      const created = await prisma.shoppingListItem.create({
+        data: {
+          title,
+          userId: user.id,
+        },
+      });
+
+      createdItems.push(created);
+    }
 
     ctx.status = 200;
     ctx.body = {
-      message: "Shopping list converted and added",
+      message: "Items added to shopping list",
       shoppingList: createdItems,
     };
   } catch (e) {
