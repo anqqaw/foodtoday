@@ -112,6 +112,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
 
     const updatedShoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },
+      orderBy: { id: "asc" },
     });
 
     console.log("Updated shopping list:", updatedShoppingList);
