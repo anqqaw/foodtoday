@@ -126,7 +126,6 @@ export const addToShoppingList = async (id: string) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log("Added to Shopping List successfully:", response.data);
     return response.data;
   } catch (error) {
     console.log("Error adding to Shopping list:", error);
@@ -145,7 +144,6 @@ export const clearShoppingList = async () => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log("Cleared Shopping list successfully:", response.data);
     return response.data;
   } catch (error) {
     console.log("Error clearing Shopping list", error);
@@ -160,15 +158,31 @@ export const deleteFromShoppingList = async (id: number) => {
   }
 
   try {
-    const response = await axios.delete(`${ENDPOINT}/api/users/deletefromshoppinglist`, {
+    const response = await axios.delete(`${ENDPOINT}/api/users/shoppinglist/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
-      params: { id },
     });
 
-    console.log(`Deleted item with ID ${id} from Shopping list successfully`, response.data);
     return response.data;
   } catch (error) {
     console.log("Error deleting item from shopping list:", error);
+    throw error;
+  }
+};
+
+export const toggleItemCompleted = async (id: number) => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT}/api/users/shoppinglist/${id}/toggle`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log("Error toggling item completed:", error);
     throw error;
   }
 };

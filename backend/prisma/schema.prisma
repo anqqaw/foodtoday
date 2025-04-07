@@ -14,7 +14,7 @@ model User {
   settings Json?
 
   bookmarks         Bookmark[]
-  shoppingListItems ShoppingListItems[]
+  shoppingListItems ShoppingListItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -58,7 +58,7 @@ model Bookmark {
   @@map("bookmarks")
 }
 
-model ShoppingListItems {
+model ShoppingListItem {
   id Int @id @default(autoincrement())
 
   title     String
@@ -70,5 +70,5 @@ model ShoppingListItems {
   User   User?   @relation(fields: [userId], references: [id])
   userId String?
 
-  @@map("shopping_lists")
+  @@map("shopping_list_items")
 }

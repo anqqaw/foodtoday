@@ -41,8 +41,9 @@ export function createApp() {
   privateRouter.get('/dinners/:id/addtoshoppinglist', dinners.addToShoppingList);
 
   privateRouter.get('/users/clearshoppinglist', users.clearShoppingList);
-  privateRouter.delete('/users/deletefromshoppinglist', users.deleteFromShoppingList);
   privateRouter.get('/users/shoppinglist', users.getShoppingList);
+  privateRouter.delete('/users/shoppinglist/:id', users.deleteFromShoppingList);
+  privateRouter.get('/users/shoppinglist/:id/toggle', users.toggleItemCompleted);
 
   app.use(privateRouter.routes());
   app.use(privateRouter.allowedMethods());

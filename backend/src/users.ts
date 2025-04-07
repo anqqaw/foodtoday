@@ -27,7 +27,7 @@ export const clearShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
 
   try {
-    await prisma.shoppingListItems.deleteMany({
+    await prisma.shoppingListItem.deleteMany({
       where: { userId: user.id },
     });
 
@@ -41,38 +41,89 @@ export const clearShoppingList = async (ctx: Context) => {
 };
 
 export const deleteFromShoppingList = async (ctx: Context) => {
-  const { item } = ctx.request.body as any;
+  const { id } = ctx.params;
   const { user } = ctx.state;
 
-  if (!item) {
+  if (!id) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
     return;
   }
 
   try {
-    const shoppingItem = await prisma.shoppingListItems.findFirst({
-      where: { title: item, userId: user.id },
+    const shoppingItem = await prisma.shoppingListItem.findFirst({
+      where: {
+        id: Number(id),
+        userId: user.id
+      },
     });
 
     if (!shoppingItem) {
       ctx.status = 404;
-      ctx.body = { error: "Item not found in shopping list" };
+      ctx.body = { error: "Item not found" };
       return;
     }
 
-    await prisma.shoppingListItems.delete({
-      where: { id: shoppingItem.id },
+    await prisma.shoppingListItem.delete({
+      where: { id: Number(id) },
     });
 
-    const updatedShoppingList = await prisma.shoppingListItems.findMany({
+    const updatedShoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },
     });
 
     ctx.status = 200;
-    ctx.body = { message: "Item deleted from shopping list", shoppingList: updatedShoppingList };
+    ctx.body = {
+      message: "Item deleted from shopping list",
+      shoppingList: updatedShoppingList,
+    };
   } catch (error) {
-    console.log("Error deleting item from shopping list:", error);
+    console.error("Error deleting item from shopping list:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
+};
+
+export const toggleItemCompleted = async (ctx: Context) => {
+  const { id } = ctx.params;
+  const { user } = ctx.state;
+
+  if (!id) {
+    ctx.status = 400;
+    ctx.body = { error: "Valid ID is required" };
+    return;
+  }
+
+  try {
+    const item = await prisma.shoppingListItem.findFirst({
+      where: { id: Number(id) },
+    });
+
+    if (!item || item.userId !== user.id) {
+      ctx.status = 404;
+      ctx.body = { error: "Item not found or unauthorized" };
+      return;
+    }
+
+    await prisma.shoppingListItem.update({
+      where: { id: Number(id) },
+      data: { completed: !item.completed },
+    });
+
+    const updatedShoppingList = await prisma.shoppingListItem.findMany({
+      where: { userId: user.id },
+      orderBy: { id: "asc" },
+    });
+
+    console.log("Updated shopping list:", updatedShoppingList);
+
+    ctx.status = 200;
+    ctx.body = {
+      message: "Item toggled",
+      shoppingList: updatedShoppingList,
+    };
+  } catch (error) {
+    console.error("Error toggling item completed:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
