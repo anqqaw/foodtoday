@@ -88,8 +88,6 @@ export const toggleItemCompleted = async (ctx: Context) => {
   const { id } = ctx.params;
   const { user } = ctx.state;
 
-  console.log("Toggle item completed:", id);
-
   if (!id) {
     ctx.status = 400;
     ctx.body = { error: "Valid ID is required" };
