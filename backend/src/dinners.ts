@@ -109,7 +109,7 @@ export const addToShoppingList = async (ctx: Context) => {
 
     if (!dinner?.shoppingList || !Array.isArray(dinner.shoppingList)) {
       ctx.status = 400;
-      ctx.body = { error: "Invalid shopping list" };
+      ctx.body = { error: "ShoppingList is not defined and formatted as an array." };
       return;
     }
 
@@ -137,7 +137,6 @@ export const addToShoppingList = async (ctx: Context) => {
       shoppingList: createdItems,
     };
   } catch (e) {
-    console.error("Error adding to shopping list:", e);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
