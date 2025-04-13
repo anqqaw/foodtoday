@@ -278,7 +278,7 @@ describe('GET /api/users/shoppinglist', async () => {
     expect(res.body.shoppingList).toEqual([]);
   });
 
-  it('returns 500 if something goes wrong', async () {
+  it('returns 500 if something goes wrong', async () => {
     jest.spyOn(prisma.shoppingListItem, 'findMany').mockImplementationOnce(() => {
       throw new Error('Internal server error');
     });
