@@ -205,5 +205,21 @@ describe('GET /api/users/clearshoppinglist', async () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
+    // resetRedisMock();
+  });
+
+  it('clears all the items from users shopping list', async () => {
+    const res = await server
+      .get(`/api/users/clearshoppinglist`)
+      .set('Authorization', ' Bearer mockToken');
+
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Shopping list cleared');
+    expect(res.body.shoppingList).toEqual([]);
+
+    const remaining = await prisma.shoppingListItem.findMany({
+      where: { userId: user.id },
+    });
+    expect(remaining).toHaveLength(0);
   })
 });
