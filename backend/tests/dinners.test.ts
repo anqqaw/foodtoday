@@ -69,10 +69,14 @@ describe('Dinners', () => {
     });
 
     afterEach(async () => {
-      await prisma.dinner.deleteMany();
-      await prisma.user.deleteMany();
       resetRedisMock();
     });
+
+    afterAll(async () => {
+      await prisma.dinner.deleteMany();
+      await prisma.user.deleteMany();
+    });
+
   });
 
   it('GET /api/dinners/:id - should return dinner details', async () => {
