@@ -115,8 +115,6 @@ export const toggleItemCompleted = async (ctx: Context) => {
       orderBy: { id: "asc" },
     });
 
-    console.log("Updated shopping list:", updatedShoppingList);
-
     ctx.status = 200;
     ctx.body = {
       message: "Item toggled",
