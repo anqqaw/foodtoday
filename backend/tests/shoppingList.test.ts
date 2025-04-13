@@ -87,3 +87,27 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
     expect(res.body).toHaveProperty('error', 'Item not found or unauthorized');
   });
 });
+
+describe('DELETE /api/users/shoppinglist/:id', async () => {
+  let user: any;
+  let item: any;
+
+  beforeEach(async () => {
+    user = await prisma.user.create({
+      data: { email: 'delete-item@test.com ' },
+    });
+
+    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+      ctx.state.user = user;
+      await next();
+    });
+
+    item = await prisma.shoppingListItem.create({
+      data: {
+        title: 'Test Item',
+        completed: false,
+        userId: user.id,
+      }
+    })
+  })
+})
