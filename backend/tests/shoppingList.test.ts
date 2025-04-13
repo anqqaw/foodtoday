@@ -3,6 +3,8 @@ import request from 'supertest';
 import { createApp } from '../src/app';
 import * as google from '../src/middlewares/google';
 
+jest.mock('../src/middlewares/google');
+
 import { resetRedisMock } from './__mocks__/ioredis';
 
 const prisma = new PrismaClient();
