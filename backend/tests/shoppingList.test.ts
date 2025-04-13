@@ -228,7 +228,7 @@ describe('GET /api/users/clearshoppinglist', () => {
   });
 
   it('returns 500 if something goes wrong', async () => {
-    jest.spyOn(prisma.shoppingListItem, 'deleteMany').mockImplementationOnce(() => {
+    jest.spyOn(prisma.shoppingListItem, 'deleteMany').mockRejectedValueOnce(() => {
       throw new Error('Internal server error');
     });
 
