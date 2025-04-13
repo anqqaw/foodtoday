@@ -245,5 +245,17 @@ describe('GET /api/users/shoppinglist', async () => {
     user = await prisma.user.create({
       data: { email: 'get-list@test.com' },
     });
-  })
+
+    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+      ctx.state.user = user;
+      await next();
+    });
+  });
+
+  afterEach(async () => {
+    await prisma.shoppingListItem.deleteMany();
+    await prisma.user.deleteMany();
+    // resetRedisMock();
+  });
+
 })
