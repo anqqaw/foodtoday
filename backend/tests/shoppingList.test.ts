@@ -236,3 +236,14 @@ describe('GET /api/users/clearshoppinglist', async () => {
     expect(res.body.error).toBe('Internal server error');
   });
 });
+
+
+describe('GET /api/users/shoppinglist', async () => {
+  let user: any;
+
+  beforeEach(async () => {
+    user = await prisma.user.create({
+      data: { email: 'get-list@test.com' },
+    });
+  })
+})
