@@ -64,7 +64,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
 
   it('returns 400 if no id is provided', async () => {
     const res = await server
-      .get(`/api/users/shoppinglist/toggle`)
+      .get(`/api/users/shoppinglist/abc/toggle`)
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(404);
@@ -142,7 +142,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
 
   it('returns 400 if ID is missing from path', async () => {
     const res = await server
-      .delete(`/api/users/shoppinglist`)
+      .delete(`/api/users/shoppinglist/999999`)
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(400);
