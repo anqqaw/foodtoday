@@ -60,8 +60,19 @@ describe('Dinners', () => {
 
       user = await prisma.user.create({
         data: { email: 'search@test.com' },
-      })
-    })
+      });
+
+      (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+        ctx.state.user = user;
+        await next();
+      });
+    });
+
+    afterEach(async () => {
+      await prisma.dinner.deleteMany();
+      await prisma.user.deleteMany();
+      resetRedisMock();
+    });
   });
 
   it('GET /api/dinners/:id - should return dinner details', async () => {
