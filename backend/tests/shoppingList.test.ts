@@ -107,7 +107,12 @@ describe('DELETE /api/users/shoppinglist/:id', async () => {
         title: 'Test Item',
         completed: false,
         userId: user.id,
-      }
-    })
+      },
+    });
+  });
+
+  afterEach(async () => {
+    await prisma.shoppingListItem.deleteMany();
+    await prisma.user.deleteMany();
   })
 })
