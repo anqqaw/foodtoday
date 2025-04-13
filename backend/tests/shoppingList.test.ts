@@ -221,5 +221,18 @@ describe('GET /api/users/clearshoppinglist', async () => {
       where: { userId: user.id },
     });
     expect(remaining).toHaveLength(0);
-  })
+  });
+
+  it('returns 500 if something goes wrong', async () => {
+    jest.spyOn(prisma.shoppingListItem, 'deleteMany').mockImplementationOnce(() => {
+      throw new Error('Internal server error');
+    });
+
+    const res = await server
+      .get(`/api/users/clearshoppinglist`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(500);
+    expect(res.body.error).toBe('Internal server error');
+  });
 });
