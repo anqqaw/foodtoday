@@ -92,7 +92,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
   });
 });
 
-describe('DELETE /api/users/shoppinglist/:id', async () => {
+describe('DELETE /api/users/shoppinglist/:id', () => {
   let user: any;
   let item: any;
 
