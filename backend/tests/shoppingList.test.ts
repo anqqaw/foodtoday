@@ -186,6 +186,24 @@ describe('GET /api/users/clearshoppinglist', async () => {
   beforeEach(async () => {
     user = await prisma.user.create({
       data: { email: 'clear@test.com' },
-    })
+    });
+
+    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+      ctx.state.user = user;
+      await next();
+    });
+
+    await prisma.shoppingListItem.createMany({
+      data: {
+        title: "Test Item",
+        completed: false,
+        userId: user.id,
+      },
+    });
+  });
+
+  afterEach(async () => {
+    await prisma.shoppingListItem.deleteMany();
+    await prisma.user.deleteMany();
   })
 });
