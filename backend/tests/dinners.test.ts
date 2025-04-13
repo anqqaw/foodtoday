@@ -60,4 +60,13 @@ describe('Dinners', () => {
     expect(res.body).toHaveProperty('id', dinner?.id);
     expect(res.body).toHaveProperty('title')
   })
+
+  it('GET /api/dinners/999999 - should return 404 for non-existing dinner', async () => {
+    const res = await server
+      .get('/api/dinners/999999')
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('error', 'Dinner not found');
+  })
 });
