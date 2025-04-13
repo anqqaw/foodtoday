@@ -3,6 +3,8 @@ import request from 'supertest';
 import { createApp } from '../src/app';
 import * as google from '../src/middlewares/google';
 
+import { resetRedisMock } from './__mocks__/ioredis';
+
 const prisma = new PrismaClient();
 const app = createApp();
 const server = request(app.callback());
@@ -33,7 +35,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    // resetRedisMock();
+    resetRedisMock();
   });
 
   it('toggles the completed status of a shopping list item', async () => {
@@ -114,7 +116,7 @@ describe('DELETE /api/users/shoppinglist/:id', async () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    // resetRedisMock();
+    resetRedisMock();
   });
 
   it('deletes an item from the shopping list', async () => {
@@ -205,7 +207,7 @@ describe('GET /api/users/clearshoppinglist', async () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    // resetRedisMock();
+    resetRedisMock();
   });
 
   it('clears all the items from users shopping list', async () => {
@@ -255,7 +257,7 @@ describe('GET /api/users/shoppinglist', async () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    // resetRedisMock();
+    resetRedisMock();
   });
 
   it('returns a list of shopping items for the user', async () => {
