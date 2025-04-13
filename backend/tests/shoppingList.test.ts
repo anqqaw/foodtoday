@@ -114,5 +114,68 @@ describe('DELETE /api/users/shoppinglist/:id', async () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-  })
-})
+    // resetRedisMock();
+  });
+
+  it('deletes an item from the shopping list', async () => {
+    const res = await server
+      .delete(`api/users/shoppinglist/${item.id}`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Item deleted from shopping list');
+    expect(res.body.shoppingList.find((i: any) => i.id === item.id)).toBeUndefined(); // Make simpler
+  });
+
+  it('returns 404 if item does not exist', async () => {
+    const res = await server
+      .delete(`api/users/shoppinglist/999999`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404);
+    expect(res.body).toBe("Item not found");
+  });
+
+  it('returns 400 if ID is missing from path', async () => {
+    const res = await server
+      .delete(`/api/users/shoppinglist/`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404); // This will actually be 404 from the router, not 400 — because the route doesn't match
+    expect(res.body).toBe("Item is required");
+  });
+
+  it('returns 404 if item belongs to a different user', async () => {
+    const otherUser = await prisma.user.create({
+      data: { email: 'other@test.com' },
+    });
+
+    const otherItem = await prisma.shoppingListItem.create({
+      data: {
+        title: 'Other Item',
+        completed: false,
+        userId: otherUser.id,
+      },
+    });
+
+    const res = await server
+      .delete(`/api/users/shoppinglist/${otherItem.id}`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('Item not found');
+  });
+
+  it('returns 500 on internal server error', async () => {
+    jest.spyOn(prisma.shoppingListItem, 'findFirst').mockImplementationOnce(() => {
+      throw new Error('Internal server error');
+    });
+
+    const res = await server
+      .delete(`/api/users/shoppinglist/${item.id}`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(500);
+    expect(res.body.error).toBe('Internal server error');
+  });
+});
