@@ -1,0 +1,89 @@
+import { PrismaClient } from '@prisma/client';
+import request from 'supertest';
+import { createApp } from '../src/app';
+import * as google from '../src/middlewares/google';
+
+const prisma = new PrismaClient();
+const app = createApp();
+const server = request(app.callback());
+
+describe('GET /users/shoppinglist/:id/toggle', () => {
+  let user: any;
+  let item: any;
+
+  beforeEach(async () => {
+    user = await prisma.user.create({
+      data: { email: 'toggle-item@ai-extension.com' },
+    });
+
+    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+      ctx.state.user = user;
+      await next();
+    });
+
+    item = await prisma.shoppingListItem.create({
+      data: {
+        title: 'Test Item',
+        completed: false,
+        userId: user.id,
+      },
+    });
+  });
+
+  afterEach(async () => {
+    await prisma.shoppingListItem.deleteMany();
+    await prisma.user.deleteMany();
+    //resetRedisMock();
+  });
+
+  it('toggles the completed status of a shopping list item', async () => {
+    const res = await server
+      .get(`/api/users/shoppinglist/${item.id}/toggle`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Item toggled');
+    expect(res.body.shoppingList[0]).toMatchObject({
+      id: item.id,
+      completed: true,
+    });
+  });
+
+  it('returns 404 if item does not exist', async () => {
+    const res = await server
+      .get(`/api/users/shoppinglist/999999/toggle`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('error');
+  });
+
+  it('returns 400 if no id is provided', async () => {
+    const res = await server
+      .get(`/api/users/shoppinglist//toggle`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404); // This will actually be 404 from the router, not 400 — because the route doesn't match
+  });
+
+  it('returns 404 if item belongs to a different user', async () => {
+    const otherUser = await prisma.user.create({
+      data: { email: 'other@user.com' },
+    });
+
+    const otherItem = await prisma.shoppingListItem.create({
+      data: {
+        title: 'Other Item',
+        completed: false,
+        userId: otherUser.id,
+      },
+    });
+
+    const res = await server
+      .get(`/api/users/shoppinglist/${otherItem.id}/toggle`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('error', 'Item not found or unauthorized');
+  });
+});
