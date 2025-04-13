@@ -142,7 +142,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
 
   it('returns 400 if ID is missing from path', async () => {
     const res = await server
-      .delete(`/api/users/shoppinglist/999999`)
+      .delete(`/api/users/shoppinglist`)
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(400);
