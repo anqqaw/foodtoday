@@ -77,6 +77,52 @@ describe('Dinners', () => {
       await prisma.user.deleteMany();
     });
 
+    it('returns all dinners when query is missing or empty', async () => {
+      const res1 = await server
+        .get('/api/dinners')
+        .set('Authorization', 'Bearer mockToken');
+
+      const res2 = await server
+        .get('/api/dinners?query=')
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res1.status).toBe(200);
+      expect(res2.status).toBe(200);
+      expect(res1.body.dinners.length).toBeGreaterThanOrEqual(4);
+      expect(res2.body.dinners.length).toBeGreaterThanOrEqual(4);
+    });
+
+    it('filters dinners by title using the query param (case-insensitive)', async () => {
+      const res = await server
+        .get('/api/dinners?query=salmon')
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res.status).toBe(200);
+      expect(res.body.dinners).toHaveLength(1);
+      expect(res.body.dinners[0].title).toBe('Salmon Bowl');
+    });
+
+    it('returns an empty array if no matches found', async () => {
+      const res = await server
+        .get('/api/dinners?query=nonexistent')
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res.status).toBe(200);
+      expect(res.body.dinners).toEqual([]);
+    });
+
+    it('returns 500 if there is a server error', async () => {
+      jest.spyOn(prisma.dinner, 'findMany').mockImplementationOnce(() => {
+        throw new Error('Simulated error');
+      });
+
+      const res = await server
+        .get('/api/dinners?query=salmon')
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res.status).toBe(500);
+      expect(res.body.error).toBe('Internal server error.');
+    });
   });
 
   it('GET /api/dinners/:id - should return dinner details', async () => {
