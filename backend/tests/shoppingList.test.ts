@@ -33,7 +33,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    //resetRedisMock();
+    // resetRedisMock();
   });
 
   it('toggles the completed status of a shopping list item', async () => {
