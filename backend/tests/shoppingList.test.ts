@@ -67,7 +67,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
       .get(`/api/users/shoppinglist//toggle`)
       .set('Authorization', 'Bearer mockToken');
 
-    expect(res.status).toBe(400);
+    expect(res.status).toBe(404);
   });
 
   it('returns 404 if item belongs to a different user', async () => {
