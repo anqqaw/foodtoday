@@ -67,7 +67,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
       .get(`/api/users/shoppinglist//toggle`)
       .set('Authorization', 'Bearer mockToken');
 
-    expect(res.status).toBe(404); // This will actually be 404 from the router, not 400 — because the route doesn't match
+    expect(res.status).toBe(400);
   });
 
   it('returns 404 if item belongs to a different user', async () => {
@@ -128,7 +128,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Item deleted from shopping list');
-    expect(res.body.shoppingList.find((i: any) => i.id === item.id)).toBeUndefined(); // Make simpler
+    expect(res.body.shoppingList.find((i: any) => i.id === item.id)).toBeUndefined();
   });
 
   it('returns 404 if item does not exist', async () => {
@@ -145,7 +145,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
       .delete(`/api/users/shoppinglist/`)
       .set('Authorization', 'Bearer mockToken');
 
-    expect(res.status).toBe(404); // This will actually be 404 from the router, not 400 — because the route doesn't match
+    expect(res.status).toBe(400);
     expect(res.body).toBe("Item is required");
   });
 
