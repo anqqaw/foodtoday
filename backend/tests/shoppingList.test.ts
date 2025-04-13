@@ -179,3 +179,13 @@ describe('DELETE /api/users/shoppinglist/:id', async () => {
     expect(res.body.error).toBe('Internal server error');
   });
 });
+
+describe('GET /api/users/clearshoppinglist', async () => {
+  let user: any;
+
+  beforeEach(async () => {
+    user = await prisma.user.create({
+      data: { email: 'clear@test.com' },
+    })
+  })
+});
