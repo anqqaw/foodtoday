@@ -1,5 +1,55 @@
 # Changelog
 
+## [1.3.0](https://github.com/mrako/foodtoday/compare/v1.2.0...v1.3.0) (2025-04-13)
+
+
+### Features
+
+* Added a new file for swiping in shopping list ([66cd399](https://github.com/mrako/foodtoday/commit/66cd399691a1546645f3f8fb719c00c313fd179e))
+* Added a toggle completed method to backend ([e4ec3b2](https://github.com/mrako/foodtoday/commit/e4ec3b2569b4c713183d474bdd6f09e2f784b938))
+* Added handleRemoveItem method ([0aabaa4](https://github.com/mrako/foodtoday/commit/0aabaa4b5345a2f1963a0f74b12be82132277aeb))
+* Added handlers for swiping ([f4f2e9a](https://github.com/mrako/foodtoday/commit/f4f2e9a98266f127aae84c19b48c5343a7b8c51d))
+* Added handleToggleItem to frontend ([062f993](https://github.com/mrako/foodtoday/commit/062f9930b24062ee99dda1c6e99da3b5605877e6))
+* Added new migration ([8673a75](https://github.com/mrako/foodtoday/commit/8673a7536a2a749b94cdb60eaece8fd59e5faa8b))
+* Added new migration for database fix ([b8588a5](https://github.com/mrako/foodtoday/commit/b8588a519e53b45354e334c40480893de8bf6693))
+* Added toggle endpoint ([6d8dfe2](https://github.com/mrako/foodtoday/commit/6d8dfe2a64dce953d63fca607b9ce7f71c22b7c5))
+* Added toggling method to connect backend and frontend ([7f9cf5b](https://github.com/mrako/foodtoday/commit/7f9cf5b69f6caf226f7d756ffb4fdf8969e97c65))
+
+
+### Bug Fixes
+
+* Backend adding to shoppinglist add items in order ([e8777b6](https://github.com/mrako/foodtoday/commit/e8777b6710df315e9cc28f3fbffd430bd3f88566))
+* Fixed adding to shoppinglist one by one ([8acf625](https://github.com/mrako/foodtoday/commit/8acf625772a979cd0c4f32e7f71ad383eadb307a))
+* Fixed addToShoppingList method ([da6841b](https://github.com/mrako/foodtoday/commit/da6841b17179d26a1a9437729817393af8e07825))
+* Fixed api.tsx to use params ([140a1ce](https://github.com/mrako/foodtoday/commit/140a1ce5975ea971382995569e93afb5f5172c09))
+* Fixed backend endpoint for delete ([f3a8414](https://github.com/mrako/foodtoday/commit/f3a841474e9901dac7e4de96d09257bed173ff0d))
+* Fixed backend problem to delete desired item from frontend click ([dc9bbc4](https://github.com/mrako/foodtoday/commit/dc9bbc401e69d811f978a070de57b4bc14721ea7))
+* Fixed backend to delete desired item ([b8f91ca](https://github.com/mrako/foodtoday/commit/b8f91ca4a9ef8a7bf8250806f8bb3a49346a437a))
+* Fixed backend toggle method's id to ctx.params ([8c8c245](https://github.com/mrako/foodtoday/commit/8c8c245c78889019837174cb297e9889dbadb253))
+* Fixed backend's body to query ([83eb2a5](https://github.com/mrako/foodtoday/commit/83eb2a5dac9908cb23aad93243d8116345ec1763))
+* Fixed data getting passed to backend ([c97d0be](https://github.com/mrako/foodtoday/commit/c97d0be1399dde431103f7818ffd485c260b0739))
+* Fixed error message and removed unnecessary console.log ([ab4f824](https://github.com/mrako/foodtoday/commit/ab4f8243b27b9f12409853775eda9eb58b6ac473))
+* Fixed frontend to use : ([b0d44d2](https://github.com/mrako/foodtoday/commit/b0d44d2e12eaef964435cf25ea78f5e9b1ca47a8))
+* Fixed frontendin updating list based on backend ([3369c9f](https://github.com/mrako/foodtoday/commit/3369c9f28a0df51194bb7af957379df326204726))
+* Fixed id from body to params ([909423d](https://github.com/mrako/foodtoday/commit/909423de14178248c2054e864986959d62c3bca2))
+* Fixed id to be an integer ([6af6468](https://github.com/mrako/foodtoday/commit/6af6468102db3980082989928375e5ae0399ce60))
+* Fixed id to item ([da59b9f](https://github.com/mrako/foodtoday/commit/da59b9f481c2476a430d54d2ea631cbda7e5151a))
+* Fixed id to item ([984e29c](https://github.com/mrako/foodtoday/commit/984e29c94e700978fb429a96c49851a67a51d3a1))
+* Fixed it back ([71e35f4](https://github.com/mrako/foodtoday/commit/71e35f4511d03030359275206b5a10578798782f))
+* Fixed model User calling to ShoppingListItem ([2c80382](https://github.com/mrako/foodtoday/commit/2c8038270a639c97b5d66f8b731d3bbe73dbf5dc))
+* Fixed prisma shoppinglistitem ([1fe6a2b](https://github.com/mrako/foodtoday/commit/1fe6a2bd789dffedbca11888e151b044223390c0))
+* Fixed problem with shoppinglist splittin , esim. ([709ca23](https://github.com/mrako/foodtoday/commit/709ca23db1f5dae31f536e5ef454a9f326d7917e))
+* Fixed shoppingListItems to shoppingListItem ([9f92eb9](https://github.com/mrako/foodtoday/commit/9f92eb970733515e6dbb64cd4db36d77c289d871))
+* Fixed toggle endpoint ([7566c91](https://github.com/mrako/foodtoday/commit/7566c91438339e07e6177421065074baebb4b46d))
+* Fixed toggle method in frontend to send id using params ([a08d30c](https://github.com/mrako/foodtoday/commit/a08d30c0200d046d25814df18995b3673a7b23c7))
+* Fixed toggle's route in backend ([ca8b539](https://github.com/mrako/foodtoday/commit/ca8b539cbe78f77cbc92d5e9fd49793348a22f11))
+* Fixed toggling in backend ([01deb6d](https://github.com/mrako/foodtoday/commit/01deb6d96db38f74bce9ebd7b3be551bd8af1666))
+* Id is integer now and added {} to id variable ([a5d633c](https://github.com/mrako/foodtoday/commit/a5d633c7486095a0c7089816f713662089469e1d))
+* Removed local toggling in frontend ([bf26612](https://github.com/mrako/foodtoday/commit/bf266127c4d5acc26016da8e4b6c1d0e9de22dc9))
+* Updated backend to send whole shoppinglist when toggle ([8e7eb9a](https://github.com/mrako/foodtoday/commit/8e7eb9adc002d7d0b1d788416cbd72f02a151767))
+* Updated backend to use id and item to identify the shoppinglist item ([d8884d2](https://github.com/mrako/foodtoday/commit/d8884d259e61ab7274b5d2d8c8ced6855e6e78c7))
+* Updated shoppinglist to match swiping ([987a6a4](https://github.com/mrako/foodtoday/commit/987a6a45b7580fdb6acdd342686ea535d8f8e22a))
+
 ## [1.2.0](https://github.com/mrako/foodtoday/compare/v1.1.0...v1.2.0) (2025-03-19)
 
 
