@@ -47,7 +47,22 @@ describe('Dinners', () => {
     expect(response.body.dinners[0]).toHaveProperty('totalTime');
   });
 
-  // it('GET /api/dinners/random - should return a random dinner', async () => {})
+  it('GET /api/dinners/random - should return a random dinner', async () => {
+    let user: any;
+
+    beforeEach(async () => {
+      await prisma.dinner.createMany({
+        data: [
+          { title: 'Dinner 3', description: 'Description 3', difficulty: 1, preparationTime: 30, totalTime: 60, serves: 4 },
+          { title: 'Dinner 4', description: 'Description 4', difficulty: 2, preparationTime: 45, totalTime: 90, serves: 4 },
+        ],
+      });
+
+      user = await prisma.user.create({
+        data: { email: 'search@test.com' },
+      })
+    })
+  });
 
   it('GET /api/dinners/:id - should return dinner details', async () => {
     const dinner = await prisma.dinner.findFirst();
@@ -68,5 +83,5 @@ describe('Dinners', () => {
 
     expect(res.status).toBe(404);
     expect(res.body).toHaveProperty('error', 'Dinner not found');
-  })
+  });
 });
