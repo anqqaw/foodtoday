@@ -184,7 +184,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
   });
 });
 
-describe('GET /api/users/clearshoppinglist', async () => {
+describe('GET /api/users/clearshoppinglist', () => {
   let user: any;
 
   beforeEach(async () => {
@@ -241,8 +241,7 @@ describe('GET /api/users/clearshoppinglist', async () => {
   });
 });
 
-
-describe('GET /api/users/shoppinglist', async () => {
+describe('GET /api/users/shoppinglist', () => {
   let user: any;
 
   beforeEach(async () => {
