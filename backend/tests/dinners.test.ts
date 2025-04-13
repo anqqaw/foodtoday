@@ -46,4 +46,18 @@ describe('Dinners', () => {
     expect(response.body.dinners[0]).toHaveProperty('preparationTime');
     expect(response.body.dinners[0]).toHaveProperty('totalTime');
   });
+
+  // it('GET /api/dinners/random - should return a random dinner', async () => {})
+
+  it('GET /api/dinners/:id - should return dinner details', async () => {
+    const dinner = await prisma.dinner.findFirst();
+
+    const res = await server
+      .get(`/api/dinners/${dinner?.id}`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('id', dinner?.id);
+    expect(res.body).toHaveProperty('title')
+  })
 });
