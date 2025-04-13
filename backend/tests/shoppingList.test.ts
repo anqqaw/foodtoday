@@ -258,4 +258,24 @@ describe('GET /api/users/shoppinglist', async () => {
     // resetRedisMock();
   });
 
+  it('returns a list of shopping items for the user', async () => {
+    const res = await server
+      .get(`/api/users/shoppinglist`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(200);
+    expect(res.body.shoppingList).toHaveLength(3);
+    expect(res.body.shoppingList[0]).toHaveProperty('name');
+    expect(res.body.shoppingList[0]).toHaveProperty('qty');
+  });
+
+  it('returns an empty list if the user has no items', async () => {
+    const res = await server
+      .get(`/api/users/shoppinglist`)
+      .set('Authorization', 'Bearer mockToken');
+
+    expect(res.status).toBe(200);
+    expect(res.body.shoppingList).toEqual([]);
+  })
+
 })
