@@ -123,7 +123,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
 
   it('deletes an item from the shopping list', async () => {
     const res = await server
-      .delete(`api/users/shoppinglist/${item.id}`)
+      .delete(`/api/users/shoppinglist/${item.id}`)
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(200);
@@ -133,7 +133,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
 
   it('returns 404 if item does not exist', async () => {
     const res = await server
-      .delete(`api/users/shoppinglist/999999`)
+      .delete(`/api/users/shoppinglist/999999`)
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(404);
