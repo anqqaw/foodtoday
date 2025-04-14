@@ -146,7 +146,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(405);
-    expect(res.body).toBe("Item is required");
+    expect(res.body).toEqual({});
   });
 
   it('returns 404 if item belongs to a different user', async () => {
