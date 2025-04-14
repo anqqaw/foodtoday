@@ -137,7 +137,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(404);
-    expect(res.body).toBe('Item not found');
+    expect(res.body.error).toBe('Item not found');
   });
 
   it('returns 405 if ID is missing from path', async () => {
