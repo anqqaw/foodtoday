@@ -171,9 +171,9 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
   });
 
   it('returns 500 on internal server error', async () => {
-    jest.spyOn(prisma.shoppingListItem, 'findFirst').mockImplementationOnce(() => {
-      throw new Error('Internal server error');
-    });
+    jest.spyOn(prisma.shoppingListItem, 'findFirst').mockRejectedValueOnce(
+      new Error('Internal server error')
+    );
 
     const res = await server
       .delete(`/api/users/shoppinglist/${item.id}`)
@@ -228,9 +228,9 @@ describe('GET /api/users/clearshoppinglist', () => {
   });
 
   it('returns 500 if something goes wrong', async () => {
-    jest.spyOn(prisma.shoppingListItem, 'deleteMany').mockRejectedValueOnce(() => {
-      throw new Error('Internal server error');
-    });
+    jest.spyOn(prisma.shoppingListItem, 'deleteMany').mockRejectedValueOnce(
+      new Error('Internal server error')
+    );
 
     const res = await server
       .get(`/api/users/clearshoppinglist`)
