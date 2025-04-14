@@ -64,7 +64,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
 
   it('returns 400 if no id is provided', async () => {
     const res = await server
-      .get(`/api/users/shoppinglist/abc/toggle`)
+      .get(`/api/users/shoppinglist//toggle`)
       .set('Authorization', 'Bearer mockToken');
 
     expect(res.status).toBe(404);
