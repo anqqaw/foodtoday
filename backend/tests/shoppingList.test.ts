@@ -268,8 +268,13 @@ describe('GET /api/users/shoppinglist', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.shoppingList).toHaveLength(3);
-    expect(res.body.shoppingList[0]).toHaveProperty('name');
-    expect(res.body.shoppingList[0]).toHaveProperty('qty');
+
+    res.body.shoppingList.forEach((item: any) => {
+      expect(item).toHaveProperty('id');
+      expect(item).toHaveProperty('title');
+      expect(item).toHaveProperty('completed');
+      expect(item).toHaveProperty('userId');
+    });
   });
 
   it('returns an empty list if the user has no items', async () => {
