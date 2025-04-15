@@ -120,7 +120,6 @@ export const toggleItemCompleted = async (ctx: Context) => {
       shoppingList: updatedShoppingList,
     };
   } catch (error) {
-    console.error("Error toggling item completed:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
