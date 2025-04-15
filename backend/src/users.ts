@@ -44,7 +44,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   const { id } = ctx.params;
   const { user } = ctx.state;
 
-  if (!id) {
+  if (!id || isNaN(Number(id))) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
     return;
