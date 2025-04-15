@@ -118,6 +118,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
+    jest.restoreAllMocks();
     resetRedisMock();
   });
 
@@ -171,17 +172,27 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
   });
 
   it('returns 500 on internal server error', async () => {
-    jest.spyOn(prisma.shoppingListItem, 'delete').mockRejectedValueOnce(
-      new Error('Internal server error')
-    );
+    jest.spyOn(prisma.shoppingListItem, 'findFirst').mockResolvedValueOnce({
+      id: 123,
+      title: 'Test Item',
+      completed: false,
+      userId: 1,
+    } as any);
+
+    const deleteSpy = jest
+      .spyOn(prisma.shoppingListItem, 'delete')
+      .mockRejectedValueOnce(new Error('Internal server error'));
 
     const res = await server
-      .delete(`/api/users/shoppinglist/${item.id}`)
+      .delete(`/api/users/shoppinglist/123`)
       .set('Authorization', 'Bearer mockToken');
+
+    console.log('Delete called:', deleteSpy.mock.calls.length);
 
     expect(res.status).toBe(500);
     expect(res.body.error).toBe('Internal server error');
   });
+
 });
 
 describe('GET /api/users/clearshoppinglist', () => {
