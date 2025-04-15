@@ -89,7 +89,9 @@ export const toggleItemCompleted = async (ctx: Context) => {
   const { id } = ctx.params;
   const { user } = ctx.state;
 
-  if (!id) {
+  const idNumber = Number(id);
+
+  if (!id || isNaN(idNumber)) {
     ctx.status = 400;
     ctx.body = { error: "Valid ID is required" };
     return;
@@ -97,7 +99,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
 
   try {
     const item = await prisma.shoppingListItem.findFirst({
-      where: { id: Number(id) },
+      where: { id: idNumber },
     });
 
     if (!item || item.userId !== user.id) {
@@ -107,7 +109,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
     }
 
     await prisma.shoppingListItem.update({
-      where: { id: Number(id) },
+      where: { id: idNumber },
       data: { completed: !item.completed },
     });
 
