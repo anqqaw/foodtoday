@@ -44,7 +44,9 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   const { id } = ctx.params;
   const { user } = ctx.state;
 
-  if (!id || isNaN(Number(id))) {
+  const idNumber = Number(id);
+
+  if (!idNumber || isNaN(idNumber)) {
     ctx.status = 400;
     ctx.body = { error: "Item is required" };
     return;
@@ -53,7 +55,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
   try {
     const shoppingItem = await prisma.shoppingListItem.findFirst({
       where: {
-        id: Number(id),
+        id: idNumber,
         userId: user.id
       },
     });
@@ -65,7 +67,7 @@ export const deleteFromShoppingList = async (ctx: Context) => {
     }
 
     await prisma.shoppingListItem.delete({
-      where: { id: Number(id) },
+      where: { id: idNumber },
     });
 
     const updatedShoppingList = await prisma.shoppingListItem.findMany({
