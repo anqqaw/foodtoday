@@ -172,11 +172,18 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
   });
 
   it('returns 500 on internal server error', async () => {
+    const mockUserId = 777;
+
+    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+      ctx.state.user = { id: mockUserId };
+      await next();
+    });
+
     jest.spyOn(prisma.shoppingListItem, 'findFirst').mockResolvedValueOnce({
       id: 123,
-      title: 'Test Item',
+      title: 'Mock Item',
       completed: false,
-      userId: 1,
+      userId: mockUserId,
     } as any);
 
     const deleteSpy = jest
@@ -187,12 +194,9 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
       .delete(`/api/users/shoppinglist/123`)
       .set('Authorization', 'Bearer mockToken');
 
-    console.log('Delete called:', deleteSpy.mock.calls.length);
-
     expect(res.status).toBe(500);
     expect(res.body.error).toBe('Internal server error');
   });
-
 });
 
 describe('GET /api/users/clearshoppinglist', () => {
