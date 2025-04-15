@@ -78,7 +78,6 @@ export const deleteFromShoppingList = async (ctx: Context) => {
       shoppingList: updatedShoppingList,
     };
   } catch (error) {
-    console.error("Error deleting item from shopping list:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
