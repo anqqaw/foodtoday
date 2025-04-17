@@ -1,13 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
 import request from 'supertest';
 import { createApp } from '../src/app';
 import * as google from '../src/middlewares/google';
+import prisma from '../src/prisma';
 
 jest.mock('../src/middlewares/google');
 
 import { resetRedisMock } from './__mocks__/ioredis';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 const app = createApp();
 const server = request(app.callback());
 
@@ -250,14 +251,12 @@ describe('GET /api/users/clearshoppinglist', () => {
       await next();
     })
 
-    const deleteSpy = jest.spyOn(prisma.shoppingListItem, 'deleteMany')
+    jest.spyOn(prisma.shoppingListItem, 'deleteMany')
       .mockRejectedValueOnce(new Error('Internal server error'));
 
     const res = await server
       .get(`/api/users/clearshoppinglist`)
       .set('Authorization', 'Bearer mockToken');
-
-    console.log("deleteMany count:", deleteSpy.mock.calls.length);
 
     expect(res.status).toBe(500);
     expect(res.body.error).toBe('Internal server error');
