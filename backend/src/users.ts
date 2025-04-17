@@ -1,8 +1,8 @@
 import { Context } from "koa";
-import { PrismaClient } from "@prisma/client";
+import prisma from './prisma';
 import { isReturnStatement } from "typescript";
 
-const prisma = new PrismaClient();
+//const prisma = new PrismaClient();
 
 export const getShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;
