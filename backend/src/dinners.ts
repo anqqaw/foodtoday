@@ -1,7 +1,8 @@
 import { Context } from "koa";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import prisma from './prisma';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export const getById = async (ctx: Context) => {
   const { id } = ctx.params;

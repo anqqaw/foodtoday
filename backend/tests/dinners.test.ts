@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
+import prisma from '../src/prisma';
 import http from 'http';
 import request from 'supertest';
 import { createApp } from '../src/app';
@@ -8,7 +9,7 @@ jest.mock('../src/middlewares/google');
 
 import { resetRedisMock } from './__mocks__/ioredis';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 const app = createApp();
 const server = request(app.callback());
 
