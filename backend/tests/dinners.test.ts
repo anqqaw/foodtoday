@@ -81,7 +81,6 @@ describe('Dinners', () => {
         .set('Authorization', 'Bearer mockToken');
 
       expect(res.status).toBe(200);
-      // assuming your controller returns { dinner: { … } }
       expect(res.body).toHaveProperty('dinner');
       expect(res.body.dinner).toHaveProperty('id');
       expect(res.body.dinner).toHaveProperty('title');
