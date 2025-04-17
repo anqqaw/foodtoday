@@ -271,9 +271,19 @@ describe('GET /api/users/shoppinglist', () => {
       data: { email: 'get-list@test.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
-      ctx.state.user = user;
-      await next();
+    (google.verifyGoogleToken as jest.Mock).mockImplementation(
+      async (ctx: any, next: any) => {
+        ctx.state.user = user;
+        await next();
+      }
+    );
+
+    await prisma.shoppingListItem.createMany({
+      data: [
+        { title: 'Apple', completed: false, userId: user.id },
+        { title: 'Banana', completed: true, userId: user.id },
+        { title: 'Carrot', completed: false, userId: user.id },
+      ],
     });
   });
 
@@ -290,7 +300,6 @@ describe('GET /api/users/shoppinglist', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.shoppingList).toHaveLength(3);
-
     res.body.shoppingList.forEach((item: any) => {
       expect(item).toHaveProperty('id');
       expect(item).toHaveProperty('title');
@@ -300,6 +309,8 @@ describe('GET /api/users/shoppinglist', () => {
   });
 
   it('returns an empty list if the user has no items', async () => {
+    await prisma.shoppingListItem.deleteMany({ where: { userId: user.id } });
+
     const res = await server
       .get(`/api/users/shoppinglist`)
       .set('Authorization', 'Bearer mockToken');
@@ -309,9 +320,7 @@ describe('GET /api/users/shoppinglist', () => {
   });
 
   it('returns 500 if something goes wrong', async () => {
-    jest.spyOn(prisma.shoppingListItem, 'findMany').mockImplementationOnce(() => {
-      throw new Error('Internal server error');
-    });
+    jest.spyOn(prisma.user, 'findUnique').mockRejectedValueOnce(new Error('Internal server error'));
 
     const res = await server
       .get(`/api/users/shoppinglist`)
