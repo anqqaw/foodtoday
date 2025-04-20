@@ -2,7 +2,6 @@ import axios from "axios";
 
 const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
-// Type Definitions
 export interface IngredientDetail {
   name: string;
   unit?: string;

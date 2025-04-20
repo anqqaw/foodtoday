@@ -1,4 +1,3 @@
-// tests/dinners.test.ts
 import request from 'supertest';
 import { createApp } from '../src/app';
 import prisma from '../src/prisma';

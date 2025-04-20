@@ -1,4 +1,3 @@
-// import { PrismaClient } from '@prisma/client';
 import request from 'supertest';
 import { createApp } from '../src/app';
 import * as google from '../src/middlewares/google';
@@ -6,7 +5,6 @@ import prisma from '../src/prisma';
 
 jest.mock('../src/middlewares/google');
 
-// const prisma = new PrismaClient();
 const app = createApp();
 const server = request(app.callback());
 
