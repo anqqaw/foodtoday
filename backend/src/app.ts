@@ -9,8 +9,6 @@ import * as users from './shoppingList';
 
 import * as health from './health';
 
-// import { requestLogger } from './logger';
-
 import { verifyGoogleToken } from './middlewares/google';
 
 export function createApp() {
@@ -21,8 +19,6 @@ export function createApp() {
   }
   app.use(cors({ credentials: true }));
   app.use(bodyParser());
-
-  // app.use(requestLogger);
 
   const publicRouter = new Router({ prefix: '/api' });
 
