@@ -323,4 +323,43 @@ describe('GET /api/users/shoppinglist', () => {
     expect(res.status).toBe(500);
     expect(res.body.error).toBe('Internal server error');
   });
+
+  describe('GET /api/dinners/:id/addtoshoppinglist', () => {
+    it('should add the dinner to the user’s shopping list', async () => {
+      const dinner = await prisma.dinner.findFirst();
+
+      const res = await server
+        .get(`/api/dinners/${dinner!.id}/addtoshoppinglist`)
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('message', 'Dinner added to shopping list');
+      const added = res.body.shoppingList.find((i: any) => i.title === dinner!.title);
+      expect(added).toBeDefined();
+      expect(added.userId).toBe(user.id);
+    });
+
+    it('returns 404 if the dinner does not exist', async () => {
+      const res = await server
+        .get('/api/dinners/999999/addtoshoppinglist')
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res.status).toBe(404);
+      expect(res.body).toHaveProperty('error', 'Dinner not found');
+    });
+
+    it('returns 500 on internal server error', async () => {
+      jest
+        .spyOn(prisma.shoppingListItem, 'create')
+        .mockRejectedValueOnce(new Error('DB down'));
+
+      const dinner = await prisma.dinner.findFirst();
+      const res = await server
+        .get(`/api/dinners/${dinner!.id}/addtoshoppinglist`)
+        .set('Authorization', 'Bearer mockToken');
+
+      expect(res.status).toBe(500);
+      expect(res.body).toHaveProperty('error', 'Internal server error');
+    });
+  });
 });
