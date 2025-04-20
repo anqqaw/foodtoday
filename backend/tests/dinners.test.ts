@@ -123,7 +123,6 @@ describe('Dinners', () => {
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('message', 'Dinner added to shopping list');
-      expect(res.body).toHaveProperty('shoppingList');
       const added = res.body.shoppingList.find((i: any) => i.title === dinner!.title);
       expect(added).toBeDefined();
       expect(added.userId).toBe(user.id);
