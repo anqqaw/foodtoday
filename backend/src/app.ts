@@ -5,7 +5,7 @@ import logger from 'koa-logger';
 import Router from 'koa-router';
 
 import * as dinners from './dinners';
-import * as users from './users';
+import * as users from './shoppingList';
 
 import * as health from './health';
 
