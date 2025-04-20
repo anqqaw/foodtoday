@@ -3,7 +3,6 @@ import request from 'supertest';
 import { createApp } from '../src/app';
 import * as google from '../src/middlewares/google';
 import prisma from '../src/prisma';
-import { resetRedisMock } from './__mocks__/ioredis';
 
 jest.mock('../src/middlewares/google');
 
@@ -37,7 +36,6 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    resetRedisMock();
   });
 
   it('toggles the completed status of a shopping list item', async () => {
@@ -119,7 +117,6 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
     jest.restoreAllMocks();
-    resetRedisMock();
   });
 
   it('deletes an item from the shopping list', async () => {
@@ -225,7 +222,6 @@ describe('GET /api/users/clearshoppinglist', () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
     jest.restoreAllMocks();
-    resetRedisMock();
   });
 
   it('clears all the items from users shopping list', async () => {
@@ -289,7 +285,6 @@ describe('GET /api/users/shoppinglist', () => {
   afterEach(async () => {
     await prisma.shoppingListItem.deleteMany();
     await prisma.user.deleteMany();
-    resetRedisMock();
   });
 
   it('returns a list of shopping items for the user', async () => {
