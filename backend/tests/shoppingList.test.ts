@@ -323,9 +323,22 @@ describe('GET /api/users/shoppinglist', () => {
   });
 
   describe('GET /api/dinners/:id/addtoshoppinglist', () => {
-    it('should add the dinner to the user’s shopping list', async () => {
-      const dinner = await prisma.dinner.findFirst();
+    let dinner: any;
 
+    beforeEach(async () => {
+      dinner = await prisma.dinner.create({
+        data: {
+          title: 'Test Dinner',
+          description: 'Test Description',
+          difficulty: 1,
+          preparationTime: 30,
+          totalTime: 60,
+          serves: 4,
+        },
+      });
+    });
+
+    it('should add the dinner to the user’s shopping list', async () => {
       const res = await server
         .get(`/api/dinners/${dinner!.id}/addtoshoppinglist`)
         .set('Authorization', 'Bearer mockToken');
