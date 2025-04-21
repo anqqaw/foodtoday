@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "start": "ts-node server.ts",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=test prisma migrate reset --force && jest --runInBand",
     "lint": "tslint -p tsconfig.json",
     "db:seed": "ts-node prisma/seed.ts",
     "db:migrate": "prisma migrate deploy",
