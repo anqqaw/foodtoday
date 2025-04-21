@@ -323,10 +323,10 @@ describe('GET /api/users/shoppinglist', () => {
   });
 
   describe('GET /api/dinners/:id/addtoshoppinglist', () => {
-    let dinner: any;
+    let tempDinner: any;
 
     beforeEach(async () => {
-      dinner = await prisma.dinner.create({
+      tempDinner = await prisma.dinner.create({
         data: {
           title: 'Test Dinner',
           description: 'Test Description',
@@ -340,12 +340,12 @@ describe('GET /api/users/shoppinglist', () => {
 
     it('should add the dinner to the user’s shopping list', async () => {
       const res = await server
-        .get(`/api/dinners/${dinner!.id}/addtoshoppinglist`)
+        .get(`/api/dinners/${tempDinner!.id}/addtoshoppinglist`)
         .set('Authorization', 'Bearer mockToken');
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('message', 'Dinner added to shopping list');
-      const added = res.body.shoppingList.find((i: any) => i.title === dinner!.title);
+      const added = res.body.shoppingList.find((i: any) => i.title === tempDinner!.title);
       expect(added).toBeDefined();
       expect(added.userId).toBe(user.id);
     });
