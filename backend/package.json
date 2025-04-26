@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "start": "ts-node server.ts",
-    "test": "cross-env NODE_ENV=test prisma migrate reset --force && jest --runInBand",
+    "test": "NODE_ENV=test prisma migrate reset --force && jest --runInBand",
     "lint": "tslint -p tsconfig.json",
     "db:seed": "ts-node prisma/seed.ts",
     "db:migrate": "prisma migrate deploy",
@@ -18,7 +18,6 @@
   "dependencies": {
     "@prisma/client": "^6.2.1",
     "axios": "^1.7.9",
-    "dotenv": "^16.5.0",
     "google-auth-library": "^9.15.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
@@ -35,7 +34,6 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.3",
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/kcors": "^2.2.8",
