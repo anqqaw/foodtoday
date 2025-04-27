@@ -1,5 +1,5 @@
 import { Context } from "koa";
-import prisma from './prisma';
+import { prisma } from './prisma';
 
 export const getShoppingList = async (ctx: Context) => {
   const { user } = ctx.state;

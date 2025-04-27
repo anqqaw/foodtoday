@@ -1,5 +1,5 @@
 import { Context } from "koa";
-import prisma from './prisma';
+import { prisma } from './prisma';
 
 export const getById = async (ctx: Context) => {
   const { id } = ctx.params;
