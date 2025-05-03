@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "start": "ts-node server.ts",
-    "test": "DATABASE_URL=${DATABASE_URL:-postgresql://dinner:dinner@localhost/dinner} REDIS_URL=redis://localhost:6379 prisma migrate reset --force && jest --runInBand",
+    "test": "prisma migrate reset --force && jest --runInBand",
     "lint": "tslint -p tsconfig.json",
     "db:seed": "ts-node prisma/seed.ts",
     "db:migrate": "prisma migrate deploy",
