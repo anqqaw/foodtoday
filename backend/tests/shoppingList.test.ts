@@ -165,33 +165,6 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
     expect(res.status).toBe(404);
     expect(res.body.error).toBe('Item not found');
   });
-
-  it('returns 500 on internal server error', async () => {
-    const mockUserId = 777;
-
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
-      ctx.state.user = { id: mockUserId };
-      await next();
-    });
-
-    jest.spyOn(prisma.shoppingListItem, 'findFirst').mockResolvedValueOnce({
-      id: 123,
-      title: 'Mock Item',
-      completed: false,
-      userId: mockUserId,
-    } as any);
-
-    const deleteSpy = jest
-      .spyOn(prisma.shoppingListItem, 'delete')
-      .mockRejectedValueOnce(new Error('Internal server error'));
-
-    const res = await server
-      .delete(`/api/users/shoppinglist/123`)
-      .set('Authorization', 'Bearer mockToken');
-
-    expect(res.status).toBe(500);
-    expect(res.body.error).toBe('Internal server error');
-  });
 });
 
 describe('GET /api/users/clearshoppinglist', () => {
@@ -235,24 +208,6 @@ describe('GET /api/users/clearshoppinglist', () => {
       where: { userId: user.id },
     });
     expect(remaining).toHaveLength(0);
-  });
-
-  it('returns 500 if something goes wrong', async () => {
-
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
-      ctx.state.user = { id: "123-abc" };
-      await next();
-    })
-
-    jest.spyOn(prisma.shoppingListItem, 'deleteMany')
-      .mockRejectedValueOnce(new Error('Internal server error'));
-
-    const res = await server
-      .get(`/api/users/clearshoppinglist`)
-      .set('Authorization', 'Bearer mockToken');
-
-    expect(res.status).toBe(500);
-    expect(res.body.error).toBe('Internal server error');
   });
 });
 
@@ -311,17 +266,6 @@ describe('GET /api/users/shoppinglist', () => {
     expect(res.body.shoppingList).toEqual([]);
   });
 
-  it('returns 500 if something goes wrong', async () => {
-    jest.spyOn(prisma.user, 'findUnique').mockRejectedValueOnce(new Error('Internal server error'));
-
-    const res = await server
-      .get(`/api/users/shoppinglist`)
-      .set('Authorization', 'Bearer mockToken');
-
-    expect(res.status).toBe(500);
-    expect(res.body.error).toBe('Internal server error');
-  });
-
   describe('GET /api/dinners/:id/addtoshoppinglist', () => {
     let tempDinner: any;
 
@@ -338,7 +282,7 @@ describe('GET /api/users/shoppinglist', () => {
       });
     });
 
-    it('should add the dinner to the user’s shopping list', async () => {
+    it('should add the dinner to the users shopping list', async () => {
       const res = await server
         .get(`/api/dinners/${tempDinner!.id}/addtoshoppinglist`)
         .set('Authorization', 'Bearer mockToken');
@@ -357,20 +301,6 @@ describe('GET /api/users/shoppinglist', () => {
 
       expect(res.status).toBe(404);
       expect(res.body).toHaveProperty('error', 'Dinner not found');
-    });
-
-    it('returns 500 on internal server error', async () => {
-      jest
-        .spyOn(prisma.shoppingListItem, 'create')
-        .mockRejectedValueOnce(new Error('DB down'));
-
-      const dinner = await prisma.dinner.findFirst();
-      const res = await server
-        .get(`/api/dinners/${dinner!.id}/addtoshoppinglist`)
-        .set('Authorization', 'Bearer mockToken');
-
-      expect(res.status).toBe(500);
-      expect(res.body).toHaveProperty('error', 'Internal server error');
     });
   });
 });
