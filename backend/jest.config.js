@@ -4,5 +4,4 @@ module.exports = {
   verbose: true,
   globalSetup: '<rootDir>/tests/globalSetup.ts',
   globalTeardown: '<rootDir>/tests/globalTeardown.ts',
-  // setupFiles: ['<rootDir>/tests/setupEnv.ts'],
 };
