@@ -12,9 +12,6 @@ describe('Dinners', () => {
   let user: any;
 
   beforeAll(async () => {
-    await prisma.shoppingListItem.deleteMany();
-    await prisma.dinner.deleteMany();
-    await prisma.user.deleteMany();
     await prisma.dinner.createMany({
       data: [
         {
