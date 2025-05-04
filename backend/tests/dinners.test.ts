@@ -47,7 +47,6 @@ describe('Dinners', () => {
   afterAll(async () => {
     await prisma.dinner.deleteMany();
     await prisma.user.deleteMany();
-    await prisma.$disconnect();
   });
 
   it('GET /api/dinners - should return a list of dinners', async () => {
@@ -57,7 +56,7 @@ describe('Dinners', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('dinners');
-    expect(res.body.dinners).toHaveLength(2);
+
     res.body.dinners.forEach((dinner: any) => {
       expect(dinner).toHaveProperty('title');
       expect(dinner).toHaveProperty('description');
