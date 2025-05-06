@@ -5,11 +5,9 @@ import logger from 'koa-logger';
 import Router from 'koa-router';
 
 import * as dinners from './dinners';
-import * as users from './users';
+import * as users from './shoppingList';
 
 import * as health from './health';
-
-// import { requestLogger } from './logger';
 
 import { verifyGoogleToken } from './middlewares/google';
 
@@ -21,8 +19,6 @@ export function createApp() {
   }
   app.use(cors({ credentials: true }));
   app.use(bodyParser());
-
-  // app.use(requestLogger);
 
   const publicRouter = new Router({ prefix: '/api' });
 

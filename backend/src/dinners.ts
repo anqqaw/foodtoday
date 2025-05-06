@@ -1,7 +1,5 @@
 import { Context } from "koa";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from './prisma';
 
 export const getById = async (ctx: Context) => {
   const { id } = ctx.params;
@@ -97,47 +95,49 @@ export const addToShoppingList = async (ctx: Context) => {
 
   if (!id) {
     ctx.status = 400;
-    ctx.body = { error: "ID parameter is required" };
+    ctx.body = { error: 'ID parameter is required' };
+    return;
+  }
+
+  const idNumber = Number(id);
+  if (isNaN(idNumber)) {
+    ctx.status = 400;
+    ctx.body = { error: 'ID must be a number' };
     return;
   }
 
   try {
     const dinner = await prisma.dinner.findUnique({
-      where: { id: Number(id) },
-      select: { shoppingList: true },
+      where: { id: idNumber },
     });
 
-    if (!dinner?.shoppingList || !Array.isArray(dinner.shoppingList)) {
-      ctx.status = 400;
-      ctx.body = { error: "ShoppingList is not defined and formatted as an array." };
+    if (!dinner) {
+      ctx.status = 404;
+      ctx.body = { error: 'Dinner not found' };
       return;
     }
 
-    const createdItems = [];
+    await prisma.shoppingListItem.create({
+      data: {
+        title: dinner.title,
+        completed: false,
+        userId: user.id,
+      },
+    });
 
-    for (const item of dinner.shoppingList as { qty?: number | string; unit?: string; name: string }[]) {
-      const title = [item.qty ?? '', item.unit ?? '', item.name]
-        .filter(Boolean)
-        .join(' ')
-        .trim();
-
-      const created = await prisma.shoppingListItem.create({
-        data: {
-          title,
-          userId: user.id,
-        },
-      });
-
-      createdItems.push(created);
-    }
+    const shoppingList = await prisma.shoppingListItem.findMany({
+      where: { userId: user.id },
+      orderBy: { id: 'asc' },
+    });
 
     ctx.status = 200;
     ctx.body = {
-      message: "Items added to shopping list",
-      shoppingList: createdItems,
+      message: 'Dinner added to shopping list',
+      shoppingList,
     };
-  } catch (e) {
+  } catch (error) {
+    console.error('Error adding dinner to shopping list:', error);
     ctx.status = 500;
-    ctx.body = { error: "Internal server error" };
+    ctx.body = { error: 'Internal server error' };
   }
 };
