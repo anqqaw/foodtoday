@@ -58,8 +58,8 @@ const DinnerList: React.FC = () => {
                 />
               )}
               <div className="absolute bottom-0 w-full bg-black/60 backdrop-blur-sm p-3 flex flex-col items-center text-center">
-                <h2 className="text-lg font-semibold text-white">{dinner.title}</h2>
-                <div className="flex text-gray-300 text-sm mt-1">
+                <h2 className="text-lg font-semibold text-[#E7C36E]">{dinner.title}</h2>
+                <div className="flex text-[#E7C36E] text-opacity-70 text-sm mt-1">
                   <span>{dinner.preparationTime} min</span>
                   <span className="mx-2">•</span>
                   <span>{dinner.totalTime} min</span>
