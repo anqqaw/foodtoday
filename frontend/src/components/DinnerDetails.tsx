@@ -77,7 +77,7 @@ const DinnerDetails: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-0 mb-10">
           <div className="shadow-lg overflow-hidden">
             <div className="bg-[#E7C36E] px-6 py-4">
-              <h2 className="text-3xl font-bold text-black">Ingredients</h2>
+              <h2 className="text-3xl font-bold text-white">Ingredients</h2>
             </div>
             <div className="bg-white p-6">
               <ul className="list-disc pl-5 text-lg text-gray-800 space-y-4">
@@ -94,7 +94,7 @@ const DinnerDetails: React.FC = () => {
 
           <div className="shadow-lg overflow-hidden">
             <div className="bg-[#047857] px-6 py-4">
-              <h2 className="text-3xl font-bold text-black">Steps</h2>
+              <h2 className="text-3xl font-bold text-white">Steps</h2>
             </div>
             <div className="bg-white p-6">
               <ol className="list-decimal pl-5 text-lg text-gray-800 space-y-4">
