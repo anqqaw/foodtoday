@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
 interface Props {
@@ -9,22 +9,55 @@ interface Props {
   onToggle: (id: number) => void;
 }
 
-const ShoppingListItemCard: React.FC<Props> = ({ id, title, completed, onDelete, onToggle }) => {
+const ShoppingListItemCard: React.FC<Props> = ({
+  id,
+  title,
+  completed,
+  onDelete,
+  onToggle,
+}) => {
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
+
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => onToggle(id),
-    onSwipedRight: () => onDelete(id),
+    onSwipedLeft: () => {
+      setSwipeDirection("left");
+      onToggle(id);
+      setTimeout(() => setSwipeDirection(null), 300);
+    },
+    onSwipedRight: () => {
+      setSwipeDirection("right");
+      onDelete(id);
+      setTimeout(() => setSwipeDirection(null), 300);
+    },
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
 
+  const bgColor =
+    swipeDirection === "left"
+      ? "bg-[#047857]"
+      : swipeDirection === "right"
+        ? "bg-red-600"
+        : "bg-transparent";
+
+  const icon =
+    swipeDirection === "left" ? "✅" : swipeDirection === "right" ? "❌" : null;
+
   return (
     <div
       {...swipeHandlers}
-      className={`bg-white shadow-lg rounded-xl overflow-hidden transform transition hover:scale-105 cursor-pointer ${completed ? "opacity-50 line-through" : ""
-        }`}
+      className={`relative w-full transition-all duration-300 rounded-md overflow-hidden ${bgColor}`}
     >
-      <div className="p-6 flex justify-between items-center">
-        <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+      {icon && (
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white z-10">
+          {icon}
+        </div>
+      )}
+      <div
+        className={`w-full px-6 py-4 ${completed ? "text-gray-500 line-through" : "text-[#E7C36E]"
+          }`}
+      >
+        {title}
       </div>
     </div>
   );

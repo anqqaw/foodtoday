@@ -75,47 +75,45 @@ const ShoppingList: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600 text-lg animate-pulse">Loading shopping list...</p>
+      <div className="min-h-screen flex items-center justify-center bg-black text-[#E7C36E]">
+        <p className="text-lg animate-pulse">Loading shopping list...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-['Space_Grotesk']">
-      <div className="max-w-6xl mx-auto px-6 lg:px-0 py-10">
-        <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-6">Shopping List</h1>
+    <div className="min-h-screen bg-black text-[#E7C36E] font-['Space_Grotesk'] px-4 py-8">
+      <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-6">Shopping List</h1>
 
-        {error ? (
-          <p className="text-red-500 text-center text-lg">{error}</p>
-        ) : shoppingList.length === 0 ? (
-          <p className="text-gray-500 text-center text-lg">Your shopping list is empty</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {shoppingList.map((item) => (
-              <ShoppingListItemCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                completed={item.completed}
-                onDelete={handleRemoveItem}
-                onToggle={handleToggleItem}
-              />
-            ))}
-          </div>
-        )}
+      {error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : shoppingList.length === 0 ? (
+        <p className="text-center text-[#E7C36E]/70">Your shopping list is empty</p>
+      ) : (
+        <div className="space-y-4">
+          {shoppingList.map((item) => (
+            <ShoppingListItemCard
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              completed={item.completed}
+              onDelete={handleRemoveItem}
+              onToggle={handleToggleItem}
+            />
+          ))}
+        </div>
+      )}
 
-        {shoppingList.length > 0 && (
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={handleClearList}
-              className="bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 transition"
-            >
-              Clear Shopping List
-            </button>
-          </div>
-        )}
-      </div>
+      {shoppingList.length > 0 && (
+        <div className="mt-10 flex justify-center">
+          <button
+            onClick={handleClearList}
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition"
+          >
+            Clear
+          </button>
+        </div>
+      )}
     </div>
   );
 };
