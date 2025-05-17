@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSwipeable } from "react-swipeable";
 import { fetchRandomDinner, Dinner } from "../helpers/api";
-import HamburgerMenu from "./HamburgerMenu";
 import DinnerCard from "./DinnerCard";
 
 const DinnersView: React.FC = () => {
@@ -48,10 +47,6 @@ const DinnersView: React.FC = () => {
           <DinnerCard dinner={dinners[currentIndex]} navigate={navigate} />
         </div>
       )}
-
-      <div className="fixed bottom-4 right-4 z-50">
-        <HamburgerMenu />
-      </div>
     </div>
   );
 };
