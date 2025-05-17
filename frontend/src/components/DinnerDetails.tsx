@@ -93,7 +93,7 @@ const DinnerDetails: React.FC = () => {
           </div>
 
           <div className="shadow-lg overflow-hidden">
-            <div className="bg-[#22C55E] px-6 py-4">
+            <div className="bg-[#047857] px-6 py-4">
               <h2 className="text-3xl font-bold text-black">Steps</h2>
             </div>
             <div className="bg-white p-6">
