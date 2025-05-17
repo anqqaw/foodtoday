@@ -37,7 +37,7 @@ const DinnerList: React.FC = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search dinners..."
-          className="w-64 p-3 border border-gray-700 rounded-lg bg-gray-800 text-white placeholder-gray-400 shadow-md focus:ring-2 focus:ring-[#E7C36E]"
+          className="w-64 p-3 rounded-lg text-white opacity-50 focus:ring-2 focus:ring-[#E7C36E] outline-none"
         />
       </div>
 
@@ -48,23 +48,22 @@ const DinnerList: React.FC = () => {
           {dinners.map((dinner) => (
             <div
               key={dinner.id}
-              className="rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer relative border border-gray-700 bg-gray-800"
+              className="relative overflow-hidden rounded-lg transform hover:scale-105 transition duration-200 cursor-pointer"
               onClick={() => navigate(`/dinner/${dinner.id}`)}
             >
               {dinner.images && (
                 <div
-                  className="w-full h-64 bg-cover bg-center"
+                  className="w-full h-56 bg-cover bg-center"
                   style={{ backgroundImage: `url('${dinner.images}')` }}
-                ></div>
+                />
               )}
-              <div className="p-5">
-                <h2 className="text-xl font-semibold text-white">{dinner.title}</h2>
-                <p className="text-gray-300 mt-2">{dinner.description}</p>
-              </div>
-              <div className="border-t border-gray-700 flex justify-end items-center p-4 text-gray-300 text-lg bottom-0 right-0">
-                <span>{dinner.preparationTime} min</span>
-                <div className="w-0.25 h-6 bg-gray-600 mx-2"></div>
-                <span>{dinner.totalTime} min</span>
+              <div className="absolute bottom-0 w-full bg-black/60 backdrop-blur-sm p-3 flex flex-col items-center text-center">
+                <h2 className="text-lg font-semibold text-white">{dinner.title}</h2>
+                <div className="flex text-gray-300 text-sm mt-1">
+                  <span>{dinner.preparationTime} min</span>
+                  <span className="mx-2">•</span>
+                  <span>{dinner.totalTime} min</span>
+                </div>
               </div>
             </div>
           ))}
