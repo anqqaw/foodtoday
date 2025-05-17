@@ -26,11 +26,13 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
-      ></div>
+      />
 
-      <div className="absolute bottom-0 left-0 w-full bg-black/70 text-white font-['Space_Grotesk'] p-10 flex flex-col items-center pb-20">
+      <div
+        className="absolute bottom-0 left-0 w-full bg-black/90 text-[#E7C36E] font-['Space_Grotesk'] p-10 flex flex-col items-center pb-20"
+      >
         <h1
-          className="text-4xl font-bold text-center mb-4"
+          className="text-4xl font-bold text-center mb-4 -mt-6 cursor-pointer"
           onClick={() => navigate(`/dinner/${dinner.id}`)}
         >
           {dinner.title}
