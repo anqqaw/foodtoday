@@ -83,8 +83,6 @@ const ShoppingList: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-[#E7C36E] font-['Space_Grotesk'] px-4 py-8">
-      <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-6">Shopping List</h1>
-
       {error ? (
         <p className="text-red-500 text-center">{error}</p>
       ) : shoppingList.length === 0 ? (
