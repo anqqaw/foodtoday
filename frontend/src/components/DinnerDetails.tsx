@@ -41,20 +41,20 @@ const DinnerDetails: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white font-['Space_Grotesk']">
+      <div className="w-full bg-black py-5 px-6 text-center">
+        <h1 className="text-[#E7C36E] text-base font-bold uppercase tracking-wide">
+          {dinner.title}
+        </h1>
+      </div>
       <div
-        className="relative w-full h-96 bg-no-repeat bg-cover bg-center mb-10"
+        className="w-full h-96 bg-no-repeat bg-cover bg-center mb-10"
         style={{ backgroundImage: `url('${dinner.images[0]}')` }}
       >
-        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-          <h1 className="text-white text-5xl font-extrabold text-center drop-shadow-lg px-6">
-            {dinner.title}
-          </h1>
-        </div>
       </div>
 
-      <div className="w-full px-0">
-        <p className="text-lg text-gray-300 leading-relaxed mb-8">{dinner.description}</p>
 
+
+      <div className="w-full px-0">
         <button
           className="bg-[#E7C36E] hover:bg-[#d1ac5a] text-black font-semibold py-3 px-6 rounded-2xl shadow-md transition-all duration-200 transform hover:scale-105 active:scale-95"
           onClick={() => addShoppingList()}
