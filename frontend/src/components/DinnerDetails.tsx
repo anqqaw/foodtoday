@@ -55,12 +55,14 @@ const DinnerDetails: React.FC = () => {
 
 
       <div className="w-full px-0">
-        <button
-          className="bg-[#E7C36E] hover:bg-[#d1ac5a] text-black font-semibold py-3 px-6 rounded-2xl shadow-md transition-all duration-200 transform hover:scale-105 active:scale-95"
-          onClick={() => addShoppingList()}
-        >
-          Add to Shopping List
-        </button>
+        <div className="flex justify-center space-x-7 my-6">
+          <button
+            onClick={() => addShoppingList()}
+            className="w-14 h-14 flex items-center justify-center rounded-full bg-[#E7C36E] hover:bg-[#d1ac5a] text-black text-2xl shadow-md transition-transform duration-200 active:scale-95"
+          >
+            🛒
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="text-lg font-medium text-white bg-gray-800 shadow-md p-4 rounded-lg">
