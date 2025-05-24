@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchShoppingList, clearShoppingList, deleteFromShoppingList, toggleItemCompleted } from "../helpers/api";
+import { fetchShoppingList, clearShoppingList, deleteFromShoppingList, toggleItemCompleted, createShoppingListItem } from "../helpers/api";
 import ShoppingListItemCard from "./ShoppingListItemCard";
 
 interface ShoppingListItem {
@@ -12,6 +12,8 @@ const ShoppingList: React.FC = () => {
   const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showInput, setShowInput] = useState(false);
+  const [newItemTitle, setNewItemTitle] = useState("");
 
   useEffect(() => {
     const loadShoppingList = async () => {
@@ -73,6 +75,22 @@ const ShoppingList: React.FC = () => {
     }
   };
 
+  const handleAddItem = async () => {
+    if (!newItemTitle.trim()) return;
+
+    try {
+      await createShoppingListItem(newItemTitle.trim());
+      setNewItemTitle("");
+      setShowInput(false);
+
+      const response = await fetchShoppingList();
+      setShoppingList(response.shoppingList);
+    } catch (error) {
+      console.error("Error adding new item:", error);
+      setError("Failed to add new item.");
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-[#E7C36E]">
@@ -83,13 +101,32 @@ const ShoppingList: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-[#E7C36E] font-['Space_Grotesk'] px-4 py-8">
-      {error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : shoppingList.length === 0 ? (
+      {error && (
+        <p className="text-red-500 text-center mb-4">{error}</p>
+      )}
+
+      {showInput && (
+        <div className="mb-4 flex items-center gap-2">
+          <input
+            value={newItemTitle}
+            onChange={(e) => setNewItemTitle(e.target.value)}
+            placeholder="Add item..."
+            className="bg-gray-800 text-white border border-[#E7C36E] px-4 py-2 rounded-lg w-full"
+          />
+          <button
+            onClick={handleAddItem}
+            className="bg-[#E7C36E] text-black font-bold px-4 py-2 rounded-lg"
+          >
+            Add
+          </button>
+        </div>
+      )}
+
+      {shoppingList.length === 0 ? (
         <p className="text-center text-[#E7C36E]/70">Your shopping list is empty</p>
       ) : (
         <div className="space-y-4">
-          {shoppingList.map((item) => (
+          {shoppingList.map((item, index) => (
             <ShoppingListItemCard
               key={item.id}
               id={item.id}
@@ -97,6 +134,7 @@ const ShoppingList: React.FC = () => {
               completed={item.completed}
               onDelete={handleRemoveItem}
               onToggle={handleToggleItem}
+              onAdd={index === 0 ? () => setShowInput(true) : undefined}
             />
           ))}
         </div>
