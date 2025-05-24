@@ -186,21 +186,13 @@ export const toggleItemCompleted = async (id: number) => {
   }
 };
 
-export const addGenericToShoppingList = async (title: string) => {
+export const createShoppingListItem = async (title: string) => {
   const token = localStorage.getItem("googleAuthToken");
-  if (!token) {
-    throw new Error("No authentication token found");
-  }
+  if (!token) throw new Error("No auth token");
 
-  try {
-    const response = await axios.post(`${ENDPOINT}/api/users/addToShoppingList`,
-      { title },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+  const response = await axios.post(`${ENDPOINT}/api/users/createShoppingListItem`, { title }, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
-    return response.data;
-  } catch (error) {
-    console.log("Error adding generic item to shopping list:", error);
-    throw error;
-  }
+  return response.data;
 };
