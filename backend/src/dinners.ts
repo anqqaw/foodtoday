@@ -117,11 +117,11 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    for (const ingredient of dinner.shoppingList as any[]) {
+    for (const item of dinner.shoppingList as any[]) {
       const title =
-        ingredient.qty && ingredient.unit
-          ? `${ingredient.qty} ${ingredient.unit} ${ingredient.name}`
-          : ingredient.name;
+        item.qty && item.unit
+          ? `${item.qty} ${item.unit} ${item.name}`
+          : item.name;
 
 
       await prisma.shoppingListItem.create({
