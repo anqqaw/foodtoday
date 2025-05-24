@@ -173,7 +173,7 @@ export const addToShoppingList = async (ctx: Context) => {
 
     const shoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },
-      orderBy: { id: "asc" },
+      orderBy: { id: "desc" },
     });
 
     ctx.status = 200;
