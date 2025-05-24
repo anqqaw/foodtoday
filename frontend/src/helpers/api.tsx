@@ -186,12 +186,13 @@ export const toggleItemCompleted = async (id: number) => {
   }
 };
 
-export const createShoppingListItem = async (title: string) => {
+export const createShoppingListItem = async (title: String) => {
   const token = localStorage.getItem("googleAuthToken");
   if (!token) throw new Error("No auth token");
 
-  const response = await axios.post(`${ENDPOINT}/api/users/createShoppingListItem`, { title }, {
+  const response = await axios.get(`${ENDPOINT}/api/users/createShoppingListItem`, {
     headers: { Authorization: `Bearer ${token}` },
+    params: { title },
   });
 
   return response.data;
