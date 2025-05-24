@@ -7,6 +7,7 @@ interface Props {
   completed?: boolean;
   onDelete: (id: number) => void;
   onToggle: (id: number) => void;
+  onAdd?: () => void;
 }
 
 const ShoppingListItemCard: React.FC<Props> = ({
@@ -15,8 +16,9 @@ const ShoppingListItemCard: React.FC<Props> = ({
   completed,
   onDelete,
   onToggle,
+  onAdd,
 }) => {
-  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | "up" | null>(null);
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
@@ -31,6 +33,11 @@ const ShoppingListItemCard: React.FC<Props> = ({
         setSwipeDirection(null)
       }, 300);
     },
+    onSwipedUp: () => {
+      setSwipeDirection("up");
+      if (onAdd) onAdd();
+      setTimeout(() => setSwipeDirection(null), 300);
+    },
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
@@ -40,7 +47,9 @@ const ShoppingListItemCard: React.FC<Props> = ({
       ? "bg-[#047857]"
       : swipeDirection === "right"
         ? "bg-red-600"
-        : "bg-transparent";
+        : swipeDirection === "up"
+          ? "bg-black"
+          : "bg-transparent";
 
   const icon =
     swipeDirection === "left" ? "✅" : swipeDirection === "right" ? "❌" : null;
