@@ -117,13 +117,21 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    await prisma.shoppingListItem.create({
-      data: {
-        shoppingList: dinner.shoppingList,
-        completed: false,
-        userId: user.id,
-      },
-    });
+    for (const ingredient of dinner.shoppingList as any[]) {
+      const title =
+        ingredient.qty && ingredient.unit
+          ? `${ingredient.qty} ${ingredient.unit} ${ingredient.name}`
+          : ingredient.name;
+
+
+      await prisma.shoppingListItem.create({
+        data: {
+          title,
+          completed: false,
+          userId: user.id,
+        },
+      });
+    }
 
     const shoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },
