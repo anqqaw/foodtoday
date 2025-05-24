@@ -127,62 +127,28 @@ export const toggleItemCompleted = async (ctx: Context) => {
 };
 
 export const createShoppingListItem = async (ctx: Context) => {
-  const { id } = ctx.params;
   const { user } = ctx.state;
+  const { title } = ctx.request.query;
 
-  if (!id) {
+  if (!title || typeof title !== "string") {
     ctx.status = 400;
-    ctx.body = { error: "Dinner ID is required" };
-    return;
-  }
-
-  const dinnerId = Number(id);
-  if (isNaN(dinnerId)) {
-    ctx.status = 400;
-    ctx.body = { error: "Dinner ID must be a number" };
+    ctx.body = { error: "Title is required" };
     return;
   }
 
   try {
-    // fetch the dinner with its shoppingList JSON
-    const dinner = await prisma.dinner.findUnique({
-      where: { id: dinnerId },
-      select: { shoppingList: true },
-    });
-
-    if (!dinner || !Array.isArray(dinner.shoppingList)) {
-      ctx.status = 404;
-      ctx.body = { error: "Dinner or its shopping list not found" };
-      return;
-    }
-
-    for (const item of dinner.shoppingList as any[]) {
-      const title =
-        item.qty && item.unit
-          ? `${item.qty} ${item.unit} ${item.name}`
-          : item.name;
-
-      await prisma.shoppingListItem.create({
-        data: {
-          title,
-          completed: false,
-          userId: user.id,
-        },
-      });
-    }
-
-    const shoppingList = await prisma.shoppingListItem.findMany({
-      where: { userId: user.id },
-      orderBy: { id: "desc" },
+    const newItem = await prisma.shoppingListItem.create({
+      data: {
+        title: title.trim(),
+        completed: false,
+        userId: user.id,
+      },
     });
 
     ctx.status = 200;
-    ctx.body = {
-      message: "Dinner ingredients added to shopping list",
-      shoppingList,
-    };
+    ctx.body = newItem;
   } catch (error) {
-    console.error("Error adding to shopping list:", error);
+    console.error("Error creating shopping list item:", error);
     ctx.status = 500;
     ctx.body = { error: "Internal server error" };
   }
