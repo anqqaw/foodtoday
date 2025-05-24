@@ -26,8 +26,10 @@ const ShoppingListItemCard: React.FC<Props> = ({
     },
     onSwipedRight: () => {
       setSwipeDirection("right");
-      onDelete(id);
-      setTimeout(() => setSwipeDirection(null), 300);
+      setTimeout(() => {
+        onDelete(id);
+        setSwipeDirection(null)
+      }, 300);
     },
     preventScrollOnSwipe: true,
     trackMouse: true,
