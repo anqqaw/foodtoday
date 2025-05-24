@@ -18,7 +18,7 @@ const ShoppingListItemCard: React.FC<Props> = ({
   onToggle,
   onAdd,
 }) => {
-  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | "up" | null>(null);
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | "down" | null>(null);
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
@@ -33,13 +33,15 @@ const ShoppingListItemCard: React.FC<Props> = ({
         setSwipeDirection(null)
       }, 300);
     },
-    onSwipedUp: () => {
-      setSwipeDirection("up");
+    onSwipedDown: () => {
+      setSwipeDirection("down");
       if (onAdd) onAdd();
       setTimeout(() => setSwipeDirection(null), 300);
     },
     preventScrollOnSwipe: true,
     trackMouse: true,
+    trackTouch: true,
+    delta: 10,
   });
 
   const bgColor =
@@ -47,7 +49,7 @@ const ShoppingListItemCard: React.FC<Props> = ({
       ? "bg-[#047857]"
       : swipeDirection === "right"
         ? "bg-red-600"
-        : swipeDirection === "up"
+        : swipeDirection === "down"
           ? "bg-black"
           : "bg-transparent";
 
