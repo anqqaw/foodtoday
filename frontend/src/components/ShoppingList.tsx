@@ -106,20 +106,21 @@ const ShoppingList: React.FC = () => {
       )}
 
       {showInput && (
-        <div className="mb-4 flex items-center gap-2">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddItem();
+          }}
+          className="mb-4 flex items-center gap-2"
+        >
           <input
             value={newItemTitle}
             onChange={(e) => setNewItemTitle(e.target.value)}
             placeholder="Add item..."
             className="bg-gray-800 text-white border border-[#E7C36E] px-4 py-2 rounded-lg w-full"
+            autoFocus
           />
-          <button
-            onClick={handleAddItem}
-            className="bg-[#E7C36E] text-black font-bold px-4 py-2 rounded-lg"
-          >
-            Add
-          </button>
-        </div>
+        </form>
       )}
 
       {shoppingList.length === 0 ? (
