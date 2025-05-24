@@ -126,7 +126,7 @@ export const toggleItemCompleted = async (ctx: Context) => {
   }
 };
 
-export const addToShoppingList = async (ctx: Context) => {
+export const createShoppingListItem = async (ctx: Context) => {
   const { id } = ctx.params;
   const { user } = ctx.state;
 
