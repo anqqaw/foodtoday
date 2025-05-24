@@ -38,6 +38,7 @@ export function createApp() {
 
   privateRouter.get('/users/clearshoppinglist', users.clearShoppingList);
   privateRouter.get('/users/shoppinglist', users.getShoppingList);
+  privateRouter.get('users/addToShoppingList', users.addToShoppingList);
   privateRouter.delete('/users/shoppinglist/:id', users.deleteFromShoppingList);
   privateRouter.get('/users/shoppinglist/:id/toggle', users.toggleItemCompleted);
 
