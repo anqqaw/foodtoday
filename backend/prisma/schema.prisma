@@ -61,7 +61,7 @@ model Bookmark {
 model ShoppingListItem {
   id Int @id @default(autoincrement())
 
-  shoppingList Json?
+  shoppingList Json
   completed    Boolean @default(false)
 
   createdAt DateTime @default(now())
