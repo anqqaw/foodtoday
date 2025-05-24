@@ -119,7 +119,7 @@ export const addToShoppingList = async (ctx: Context) => {
 
     await prisma.shoppingListItem.create({
       data: {
-        title: dinner.title,
+        shoppingList: dinner.shoppingList,
         completed: false,
         userId: user.id,
       },
