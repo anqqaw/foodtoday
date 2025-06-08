@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { createApp } from '../src/app';
 import { prisma } from '../src/prisma';
-import * as google from '../src/middlewares/google';
+import * as google from '../src/middlewares/verifyToken';
 
 jest.mock('../src/middlewares/google');
 
@@ -36,7 +36,7 @@ describe('Dinners', () => {
     user = await prisma.user.create({
       data: { email: 'test-dinners@ai-extension.com' },
     });
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(
+    (google.verifyToken as jest.Mock).mockImplementation(
       async (ctx: any, next: any) => {
         ctx.state.user = user;
         await next();

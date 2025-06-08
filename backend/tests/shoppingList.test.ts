@@ -17,7 +17,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
       data: { email: 'toggle-item@ai-extension.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+    (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
       ctx.state.user = user;
       await next();
     });
