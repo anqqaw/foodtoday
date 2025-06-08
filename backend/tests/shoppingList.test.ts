@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { createApp } from '../src/app';
-import * as google from '../src/middlewares/google';
+import * as google from '../src/middlewares/verifyToken';
 import { prisma } from '../src/prisma';
 
 jest.mock('../src/middlewares/google');
