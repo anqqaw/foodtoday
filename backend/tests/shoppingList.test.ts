@@ -97,7 +97,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
       data: { email: 'delete-item@test.com ' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+    (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
       ctx.state.user = user;
       await next();
     });
@@ -175,7 +175,7 @@ describe('GET /api/users/clearshoppinglist', () => {
       data: { email: 'clear@test.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+    (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
       ctx.state.user = user;
       await next();
     });
@@ -219,7 +219,7 @@ describe('GET /api/users/shoppinglist', () => {
       data: { email: 'get-list@test.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(
+    (google.verifyToken as jest.Mock).mockImplementation(
       async (ctx: any, next: any) => {
         ctx.state.user = user;
         await next();
