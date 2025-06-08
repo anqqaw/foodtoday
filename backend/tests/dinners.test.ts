@@ -3,7 +3,7 @@ import { createApp } from '../src/app';
 import { prisma } from '../src/prisma';
 import * as google from '../src/middlewares/verifyToken';
 
-jest.mock('../src/middlewares/google');
+jest.mock('../src/middlewares/verifyToken');
 
 const app = createApp();
 const server = request(app.callback());
