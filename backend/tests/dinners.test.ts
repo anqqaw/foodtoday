@@ -21,6 +21,10 @@ describe('Dinners', () => {
           preparationTime: 30,
           totalTime: 60,
           serves: 4,
+          shoppingList: [
+            { title: 'Peruna', qty: 2, unit: 'kpl' },
+            { title: 'Suola' }
+          ]
         },
         {
           title: 'Dinner 2',
@@ -29,6 +33,10 @@ describe('Dinners', () => {
           preparationTime: 45,
           totalTime: 90,
           serves: 4,
+          shoppingList: [
+            { title: 'Peruna', qty: 2, unit: 'kpl' },
+            { title: 'Suola' }
+          ]
         },
       ],
     });
