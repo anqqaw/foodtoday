@@ -278,6 +278,10 @@ describe('GET /api/users/shoppinglist', () => {
           preparationTime: 30,
           totalTime: 60,
           serves: 4,
+          shoppingList: [
+            { title: 'Peruna', qty: 2, unit: 'kpl' },
+            { title: 'Suola' }
+          ],
         },
       });
     });
