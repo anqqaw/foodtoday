@@ -124,6 +124,10 @@ export const addToShoppingList = async (ctx: Context) => {
     }
 
     for (const item of dinner.shoppingList as any[]) {
+      if (!item || typeof item !== 'object' || !item.name) {
+        continue;
+      }
+
       const title =
         item.qty && item.unit
           ? `${item.qty} ${item.unit} ${item.name}`
