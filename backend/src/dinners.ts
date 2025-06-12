@@ -123,7 +123,6 @@ export const addToShoppingList = async (ctx: Context) => {
           ? `${item.qty} ${item.unit} ${item.name}`
           : item.name;
 
-
       await prisma.shoppingListItem.create({
         data: {
           title,
