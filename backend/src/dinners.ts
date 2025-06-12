@@ -117,6 +117,12 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
+    if (!Array.isArray(dinner.shoppingList)) {
+      ctx.status = 400;
+      ctx.body = { error: 'Dinner does not contain a valid shopping list' };
+      return;
+    }
+
     for (const item of dinner.shoppingList as any[]) {
       const title =
         item.qty && item.unit
