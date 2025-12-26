@@ -293,9 +293,9 @@ describe('GET /api/users/shoppinglist', () => {
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('message', 'Dinner added to shopping list');
-      const added = res.body.shoppingList.find((i: any) => i.title === tempDinner!.title);
-      expect(added).toBeDefined();
-      expect(added.userId).toBe(user.id);
+      expect(res.body.shoppingList.length).toBeGreaterThan(0);
+      const added = res.body.shoppingList.map((i: any) => i.title);
+      expect(added).toContain(user.id);
     });
 
     it('returns 404 if the dinner does not exist', async () => {
