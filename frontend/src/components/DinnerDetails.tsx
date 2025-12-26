@@ -50,14 +50,12 @@ const DinnerDetails: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white font-['Space_Grotesk']">
-      {/* Top bar / title */}
       <div className="w-full bg-black py-5 px-6 text-center">
         <h1 className="text-[#E7C36E] text-base font-bold uppercase tracking-wide">
           {dinner.title}
         </h1>
       </div>
 
-      {/* Hero Image */}
       <div className="relative w-full h-[50vh] min-h-[400px] overflow-hidden">
         <div
           className={`absolute inset-0 bg-no-repeat bg-cover bg-center transition-all duration-700 ${imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
@@ -88,10 +86,7 @@ const DinnerDetails: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 md:px-6 -mt-6 relative z-10 pb-16">
-
-        {/* Add to Shopping List */}
         <div className="flex justify-center mt-8 mb-8">
           <button
             onClick={addShoppingList}
@@ -102,9 +97,8 @@ const DinnerDetails: React.FC = () => {
           </button>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          <div className="p-4 text-center bg-gray-900 rounded-lg border border-gray-800">
+          <div className="p-4 text-center bg-[#121212] rounded-lg border border-gray-800">
             <Users className="w-5 h-5 text-[#E7C36E] mx-auto mb-2" />
             <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
               Serves
@@ -112,7 +106,7 @@ const DinnerDetails: React.FC = () => {
             <p className="text-xl font-semibold text-white">{dinner.serves}</p>
           </div>
 
-          <div className="p-4 text-center bg-gray-900 rounded-lg border border-gray-800">
+          <div className="p-4 text-center bg-[#121212] rounded-lg border border-gray-800">
             <Timer className="w-5 h-5 text-[#E7C36E] mx-auto mb-2" />
             <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
               Prep
@@ -122,7 +116,7 @@ const DinnerDetails: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 text-center bg-gray-900 rounded-lg border border-gray-800">
+          <div className="p-4 text-center bg-[#121212] rounded-lg border border-gray-800">
             <Clock className="w-5 h-5 text-[#E7C36E] mx-auto mb-2" />
             <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
               Total
@@ -133,10 +127,7 @@ const DinnerDetails: React.FC = () => {
           </div>
         </div>
 
-        {/* Ingredients + Steps */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-          {/* Ingredients */}
           <div className="shadow-lg overflow-hidden rounded-lg">
             <div className="bg-[#E7C36E] px-6 py-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center">
@@ -164,7 +155,6 @@ const DinnerDetails: React.FC = () => {
             </div>
           </div>
 
-          {/* Steps */}
           <div className="shadow-lg overflow-hidden rounded-lg">
             <div className="bg-emerald-700 px-6 py-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center">
