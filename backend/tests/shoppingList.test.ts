@@ -43,7 +43,9 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Item toggled');
-    expect(res.body.shoppingList[0]).toMatchObject({
+    const toggled = res.body.shoppingList.find((i: any) => i.id === item.id);
+    expect(toggled).toBeDefined();
+    expect(toggled).toMatchObject({
       id: item.id,
       completed: true,
     });
