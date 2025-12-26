@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
+import { prisma } from '../prisma';
 
 export async function verifyToken(ctx: any, next: any) {
   const authHeader = ctx.headers.authorization;
@@ -13,12 +14,22 @@ export async function verifyToken(ctx: any, next: any) {
 
   try {
     try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET!);
-      ctx.state.user = payload;
+      const payload: any = jwt.verify(token, process.env.JWT_SECRET!);
+      const userId = payload.userId || payload.id;
+      if (!userId) throw new Error('Invalid token payload');
+
+      const existingUser = await prisma.user.findUnique({ where: { id: userId } });
+      if (!existingUser) {
+        ctx.status = 401;
+        ctx.body = { error: 'Invalid token' };
+        return;
+      }
+
+      ctx.state.user = existingUser;
       await next();
       return;
     } catch (err) {
-      // not local --> try google token
+      // not jwt --> try google token
     }
 
     const googleClientId = process.env.GOOGLE_CLIENT_ID;
@@ -35,16 +46,24 @@ export async function verifyToken(ctx: any, next: any) {
     const googlePayload = ticket.getPayload();
     if (!googlePayload) throw new Error('Invalid token');
 
-    ctx.state.user = {
-      id: googlePayload.sub,
-      email: googlePayload.email,
-      name: googlePayload.name,
-      picture: googlePayload.picture,
-      provider: 'google',
-    };
+    let dbUser;
+    if (googlePayload.email) {
+      dbUser = await prisma.user.upsert({
+        where: { email: googlePayload.email },
+        update: {},
+        create: { email: googlePayload.email },
+      });
+    } else {
+      dbUser = await prisma.user.create({
+        data: { email: `google:${googlePayload.sub}` },
+      });
+    }
+
+    ctx.state.user = dbUser;
 
     await next();
-  } catch (err) {
+  } catch (err: any) {
+    console.error('Token verification error:', err.message || err);
     ctx.status = 401;
     ctx.body = { error: 'Invalid token' };
   }
