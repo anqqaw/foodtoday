@@ -288,7 +288,7 @@ describe('GET /api/users/shoppinglist', () => {
       });
     });
 
-    it('should add the dinner to the users shopping list', async () => {
+    it('should add the ingredients to the users shopping list', async () => {
       const res = await server
         .get(`/api/dinners/${tempDinner!.id}/addtoshoppinglist`)
         .set('Authorization', 'Bearer mockToken');
@@ -296,9 +296,13 @@ describe('GET /api/users/shoppinglist', () => {
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('message', 'Dinner added to shopping list');
       expect(res.body.shoppingList.length).toBeGreaterThan(0);
-      const added = res.body.shoppingList.find((i: any) => i.title === tempDinner!.title);
-      expect(added).toBeDefined();
-      expect(added.userId).toBe(user.id);
+
+      for (const item of res.body.shoppingList) {
+        expect(item.userId).toBe(user.id);
+      }
+
+      const titles = res.body.shoppingList.map((i: any) => i.title);
+      expect(titles.length).toBeGreaterThan(0);
     });
 
     it('returns 404 if the dinner does not exist', async () => {
