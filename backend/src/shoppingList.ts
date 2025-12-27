@@ -125,3 +125,31 @@ export const toggleItemCompleted = async (ctx: Context) => {
     ctx.body = { error: "Internal server error" };
   }
 };
+
+export const createShoppingListItem = async (ctx: Context) => {
+  const { user } = ctx.state;
+  const { title } = ctx.request.query;
+
+  if (!title || typeof title !== "string") {
+    ctx.status = 400;
+    ctx.body = { error: "Title is required" };
+    return;
+  }
+
+  try {
+    const newItem = await prisma.shoppingListItem.create({
+      data: {
+        title: title.trim(),
+        completed: false,
+        userId: user.id,
+      },
+    });
+
+    ctx.status = 200;
+    ctx.body = newItem;
+  } catch (error) {
+    console.error("Error creating shopping list item:", error);
+    ctx.status = 500;
+    ctx.body = { error: "Internal server error" };
+  }
+};

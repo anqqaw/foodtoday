@@ -8,8 +8,9 @@ generator client {
 }
 
 model User {
-  id    String @id @default(uuid())
-  email String @unique
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String?
 
   settings Json?
 

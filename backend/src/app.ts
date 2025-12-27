@@ -9,7 +9,7 @@ import * as users from './shoppingList';
 
 import * as health from './health';
 
-import { verifyGoogleToken } from './middlewares/google';
+import { verifyToken } from './middlewares/verifyToken';
 
 export function createApp() {
   const app = new Koa();
@@ -29,7 +29,7 @@ export function createApp() {
 
   const privateRouter = new Router({ prefix: '/api' });
 
-  privateRouter.use(verifyGoogleToken);
+  privateRouter.use(verifyToken);
 
   privateRouter.get('/dinners', dinners.searchDinners);
   privateRouter.get('/dinners/random', dinners.getRandom);
@@ -38,6 +38,7 @@ export function createApp() {
 
   privateRouter.get('/users/clearshoppinglist', users.clearShoppingList);
   privateRouter.get('/users/shoppinglist', users.getShoppingList);
+  privateRouter.get('/users/createShoppingListItem', users.createShoppingListItem);
   privateRouter.delete('/users/shoppinglist/:id', users.deleteFromShoppingList);
   privateRouter.get('/users/shoppinglist/:id/toggle', users.toggleItemCompleted);
 

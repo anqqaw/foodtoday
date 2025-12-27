@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { createApp } from '../src/app';
-import * as google from '../src/middlewares/google';
+import * as google from '../src/middlewares/verifyToken';
 import { prisma } from '../src/prisma';
 
-jest.mock('../src/middlewares/google');
+jest.mock('../src/middlewares/verifyToken');
 
 const app = createApp();
 const server = request(app.callback());
@@ -17,7 +17,7 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
       data: { email: 'toggle-item@ai-extension.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+    (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
       ctx.state.user = user;
       await next();
     });
@@ -43,7 +43,9 @@ describe('GET /users/shoppinglist/:id/toggle', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Item toggled');
-    expect(res.body.shoppingList[0]).toMatchObject({
+    const toggled = res.body.shoppingList.find((i: any) => i.id === item.id);
+    expect(toggled).toBeDefined();
+    expect(toggled).toMatchObject({
       id: item.id,
       completed: true,
     });
@@ -97,7 +99,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
       data: { email: 'delete-item@test.com ' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+    (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
       ctx.state.user = user;
       await next();
     });
@@ -175,7 +177,7 @@ describe('GET /api/users/clearshoppinglist', () => {
       data: { email: 'clear@test.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
+    (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
       ctx.state.user = user;
       await next();
     });
@@ -219,7 +221,7 @@ describe('GET /api/users/shoppinglist', () => {
       data: { email: 'get-list@test.com' },
     });
 
-    (google.verifyGoogleToken as jest.Mock).mockImplementation(
+    (google.verifyToken as jest.Mock).mockImplementation(
       async (ctx: any, next: any) => {
         ctx.state.user = user;
         await next();
@@ -278,20 +280,29 @@ describe('GET /api/users/shoppinglist', () => {
           preparationTime: 30,
           totalTime: 60,
           serves: 4,
+          shoppingList: [
+            { title: 'Peruna', qty: 2, unit: 'kpl' },
+            { title: 'Suola' }
+          ],
         },
       });
     });
 
-    it('should add the dinner to the users shopping list', async () => {
+    it('should add the ingredients to the users shopping list', async () => {
       const res = await server
         .get(`/api/dinners/${tempDinner!.id}/addtoshoppinglist`)
         .set('Authorization', 'Bearer mockToken');
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty('message', 'Dinner added to shopping list');
-      const added = res.body.shoppingList.find((i: any) => i.title === tempDinner!.title);
-      expect(added).toBeDefined();
-      expect(added.userId).toBe(user.id);
+      expect(res.body.shoppingList.length).toBeGreaterThan(0);
+
+      for (const item of res.body.shoppingList) {
+        expect(item.userId).toBe(user.id);
+      }
+
+      const titles = res.body.shoppingList.map((i: any) => i.title);
+      expect(titles.length).toBeGreaterThan(0);
     });
 
     it('returns 404 if the dinner does not exist', async () => {

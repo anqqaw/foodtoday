@@ -117,13 +117,30 @@ export const addToShoppingList = async (ctx: Context) => {
       return;
     }
 
-    await prisma.shoppingListItem.create({
-      data: {
-        title: dinner.title,
-        completed: false,
-        userId: user.id,
-      },
-    });
+    if (!Array.isArray(dinner.shoppingList)) {
+      ctx.status = 400;
+      ctx.body = { error: 'Dinner does not contain a valid shopping list' };
+      return;
+    }
+
+    for (const item of dinner.shoppingList as any[]) {
+      if (!item || typeof item !== 'object' || !item.name) {
+        continue;
+      }
+
+      const title =
+        item.qty && item.unit
+          ? `${item.qty} ${item.unit} ${item.name}`
+          : item.name;
+
+      await prisma.shoppingListItem.create({
+        data: {
+          title,
+          completed: false,
+          userId: user.id,
+        },
+      });
+    }
 
     const shoppingList = await prisma.shoppingListItem.findMany({
       where: { userId: user.id },

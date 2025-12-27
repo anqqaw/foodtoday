@@ -23,6 +23,7 @@ npm run db:seed
 ```bash
 export DATABASE_URL=postgresql://dinner:dinner@localhost/dinner
 export GOOGLE_CLIENT_ID=*.apps.googleusercontent.com
+export VITE_GOOGLE_CLIENT_ID=*.apps.googleusercontent.com
 ```
 
 ### Backend

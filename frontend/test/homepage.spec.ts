@@ -5,6 +5,6 @@ test('frontpage should show correct data', async ({ page }) => {
   const homePage = new HomePage(page);
   homePage.navigate();
 
-  const loginButton = page.locator('text=Login with Google');
+  const loginButton = page.locator('text=Google');
   await expect(loginButton).toBeVisible();
 });
