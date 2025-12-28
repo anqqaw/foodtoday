@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/anqqaw/foodtoday/compare/v1.4.0...v1.4.1) (2025-12-28)
+
+
+### Bug Fixes
+
+* Add google client id to frontend build ([05bb5ad](https://github.com/anqqaw/foodtoday/commit/05bb5adf29c84054368bad83ae54a2dec0fe1613))
+* Add google client id to frontend build ([51eb624](https://github.com/anqqaw/foodtoday/commit/51eb624774a6c0cd50c8b96b10919f52fee6014b))
+
 ## [1.4.0](https://github.com/anqqaw/foodtoday/compare/v1.3.0...v1.4.0) (2025-12-28)
 
 
