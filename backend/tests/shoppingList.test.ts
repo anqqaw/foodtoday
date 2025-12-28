@@ -96,7 +96,7 @@ describe('DELETE /api/users/shoppinglist/:id', () => {
 
   beforeEach(async () => {
     user = await prisma.user.create({
-      data: { email: 'delete-item@test.com ' },
+      data: { email: 'delete-item@test.com' },
     });
 
     (google.verifyToken as jest.Mock).mockImplementation(async (ctx: any, next: any) => {
