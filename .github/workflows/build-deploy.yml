@@ -52,6 +52,7 @@ jobs:
           echo "Using image tag: $IMAGE_TAG"
           docker build \
             --build-arg VITE_ENDPOINT=${{ env.VITE_ENDPOINT }} \
+            --build-arg VITE_GOOGLE_CLIENT_ID=${{ env.VITE_GOOGLE_CLIENT_ID }} \
             -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:$IMAGE_TAG ./${{ matrix.service }}
           docker tag ghcr.io/${{ github.repository }}/${{ matrix.service }}:$IMAGE_TAG ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest
 
