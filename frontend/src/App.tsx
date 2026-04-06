@@ -5,6 +5,7 @@ import LoginView from './components/LoginView';
 import DinnerDetails from './components/DinnerDetails';
 import DinnerList from './components/DinnerList';
 import ShoppingList from './components/ShoppingList';
+import SettingsView from './components/SettingsView';
 import Layout from './components/Layout';
 
 const App: React.FC = () => {
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route path="/dinner/:id" element={<DinnerDetails />} />
           <Route path="/dinners" element={<DinnerList />} />
           <Route path="/shoppinglist" element={<ShoppingList />} />
+          <Route path="/settings" element={<SettingsView />} />
         </Route>
       </Routes>
     </Router>

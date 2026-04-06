@@ -29,7 +29,7 @@ const DinnerCard: React.FC<DinnerCardProps> = ({ dinner, navigate }) => {
       />
 
       <div
-        className="absolute bottom-0 left-0 w-full bg-black/90 text-[#E7C36E] font-['Space_Grotesk'] p-10 flex flex-col items-center pb-20"
+        className="absolute bottom-0 left-0 w-full bg-white/90 dark:bg-black/90 text-amber-600 dark:text-[#E7C36E] font-['Space_Grotesk'] p-10 flex flex-col items-center pb-20 transition-colors"
       >
         <h1
           className="text-4xl font-bold text-center mb-4 -mt-6 cursor-pointer"

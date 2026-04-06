@@ -197,3 +197,28 @@ export const createShoppingListItem = async (title: String) => {
 
   return response.data;
 };
+
+export const fetchSettings = async (): Promise<Record<string, unknown>> => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) throw new Error("No authentication token found");
+
+  const response = await axios.get<{ settings: Record<string, unknown> }>(
+    `${ENDPOINT}/api/users/settings`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data.settings;
+};
+
+export const updateSettings = async (
+  patch: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const token = localStorage.getItem("googleAuthToken");
+  if (!token) throw new Error("No authentication token found");
+
+  const response = await axios.put<{ settings: Record<string, unknown> }>(
+    `${ENDPOINT}/api/users/settings`,
+    patch,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data.settings;
+};
