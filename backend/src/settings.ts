@@ -1,18 +1,16 @@
 import { Context } from 'koa';
-import { Prisma } from '@prisma/client';
 import { prisma } from './prisma';
 
 export const getSettings = async (ctx: Context) => {
   const { user } = ctx.state;
 
   try {
-    const found = await prisma.user.findUnique({
-      where: { id: user.id },
-      select: { settings: true },
+    const settings = await prisma.userSettings.findUnique({
+      where: { userId: user.id },
     });
 
     ctx.status = 200;
-    ctx.body = { settings: found?.settings ?? {} };
+    ctx.body = { settings: { darkMode: settings?.darkMode ?? false } };
   } catch (error) {
     console.error('Error fetching settings:', error);
     ctx.status = 500;
@@ -22,35 +20,28 @@ export const getSettings = async (ctx: Context) => {
 
 export const updateSettings = async (ctx: Context) => {
   const { user } = ctx.state;
-  const incoming = ctx.request.body as Record<string, unknown>;
+  const body = ctx.request.body as { darkMode?: boolean };
 
-  if (!incoming || typeof incoming !== 'object') {
+  if (!body || typeof body !== 'object') {
     ctx.status = 400;
     ctx.body = { error: 'Invalid settings payload' };
     return;
   }
 
   try {
-    const current = await prisma.user.findUnique({
-      where: { id: user.id },
-      select: { settings: true },
-    });
-
-    const merged = {
-      ...(typeof current?.settings === 'object' && current.settings !== null
-        ? (current.settings as Record<string, unknown>)
-        : {}),
-      ...incoming,
-    };
-
-    const updated = await prisma.user.update({
-      where: { id: user.id },
-      data: { settings: merged as Prisma.InputJsonValue },
-      select: { settings: true },
+    const settings = await prisma.userSettings.upsert({
+      where: { userId: user.id },
+      update: {
+        ...(typeof body.darkMode === 'boolean' && { darkMode: body.darkMode }),
+      },
+      create: {
+        userId: user.id,
+        darkMode: body.darkMode ?? false,
+      },
     });
 
     ctx.status = 200;
-    ctx.body = { settings: updated.settings };
+    ctx.body = { settings: { darkMode: settings.darkMode } };
   } catch (error) {
     console.error('Error updating settings:', error);
     ctx.status = 500;

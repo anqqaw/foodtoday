@@ -24,9 +24,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     fetchSettings()
       .then((settings) => {
-        const remoteTheme = settings?.theme;
-        if (remoteTheme === 'light' || remoteTheme === 'dark') {
-          setTheme(remoteTheme);
+        if (typeof settings?.darkMode === 'boolean') {
+          setTheme(settings.darkMode ? 'dark' : 'light');
         }
       })
       .catch(() => {
@@ -49,7 +48,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setTheme((prev) => {
       const next = prev === 'dark' ? 'light' : 'dark';
       // Persist to backend (fire-and-forget)
-      updateSettings({ theme: next }).catch(() => { });
+      updateSettings({ darkMode: next === 'dark' }).catch(() => { });
       return next;
     });
   };
