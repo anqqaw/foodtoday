@@ -26,19 +26,17 @@ const BottomNavBar: React.FC = () => {
               className="flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl transition-all"
             >
               <Icon
-                className={`w-5 h-5 transition-colors ${
-                  isActive
+                className={`w-5 h-5 transition-colors ${isActive
                     ? "text-amber-500 dark:text-[#E7C36E]"
                     : "text-gray-400 dark:text-gray-500"
-                }`}
+                  }`}
                 strokeWidth={isActive ? 2.5 : 1.8}
               />
               <span
-                className={`text-[10px] font-medium transition-colors ${
-                  isActive
+                className={`text-[10px] font-medium transition-colors ${isActive
                     ? "text-amber-500 dark:text-[#E7C36E]"
                     : "text-gray-400 dark:text-gray-500"
-                }`}
+                  }`}
               >
                 {item.label}
               </span>

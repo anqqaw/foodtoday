@@ -52,28 +52,28 @@ const DinnerList: React.FC = () => {
           <p className="text-gray-500 dark:text-gray-600 text-lg">No dinners found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dinners.map((dinner) => (
-            <div
-              key={dinner.id}
-              className="relative overflow-hidden rounded-lg transform hover:scale-105 transition duration-200 cursor-pointer"
-              onClick={() => navigate(`/dinner/${dinner.id}`)}
-            >
-              {dinner.images && (
-                <div
-                  className="w-full h-56 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${dinner.images}')` }}
-                />
-              )}
-              <div className="absolute bottom-0 w-full bg-white/80 dark:bg-black/60 backdrop-blur-sm p-3 flex flex-col items-center text-center">
-                <h2 className="text-lg font-semibold text-amber-600 dark:text-[#E7C36E]">{dinner.title}</h2>
-                <div className="flex text-amber-600 dark:text-[#E7C36E] text-opacity-70 text-sm mt-1">
-                  <span>{dinner.preparationTime} min</span>
-                  <span className="mx-2">•</span>
-                  <span>{dinner.totalTime} min</span>
+            {dinners.map((dinner) => (
+              <div
+                key={dinner.id}
+                className="relative overflow-hidden rounded-lg transform hover:scale-105 transition duration-200 cursor-pointer"
+                onClick={() => navigate(`/dinner/${dinner.id}`)}
+              >
+                {dinner.images && (
+                  <div
+                    className="w-full h-56 bg-cover bg-center"
+                    style={{ backgroundImage: `url('${dinner.images}')` }}
+                  />
+                )}
+                <div className="absolute bottom-0 w-full bg-white/80 dark:bg-black/60 backdrop-blur-sm p-3 flex flex-col items-center text-center">
+                  <h2 className="text-lg font-semibold text-amber-600 dark:text-[#E7C36E]">{dinner.title}</h2>
+                  <div className="flex text-amber-600 dark:text-[#E7C36E] text-opacity-70 text-sm mt-1">
+                    <span>{dinner.preparationTime} min</span>
+                    <span className="mx-2">•</span>
+                    <span>{dinner.totalTime} min</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
         )}
       </div>
