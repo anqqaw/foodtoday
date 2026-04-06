@@ -2,6 +2,18 @@ import axios from "axios";
 
 const ENDPOINT = import.meta.env.VITE_ENDPOINT || 'http://localhost:9000';
 
+// Clear stale token and redirect to login on any 401
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('googleAuthToken');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export interface IngredientDetail {
   name: string;
   unit?: string;

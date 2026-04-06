@@ -86,7 +86,7 @@ const LoginView: React.FC = () => {
                 </label>
                 <input
                   type="email"
-                  placeholder="sinä@example.com"
+                  placeholder="nimi@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-amber-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:focus:ring-amber-600 transition-all"

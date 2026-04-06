@@ -50,10 +50,10 @@ const DinnerDetails: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-amber-50 dark:bg-black text-gray-900 dark:text-white font-['Space_Grotesk'] transition-colors">
-      <div className="w-full bg-amber-50 dark:bg-black py-5 px-6 text-center border-b border-amber-200 dark:border-gray-800 transition-colors">
-        <h1 className="text-amber-600 dark:text-[#E7C36E] text-base font-bold uppercase tracking-wide">
+      <div className="w-full bg-amber-50 dark:bg-black py-5 px-6 text-center border-b border-amber-100 dark:border-gray-800 transition-colors">
+        <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 dark:text-[#E7C36E]">
           {dinner.title}
-        </h1>
+        </p>
       </div>
 
       <div className="relative w-full h-[50vh] min-h-[400px] overflow-hidden">
@@ -135,8 +135,8 @@ const DinnerDetails: React.FC = () => {
               </div>
               <h2 className="text-2xl font-bold text-white">Ingredients</h2>
             </div>
-            <div className="bg-white p-6">
-              <ul className="space-y-3 text-gray-800">
+            <div className="bg-amber-50 dark:bg-[#111] p-6">
+              <ul className="space-y-3 text-gray-800 dark:text-gray-200">
                 {dinner.ingredients.map((ingredient, index) => (
                   <li key={index} className="leading-relaxed">
                     {ingredient.qty && ingredient.unit ? (
@@ -162,8 +162,8 @@ const DinnerDetails: React.FC = () => {
               </div>
               <h2 className="text-2xl font-bold text-white">Steps</h2>
             </div>
-            <div className="bg-white p-6">
-              <ol className="space-y-4 list-decimal pl-5 text-gray-800">
+            <div className="bg-amber-50 dark:bg-[#111] p-6">
+              <ol className="space-y-4 list-decimal pl-5 text-gray-800 dark:text-gray-200">
                 {dinner.steps.map((step, index) => (
                   <li key={index} className="leading-relaxed">
                     {step}
