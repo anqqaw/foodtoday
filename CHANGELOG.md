@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.5.0](https://github.com/anqqaw/foodtoday/compare/v1.4.1...v1.5.0) (2026-04-06)
+
+
+### Features
+
+* Added dark mode support and fixed backend env loading ([dd7ad55](https://github.com/anqqaw/foodtoday/commit/dd7ad55bd5e2c931e538229259db9856390c3bcb))
+* Added light mode ([4bef731](https://github.com/anqqaw/foodtoday/commit/4bef731be77cb98814cf3bca923300addf6e68ae))
+* Added settings view with dark mode in it ([881d284](https://github.com/anqqaw/foodtoday/commit/881d28416ec7a0bf32c83eb21186e7ee52b66ca4))
+* Made new migration for user settings ([eef7398](https://github.com/anqqaw/foodtoday/commit/eef739839d7092986fdfac37b3b38c7c13ca474b))
+
+
+### Bug Fixes
+
+* Fixed e2e tests and playwright config ([2af17e1](https://github.com/anqqaw/foodtoday/commit/2af17e14e8e52600c9a631674cef9ec8b24fe052))
+* Reversed swiping direction ([29ffb69](https://github.com/anqqaw/foodtoday/commit/29ffb695d522cf5ef352bca284f14b397d1beea6))
+
 ## [1.4.1](https://github.com/anqqaw/foodtoday/compare/v1.4.0...v1.4.1) (2025-12-28)
 
 
