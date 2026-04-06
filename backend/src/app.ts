@@ -9,8 +9,10 @@ import * as users from './shoppingList';
 import * as settings from './settings';
 
 import * as health from './health';
+import authRouter from './auth';
 
 import { verifyToken } from './middlewares/verifyToken';
+import { errorHandler } from './middlewares/errorHandler';
 
 export function createApp() {
   const app = new Koa();
@@ -18,12 +20,14 @@ export function createApp() {
   if (process.env.NODE_ENV !== 'test') {
     app.use(logger());
   }
+  app.use(errorHandler);
   app.use(cors({ credentials: true }));
   app.use(bodyParser());
 
   const publicRouter = new Router({ prefix: '/api' });
 
   publicRouter.get('/_health', health.check);
+  publicRouter.use('/auth', authRouter.routes(), authRouter.allowedMethods());
 
   app.use(publicRouter.routes());
   app.use(publicRouter.allowedMethods());
