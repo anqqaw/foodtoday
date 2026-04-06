@@ -3,8 +3,8 @@ import { HomePage } from './page-objects/home.page';
 
 test('frontpage should show correct data', async ({ page }) => {
   const homePage = new HomePage(page);
-  homePage.navigate();
+  await homePage.navigate();
 
-  const loginButton = page.locator('text=Google');
-  await expect(loginButton).toBeVisible();
+  await expect(page.getByRole('heading', { name: /tervetuloa|luo tili/i })).toBeVisible();
+  await expect(page.locator('button[type="submit"]')).toBeVisible();
 });
