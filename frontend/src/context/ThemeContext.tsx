@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { fetchSettings, updateSettings } from '../helpers/api';
 
 type Theme = 'light' | 'dark';
 
@@ -16,6 +17,24 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
+  // Load theme from backend on mount (only when authenticated)
+  useEffect(() => {
+    const token = localStorage.getItem('googleAuthToken');
+    if (!token) return;
+
+    fetchSettings()
+      .then((settings) => {
+        const remoteTheme = settings?.theme;
+        if (remoteTheme === 'light' || remoteTheme === 'dark') {
+          setTheme(remoteTheme);
+        }
+      })
+      .catch(() => {
+        // Not authenticated yet or network error — fall back to localStorage
+      });
+  }, []);
+
+  // Apply class to <html> and persist locally
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
@@ -27,7 +46,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      // Persist to backend (fire-and-forget)
+      updateSettings({ theme: next }).catch(() => { });
+      return next;
+    });
   };
 
   return (

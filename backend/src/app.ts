@@ -6,6 +6,7 @@ import Router from 'koa-router';
 
 import * as dinners from './dinners';
 import * as users from './shoppingList';
+import * as settings from './settings';
 
 import * as health from './health';
 
@@ -41,6 +42,9 @@ export function createApp() {
   privateRouter.get('/users/createShoppingListItem', users.createShoppingListItem);
   privateRouter.delete('/users/shoppinglist/:id', users.deleteFromShoppingList);
   privateRouter.get('/users/shoppinglist/:id/toggle', users.toggleItemCompleted);
+
+  privateRouter.get('/users/settings', settings.getSettings);
+  privateRouter.put('/users/settings', settings.updateSettings);
 
   app.use(privateRouter.routes());
   app.use(privateRouter.allowedMethods());
