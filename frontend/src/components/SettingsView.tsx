@@ -6,10 +6,10 @@ const SettingsView: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-colors p-6">
+    <div className="flex flex-col min-h-screen bg-amber-50 dark:bg-black text-gray-900 dark:text-white transition-colors p-6">
       <h1 className="text-2xl font-bold mb-8">Settings</h1>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md p-4 flex items-center justify-between">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md border border-amber-100 dark:border-gray-800 p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           {theme === 'dark' ? (
             <Moon className="w-5 h-5 text-[#E7C36E]" />

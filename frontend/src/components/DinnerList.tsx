@@ -30,14 +30,14 @@ const DinnerList: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen p-8 bg-gray-50 dark:bg-black text-gray-900 dark:text-white font-['Space_Grotesk'] pb-20 transition-colors">
+    <div className="min-h-screen p-8 bg-amber-50 dark:bg-black text-gray-900 dark:text-white font-['Space_Grotesk'] pb-20 transition-colors">
       <div className="flex justify-between items-center mb-6">
         <input
           type="search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search dinners..."
-          className="w-64 p-3 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-amber-500 dark:focus:ring-[#E7C36E] outline-none transition-colors"
+          className="w-64 p-3 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-amber-200 dark:border-gray-700 focus:ring-2 focus:ring-amber-500 dark:focus:ring-[#E7C36E] outline-none transition-colors"
         />
       </div>
 

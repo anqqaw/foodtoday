@@ -50,7 +50,7 @@ const LoginView: React.FC = () => {
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-amber-50 dark:bg-black text-gray-900 dark:text-white transition-colors">
         <h2 className="text-2xl font-bold mb-4">
           {isRegistering ? 'Rekisteröidy sähköpostilla' : 'Kirjaudu sisään sähköpostilla'}
         </h2>
@@ -61,16 +61,16 @@ const LoginView: React.FC = () => {
             placeholder="Sähköposti"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="text-black p-2 rounded bg-gray-800 p-6 rounded-xl shadow-md"
+            className="text-gray-900 dark:text-white p-6 rounded-xl shadow-md bg-white dark:bg-gray-800 border border-amber-200 dark:border-gray-700 transition-colors"
           />
           <input
             type="password"
             placeholder="Salasana"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="text-black p-2 rounded bg-gray-800 p-6 rounded-xl shadow-md"
+            className="text-gray-900 dark:text-white p-6 rounded-xl shadow-md bg-white dark:bg-gray-800 border border-amber-200 dark:border-gray-700 transition-colors"
           />
-          <button type="submit" className="bg-white text-black rounded p-2">
+          <button type="submit" className="bg-amber-500 dark:bg-white text-white dark:text-black rounded p-2 hover:bg-amber-600 dark:hover:bg-gray-100 transition-colors">
             {isRegistering ? 'Rekisteröidy' : 'Kirjaudu'}
           </button>
         </form>

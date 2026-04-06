@@ -13,7 +13,7 @@ const BottomNavBar: React.FC = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-16 bg-white dark:bg-black shadow-lg flex justify-around items-center border-t border-gray-200 dark:border-gray-800 z-50 transition-colors">
+    <div className="fixed bottom-0 left-0 w-full h-16 bg-amber-50 dark:bg-black shadow-lg flex justify-around items-center border-t border-amber-200 dark:border-gray-800 z-50 transition-colors">
       {menuItems.map((item, idx) => {
         const isActive = location.pathname === item.path;
         return (

@@ -36,7 +36,7 @@ const DinnerDetails: React.FC = () => {
 
   if (!dinner) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black transition-colors">
+      <div className="min-h-screen flex items-center justify-center bg-amber-50 dark:bg-black transition-colors">
         <p className="text-gray-500 dark:text-gray-400 text-lg animate-pulse">
           Loading dinner details...
         </p>
@@ -49,8 +49,8 @@ const DinnerDetails: React.FC = () => {
     : (dinner.images as unknown as string);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white font-['Space_Grotesk'] transition-colors">
-      <div className="w-full bg-white dark:bg-black py-5 px-6 text-center border-b border-gray-200 dark:border-gray-800 transition-colors">
+    <div className="min-h-screen bg-amber-50 dark:bg-black text-gray-900 dark:text-white font-['Space_Grotesk'] transition-colors">
+      <div className="w-full bg-amber-50 dark:bg-black py-5 px-6 text-center border-b border-amber-200 dark:border-gray-800 transition-colors">
         <h1 className="text-amber-600 dark:text-[#E7C36E] text-base font-bold uppercase tracking-wide">
           {dinner.title}
         </h1>
@@ -98,7 +98,7 @@ const DinnerDetails: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-gray-200 dark:border-gray-800 transition-colors">
+          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-amber-200 dark:border-gray-800 transition-colors">
             <Users className="w-5 h-5 text-amber-600 dark:text-[#E7C36E] mx-auto mb-2" />
             <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               Serves
@@ -106,7 +106,7 @@ const DinnerDetails: React.FC = () => {
             <p className="text-xl font-semibold text-gray-900 dark:text-white">{dinner.serves}</p>
           </div>
 
-          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-gray-200 dark:border-gray-800 transition-colors">
+          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-amber-200 dark:border-gray-800 transition-colors">
             <Timer className="w-5 h-5 text-amber-600 dark:text-[#E7C36E] mx-auto mb-2" />
             <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               Prep
@@ -116,7 +116,7 @@ const DinnerDetails: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-gray-200 dark:border-gray-800 transition-colors">
+          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-amber-200 dark:border-gray-800 transition-colors">
             <Clock className="w-5 h-5 text-amber-600 dark:text-[#E7C36E] mx-auto mb-2" />
             <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               Total
