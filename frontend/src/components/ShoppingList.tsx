@@ -93,14 +93,14 @@ const ShoppingList: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-[#E7C36E]">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black text-amber-600 dark:text-[#E7C36E] transition-colors">
         <p className="text-lg animate-pulse">Loading shopping list...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-[#E7C36E] font-['Space_Grotesk'] px-4 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-black text-amber-600 dark:text-[#E7C36E] font-['Space_Grotesk'] px-4 py-8 transition-colors">
       {error && (
         <p className="text-red-500 text-center mb-4">{error}</p>
       )}
@@ -117,14 +117,14 @@ const ShoppingList: React.FC = () => {
             value={newItemTitle}
             onChange={(e) => setNewItemTitle(e.target.value)}
             placeholder="Add item..."
-            className="bg-gray-800 text-white border border-[#E7C36E] px-4 py-2 rounded-lg w-full"
+            className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-amber-500 dark:border-[#E7C36E] px-4 py-2 rounded-lg w-full transition-colors"
             autoFocus
           />
         </form>
       )}
 
       {shoppingList.length === 0 ? (
-        <p className="text-center text-[#E7C36E]/70">Your shopping list is empty</p>
+        <p className="text-center text-amber-600/70 dark:text-[#E7C36E]/70">Your shopping list is empty</p>
       ) : (
         <div className="space-y-4">
           {shoppingList.map((item, index) => (

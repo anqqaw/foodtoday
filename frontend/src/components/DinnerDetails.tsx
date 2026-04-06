@@ -36,8 +36,8 @@ const DinnerDetails: React.FC = () => {
 
   if (!dinner) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <p className="text-gray-400 text-lg animate-pulse">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black transition-colors">
+        <p className="text-gray-500 dark:text-gray-400 text-lg animate-pulse">
           Loading dinner details...
         </p>
       </div>
@@ -49,9 +49,9 @@ const DinnerDetails: React.FC = () => {
     : (dinner.images as unknown as string);
 
   return (
-    <div className="min-h-screen bg-black text-white font-['Space_Grotesk']">
-      <div className="w-full bg-black py-5 px-6 text-center">
-        <h1 className="text-[#E7C36E] text-base font-bold uppercase tracking-wide">
+    <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white font-['Space_Grotesk'] transition-colors">
+      <div className="w-full bg-white dark:bg-black py-5 px-6 text-center border-b border-gray-200 dark:border-gray-800 transition-colors">
+        <h1 className="text-amber-600 dark:text-[#E7C36E] text-base font-bold uppercase tracking-wide">
           {dinner.title}
         </h1>
       </div>
@@ -76,7 +76,7 @@ const DinnerDetails: React.FC = () => {
 
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-[#E7C36E]/20 text-[#E7C36E] rounded-full mb-4">
+            <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-amber-500/20 dark:bg-[#E7C36E]/20 text-amber-600 dark:text-[#E7C36E] rounded-full mb-4">
               Recipe
             </span>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
@@ -98,30 +98,30 @@ const DinnerDetails: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          <div className="p-4 text-center bg-[#121212] rounded-lg border border-gray-800">
-            <Users className="w-5 h-5 text-[#E7C36E] mx-auto mb-2" />
-            <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
+          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-gray-200 dark:border-gray-800 transition-colors">
+            <Users className="w-5 h-5 text-amber-600 dark:text-[#E7C36E] mx-auto mb-2" />
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               Serves
             </p>
-            <p className="text-xl font-semibold text-white">{dinner.serves}</p>
+            <p className="text-xl font-semibold text-gray-900 dark:text-white">{dinner.serves}</p>
           </div>
 
-          <div className="p-4 text-center bg-[#121212] rounded-lg border border-gray-800">
-            <Timer className="w-5 h-5 text-[#E7C36E] mx-auto mb-2" />
-            <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
+          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-gray-200 dark:border-gray-800 transition-colors">
+            <Timer className="w-5 h-5 text-amber-600 dark:text-[#E7C36E] mx-auto mb-2" />
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               Prep
             </p>
-            <p className="text-xl font-semibold text-white">
+            <p className="text-xl font-semibold text-gray-900 dark:text-white">
               {dinner.preparationTime} mins
             </p>
           </div>
 
-          <div className="p-4 text-center bg-[#121212] rounded-lg border border-gray-800">
-            <Clock className="w-5 h-5 text-[#E7C36E] mx-auto mb-2" />
-            <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
+          <div className="p-4 text-center bg-white dark:bg-[#121212] rounded-lg border border-gray-200 dark:border-gray-800 transition-colors">
+            <Clock className="w-5 h-5 text-amber-600 dark:text-[#E7C36E] mx-auto mb-2" />
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               Total
             </p>
-            <p className="text-xl font-semibold text-white">
+            <p className="text-xl font-semibold text-gray-900 dark:text-white">
               {dinner.totalTime} mins
             </p>
           </div>
@@ -141,7 +141,7 @@ const DinnerDetails: React.FC = () => {
                   <li key={index} className="leading-relaxed">
                     {ingredient.qty && ingredient.unit ? (
                       <>
-                        <span className="font-semibold text-[#E7C36E]">
+                        <span className="font-semibold text-amber-600 dark:text-[#E7C36E]">
                           {ingredient.qty} {ingredient.unit}
                         </span>{" "}
                         {ingredient.name}

@@ -12,7 +12,7 @@ const BottomNavBar: React.FC = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-16 bg-black shadow-lg flex justify-around items-center border-t border-gray-800 z-50">
+    <div className="fixed bottom-0 left-0 w-full h-16 bg-white dark:bg-black shadow-lg flex justify-around items-center border-t border-gray-200 dark:border-gray-800 z-50 transition-colors">
       {menuItems.map((item, idx) => {
         const isActive = location.pathname === item.path;
         return (
@@ -22,8 +22,8 @@ const BottomNavBar: React.FC = () => {
             className={`
               flex flex-col items-center transition-all
               ${isActive
-                ? "text-[#E7C36E] font-bold"
-                : "text-gray-400 hover:text-gray-200"}
+                ? "text-amber-600 dark:text-[#E7C36E] font-bold"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"}
             `}
           >
             <span className="text-2xl">{item.emoji}</span>

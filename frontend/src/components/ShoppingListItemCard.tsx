@@ -67,7 +67,7 @@ const ShoppingListItemCard: React.FC<Props> = ({
         </div>
       )}
       <div
-        className={`w-full px-6 py-4 ${completed ? "text-gray-500 line-through" : "text-[#E7C36E]"
+        className={`w-full px-6 py-4 ${completed ? "text-gray-400 dark:text-gray-500 line-through" : "text-amber-600 dark:text-[#E7C36E]"
           }`}
       >
         {title}
