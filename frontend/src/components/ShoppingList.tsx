@@ -93,64 +93,85 @@ const ShoppingList: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black text-amber-600 dark:text-[#E7C36E] transition-colors">
-        <p className="text-lg animate-pulse">Loading shopping list...</p>
+      <div className="min-h-screen flex items-center justify-center bg-amber-50 dark:bg-black transition-colors">
+        <p className="text-lg animate-pulse text-amber-500 dark:text-[#E7C36E]">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black text-amber-600 dark:text-[#E7C36E] font-['Space_Grotesk'] px-4 py-8 transition-colors">
-      {error && (
-        <p className="text-red-500 text-center mb-4">{error}</p>
-      )}
-
-      {showInput && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleAddItem();
-          }}
-          className="mb-4 flex items-center gap-2"
+    <div className="min-h-screen bg-amber-50 dark:bg-black font-['Space_Grotesk'] transition-colors">
+      {/* Header */}
+      <div className="px-6 pt-10 pb-4 flex items-end justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 dark:text-[#E7C36E] mb-1">Your list</p>
+          <h1 className="text-3xl font-black text-gray-900 dark:text-white">Shopping</h1>
+        </div>
+        <button
+          onClick={() => setShowInput(true)}
+          className="w-10 h-10 rounded-full bg-amber-500 dark:bg-[#E7C36E] text-white dark:text-black flex items-center justify-center text-xl font-bold shadow-md hover:scale-105 active:scale-95 transition-all"
+          aria-label="Add item"
         >
-          <input
-            value={newItemTitle}
-            onChange={(e) => setNewItemTitle(e.target.value)}
-            placeholder="Add item..."
-            className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-amber-500 dark:border-[#E7C36E] px-4 py-2 rounded-lg w-full transition-colors"
-            autoFocus
-          />
-        </form>
-      )}
+          +
+        </button>
+      </div>
 
-      {shoppingList.length === 0 ? (
-        <p className="text-center text-amber-600/70 dark:text-[#E7C36E]/70">Your shopping list is empty</p>
-      ) : (
-        <div className="space-y-4">
-          {shoppingList.map((item, index) => (
-            <ShoppingListItemCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              completed={item.completed}
-              onDelete={handleRemoveItem}
-              onToggle={handleToggleItem}
-              onAdd={index === 0 ? () => setShowInput(true) : undefined}
-            />
-          ))}
-        </div>
-      )}
+      <div className="px-4 pb-24">
+        {error && (
+          <p className="text-red-500 text-center mb-4">{error}</p>
+        )}
 
-      {shoppingList.length > 0 && (
-        <div className="mt-10 flex justify-center">
-          <button
-            onClick={handleClearList}
-            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition"
+        {showInput && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddItem();
+            }}
+            className="mb-4 flex items-center gap-2"
           >
-            Clear
-          </button>
-        </div>
-      )}
+            <input
+              value={newItemTitle}
+              onChange={(e) => setNewItemTitle(e.target.value)}
+              placeholder="Add item..."
+              className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-amber-300 dark:border-gray-700 px-4 py-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+              autoFocus
+            />
+          </form>
+        )}
+
+        {shoppingList.length === 0 ? (
+          <div className="flex flex-col items-center justify-center pt-20 text-center">
+            <p className="text-4xl mb-3">🛒</p>
+            <p className="text-gray-400 dark:text-gray-500 font-medium">Your shopping list is empty.</p>
+            <p className="text-gray-300 dark:text-gray-600 text-sm mt-1">Tap + to add items.</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {shoppingList.map((item, index) => (
+              <ShoppingListItemCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                completed={item.completed}
+                onDelete={handleRemoveItem}
+                onToggle={handleToggleItem}
+                onAdd={index === 0 ? () => setShowInput(true) : undefined}
+              />
+            ))}
+          </div>
+        )}
+
+        {shoppingList.length > 0 && (
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={handleClearList}
+              className="text-sm text-red-400 hover:text-red-500 font-semibold underline underline-offset-2 transition-colors"
+            >
+              Clear all items
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
