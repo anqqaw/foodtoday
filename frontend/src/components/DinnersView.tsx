@@ -30,8 +30,8 @@ const DinnersView: React.FC = () => {
 
   // Swipe handlers
   const handlers = useSwipeable({
-    onSwipedDown: () => loadRandomDinner(), // Swipe left to get a new recipe
-    onSwipedUp: () => {
+    onSwipedUp: () => loadRandomDinner(),
+    onSwipedDown: () => {
       if (currentIndex > 0) {
         setCurrentIndex((prev) => prev - 1); // Swipe right to go back
       }
