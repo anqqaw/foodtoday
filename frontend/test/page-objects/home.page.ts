@@ -1,7 +1,11 @@
-import { Page } from '@playwright/test';
+import { type Page } from '@playwright/test';
 
 export class HomePage {
-  constructor(private page: Page) {}
+  page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
 
   async loadState() {
     await this.page.goto('/');

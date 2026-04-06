@@ -165,15 +165,9 @@ const ShoppingList: React.FC = () => {
           <div className="mt-10 flex justify-center">
             <button
               onClick={handleClearList}
-<<<<<<< HEAD
               className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition"
             >
               Clear
-=======
-              className="text-sm text-red-400 hover:text-red-500 font-semibold underline underline-offset-2 transition-colors"
-            >
-              Clear all items
->>>>>>> fa2b914 (style: UI overhaul and fixed expired token handling)
             </button>
           </div>
         )}
