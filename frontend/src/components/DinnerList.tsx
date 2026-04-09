@@ -98,51 +98,49 @@ const DinnerList: React.FC = () => {
 
       <div className="px-6 mb-6">
         <div ref={prepDropdownRef} className="relative">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-              Prep Time
-            </p>
-            <button
-              type="button"
-              onClick={() => setIsPrepDropdownOpen((prev) => !prev)}
-              className="w-full px-3 py-2 rounded-xl bg-white dark:bg-gray-900 text-gray-800 dark:text-white border border-amber-100 dark:border-gray-800 text-left flex items-center justify-between"
-            >
-              <span>{prepTimeLabel}</span>
-              <span className="text-amber-500">{isPrepDropdownOpen ? "▲" : "▼"}</span>
-            </button>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+            Prep Time
+          </p>
+          <button
+            type="button"
+            onClick={() => setIsPrepDropdownOpen((prev) => !prev)}
+            className="w-full px-3 py-2 rounded-xl bg-white dark:bg-gray-900 text-gray-800 dark:text-white border border-amber-100 dark:border-gray-800 text-left flex items-center justify-between"
+          >
+            <span>{prepTimeLabel}</span>
+            <span className="text-amber-500">{isPrepDropdownOpen ? "▲" : "▼"}</span>
+          </button>
 
-            {isPrepDropdownOpen && (
-              <div className="absolute z-20 mt-2 w-full rounded-xl border border-amber-100 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg overflow-hidden">
+          {isPrepDropdownOpen && (
+            <div className="absolute z-20 mt-2 w-full rounded-xl border border-amber-100 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg overflow-hidden">
+              <button
+                type="button"
+                onClick={() => {
+                  setPrepTimeFilter(null);
+                  setIsPrepDropdownOpen(false);
+                }}
+                className={`w-full px-3 py-2 text-left hover:bg-amber-50 dark:hover:bg-gray-800 transition-colors ${prepTimeFilter === null ? "text-amber-600 dark:text-[#E7C36E]" : "text-gray-700 dark:text-gray-100"
+                  }`}
+              >
+                Any prep time
+              </button>
+              {[15, 30, 45, 60].map((time) => (
                 <button
+                  key={time}
                   type="button"
                   onClick={() => {
-                    setPrepTimeFilter(null);
+                    setPrepTimeFilter(time);
                     setIsPrepDropdownOpen(false);
                   }}
-                  className={`w-full px-3 py-2 text-left hover:bg-amber-50 dark:hover:bg-gray-800 transition-colors ${
-                    prepTimeFilter === null ? "text-amber-600 dark:text-[#E7C36E]" : "text-gray-700 dark:text-gray-100"
-                  }`}
-                >
-                  Any prep time
-                </button>
-                {[15, 30, 45, 60].map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    onClick={() => {
-                      setPrepTimeFilter(time);
-                      setIsPrepDropdownOpen(false);
-                    }}
-                    className={`w-full px-3 py-2 text-left hover:bg-amber-50 dark:hover:bg-gray-800 transition-colors ${
-                      prepTimeFilter === time ? "text-amber-600 dark:text-[#E7C36E]" : "text-gray-700 dark:text-gray-100"
+                  className={`w-full px-3 py-2 text-left hover:bg-amber-50 dark:hover:bg-gray-800 transition-colors ${prepTimeFilter === time ? "text-amber-600 dark:text-[#E7C36E]" : "text-gray-700 dark:text-gray-100"
                     }`}
-                  >
-                    {time} min or less
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+                >
+                  {time} min or less
+                </button>
+              ))}
+            </div>
+          )}
         </div>
+      </div>
 
       <div className="px-6">
         {dinners.length === 0 ? (
