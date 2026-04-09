@@ -13,13 +13,6 @@ jobs:
       VITE_ENDPOINT: http://localhost:9000
       VITE_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
 
-    services:
-      docker:
-        image: docker:20.10.7
-        options: --privileged
-        ports:
-          - 5432:5432
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -48,6 +41,8 @@ jobs:
 
       - name: Build Docker images
         run: docker compose build
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
 
       - name: Run database migrations
         run: docker compose run --rm backend npm run db:migrate
