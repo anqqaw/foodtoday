@@ -35,17 +35,6 @@ const SettingsView: React.FC = () => {
             </div>
             <button
               onClick={toggleTheme}
-<<<<<<< HEAD
-              className={`relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none ${
-                theme === 'dark' ? 'bg-[#E7C36E]' : 'bg-gray-200'
-              }`}
-              aria-label="Toggle dark mode"
-            >
-              <span
-                className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow transition-transform duration-300 ${
-                  theme === 'dark' ? 'translate-x-6' : 'translate-x-0'
-                }`}
-=======
               className={`relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none ${theme === 'dark' ? 'bg-[#E7C36E]' : 'bg-gray-200'
                 }`}
               aria-label="Toggle dark mode"
@@ -53,7 +42,6 @@ const SettingsView: React.FC = () => {
               <span
                 className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow transition-transform duration-300 ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0'
                   }`}
->>>>>>> origin/main
               />
             </button>
           </div>
