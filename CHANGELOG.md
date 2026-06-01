@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.5.0](https://github.com/anqqaw/foodtoday/compare/v1.4.1...v1.5.0) (2026-06-01)
+
+
+### Features
+
+* Added dark mode support and fixed backend env loading ([dd7ad55](https://github.com/anqqaw/foodtoday/commit/dd7ad55bd5e2c931e538229259db9856390c3bcb))
+* Added light mode ([4bef731](https://github.com/anqqaw/foodtoday/commit/4bef731be77cb98814cf3bca923300addf6e68ae))
+* Added prep time filter to dinner list ([f9837bf](https://github.com/anqqaw/foodtoday/commit/f9837bfee6e444d3a672cdf9a6c5494de7f16b43))
+* Added settings view with dark mode in it ([881d284](https://github.com/anqqaw/foodtoday/commit/881d28416ec7a0bf32c83eb21186e7ee52b66ca4))
+* Made new migration for user settings ([eef7398](https://github.com/anqqaw/foodtoday/commit/eef739839d7092986fdfac37b3b38c7c13ca474b))
+
+
+### Bug Fixes
+
+* Fixed e2e tests and playwright config ([2af17e1](https://github.com/anqqaw/foodtoday/commit/2af17e14e8e52600c9a631674cef9ec8b24fe052))
+* Fixed frontend CI ([0a7c329](https://github.com/anqqaw/foodtoday/commit/0a7c3292cda03aac3786af911c5c24ca7be3c7da))
+* Remove leftover fetchDinnerFilters useEffect causing build failure ([c544165](https://github.com/anqqaw/foodtoday/commit/c544165a202b40b63c732f361a9492a8e18569f5))
+* Reversed swiping direction ([29ffb69](https://github.com/anqqaw/foodtoday/commit/29ffb695d522cf5ef352bca284f14b397d1beea6))
+* Set TEST_BASE_URL, increase timeout, wait for frontend in CI ([3e99d5e](https://github.com/anqqaw/foodtoday/commit/3e99d5eff991a310a06a7bd736c1925d32315361))
+
 ## [1.4.1](https://github.com/anqqaw/foodtoday/compare/v1.4.0...v1.4.1) (2025-12-28)
 
 
