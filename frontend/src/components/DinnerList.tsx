@@ -39,22 +39,6 @@ const DinnerList: React.FC = () => {
   };
 
   useEffect(() => {
-    const loadFilterOptions = async () => {
-      try {
-        const options = await fetchDinnerFilters();
-        setFilterOptions({
-          prepTimes: options.prepTimes.length > 0 ? options.prepTimes : [15, 30, 45, 60],
-          diets: options.diets,
-        });
-      } catch (error) {
-        console.error("Error loading dinner filter options:", error);
-      }
-    };
-
-    loadFilterOptions();
-  }, []);
-
-  useEffect(() => {
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
     debounceTimeout.current = window.setTimeout(() => {
