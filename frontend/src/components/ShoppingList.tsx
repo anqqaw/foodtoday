@@ -164,8 +164,9 @@ const ShoppingList: React.FC = () => {
         {shoppingList.length > 0 && (
           <div className="mt-10 flex justify-center">
             <button
+              type="button"
               onClick={handleClearList}
-              className="text-sm text-red-400 hover:text-red-500 font-semibold underline underline-offset-2 transition-colors"
+              className="px-4 py-2 rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-300 text-sm font-semibold shadow-sm hover:bg-red-100 dark:hover:bg-red-900/50 active:scale-95 transition-all"
             >
               Clear all items
             </button>

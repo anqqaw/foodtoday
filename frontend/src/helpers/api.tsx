@@ -28,12 +28,17 @@ export interface Dinner {
   preparationTime: number;
   totalTime: number;
   images: string;
+  budgetLevel?: string;
 }
 
 export interface DinnerDetails extends Omit<Dinner, "images"> {
   images: string[];
   ingredients: IngredientDetail[];
   steps: string[];
+}
+
+export interface DinnerSearchFilters {
+  maxPrepTime?: number;
 }
 
 export interface ShoppingListItem {
@@ -89,15 +94,22 @@ export const fetchRandomDinner = async (): Promise<Dinner> => {
   }
 };
 
-export const searchDinners = async (query: string): Promise<Dinner[]> => {
+export const searchDinners = async (
+  query: string,
+  filters?: DinnerSearchFilters
+): Promise<Dinner[]> => {
   try {
     const token = localStorage.getItem("googleAuthToken");
+    const prepTime = filters?.maxPrepTime;
+
     const response = await axios.get<{ dinners: Dinner[] }>(
       `${ENDPOINT}/api/dinners`,
       {
         headers: { Authorization: `Bearer ${token}` },
         params: {
           query,
+          maxPrepTime: prepTime,
+          prepTime,
         }
       }
     );
